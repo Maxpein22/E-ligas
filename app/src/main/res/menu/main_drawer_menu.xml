@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <group android:checkableBehavior="single">
+
+            <item android:id="@+id/nav_home"
+                android:icon="@drawable/baseline_home_24"
+                android:title="Home"/>
+            <item android:id="@+id/nav_dashboard"
+                android:icon="@drawable/baseline_dashboard_24"
+                android:title="Dashboard"/>
+
+            <item android:id="@+id/nav_events"
+                android:icon="@drawable/barangay_events"
+                android:title="Barangay Events"/>
+            <item android:id="@+id/nav_services"
+                android:icon="@drawable/services"
+                android:title="Barangay Services"/>
+            <item android:id="@+id/nav_emergency"
+                android:icon="@drawable/emergency"
+                android:title="Barangay Emergency"/>
+            <item android:id="@+id/nav_dam"
+                android:icon="@drawable/dam_monitoring"
+                android:title="Dam Moniroting"/>
+            <item android:id="@+id/nav_about"
+                android:icon="@drawable/about"
+                android:title="About Us"/>
+        </group>
+</menu>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.App_ELigas"
+        tools:targetApi="31">
+        <activity
+            android:name="com.example.app_e_ligas.bottom_sheet_layout"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.about_usActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.dam_monitoringActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.barangay_emergencyActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.barangay_servicesActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.barangay_eventsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.homeActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.DrawerBasedActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.DashboardActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.app_e_ligas.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.Ligas1Activity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.YourNextActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.WecolmeAcvtivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="com.example.app_e_ligas.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.app_e_ligas.MainActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+    </application>
+
+</manifest>

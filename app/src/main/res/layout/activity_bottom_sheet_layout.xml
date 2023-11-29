@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    >
+
+    <!-- Surname -->
+    <EditText
+        android:id="@+id/editTextSurname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Surname"/>
+
+    <!-- First Name -->
+    <EditText
+        android:id="@+id/editTextFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="First Name"/>
+
+    <!-- Middle Name -->
+    <EditText
+        android:id="@+id/editTextMiddleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Middle Name"/>
+
+    <!-- Address -->
+    <EditText
+        android:id="@+id/editTextAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address"/>
+
+    <!-- Civil Status -->
+    <EditText
+        android:id="@+id/editTextCivilStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Civil Status"/>
+
+    <!-- Age -->
+    <EditText
+        android:id="@+id/editTextAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Age"/>
+
+    <!-- Birthday -->
+    <EditText
+        android:id="@+id/editTextBirthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Birthday"/>
+
+    <!-- Birthplace -->
+    <EditText
+        android:id="@+id/editTextBirthplace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Birthplace"/>
+
+    <!-- Contact -->
+    <EditText
+        android:id="@+id/editTextContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:hint="Contact"/>
+
+    <!-- Emergency Contact Person -->
+    <EditText
+        android:id="@+id/editTextEmergencyContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Emergency Contact Person"/>
+
+    <!-- Type of Certificates -->
+    <Spinner
+        android:id="@+id/spinnerCertificates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Type of Certificates"
+        android:entries="@array/certificate_types"/>
+
+    <!-- Purpose -->
+    <EditText
+        android:id="@+id/editTextPurpose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Purpose"/>
+
+    <!-- Send Button -->
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send"/>
+
+</LinearLayout>

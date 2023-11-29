@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/arrays.xml -->
+<resources>
+    <string-array name="certificate_types">
+        <item>Barangay Certification</item>
+        <item>Barangay Indigency</item>
+        <item>Barangay ID</item>
+        <item>Business Clearance</item>
+        <item>Cedulla</item>
+    </string-array>
+</resources>
