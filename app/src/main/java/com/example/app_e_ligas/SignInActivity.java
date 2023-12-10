@@ -1,6 +1,7 @@
 package com.example.app_e_ligas;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -81,6 +82,7 @@ public class SignInActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
                     Toast.makeText(SignInActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+
                     startActivity(new Intent(SignInActivity.this, homeActivity.class));
                     finish();
                 } else {

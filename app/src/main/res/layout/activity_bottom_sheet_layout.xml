@@ -7,34 +7,24 @@
     android:padding="20dp"
     >
 
-    <!-- Surname -->
+    <TextView
+        android:id="@+id/requestTitle"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:text="Request For"
+        android:textSize="20sp"
+        android:textColor="#4496ca"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        ></TextView>
+
+    <!-- Purpose -->
     <EditText
-        android:id="@+id/editTextSurname"
+        android:id="@+id/editTextPurpose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Surname"/>
-
-    <!-- First Name -->
-    <EditText
-        android:id="@+id/editTextFirstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="First Name"/>
-
-    <!-- Middle Name -->
-    <EditText
-        android:id="@+id/editTextMiddleName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Middle Name"/>
-
-    <!-- Address -->
-    <EditText
-        android:id="@+id/editTextAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Address"/>
-
+        android:hint="Purpose"/>]
     <!-- Civil Status -->
     <EditText
         android:id="@+id/editTextCivilStatus"
@@ -64,13 +54,12 @@
         android:layout_height="wrap_content"
         android:hint="Birthplace"/>
 
-    <!-- Contact -->
+    <!-- Address -->
     <EditText
-        android:id="@+id/editTextContact"
+        android:id="@+id/editTextAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:hint="Contact"/>
+        android:hint="Address"/>
 
     <!-- Emergency Contact Person -->
     <EditText
@@ -80,25 +69,58 @@
         android:hint="Emergency Contact Person"/>
 
     <!-- Type of Certificates -->
-    <Spinner
-        android:id="@+id/spinnerCertificates"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Type of Certificates"
-        android:entries="@array/certificate_types"/>
-
-    <!-- Purpose -->
     <EditText
-        android:id="@+id/editTextPurpose"
+        android:id="@+id/requestType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Purpose"/>
+        android:hint="Request Type"
+        android:visibility="gone"
+        />
+
+    <!-- Surname -->
+    <EditText
+        android:id="@+id/editTextSurname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Surname"/>
+
+    <!-- First Name -->
+    <EditText
+        android:id="@+id/editTextFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="First Name"/>
+
+    <!-- Middle Name -->
+    <EditText
+        android:id="@+id/editTextMiddleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Middle Name"/>
+
+    <!-- Contact -->
+    <EditText
+        android:id="@+id/editTextContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:hint="Contact"/>
+
+    <!-- Email -->
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"/>
+
 
     <!-- Send Button -->
     <Button
         android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:text="Request"/>
 
 </LinearLayout>

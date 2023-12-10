@@ -1,26 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:columnCount="2"
     android:background="@color/white"
     tools:context="com.example.app_e_ligas.barangay_servicesActivity">
 
+    <TextView
+        android:layout_columnSpan="2"
+        android:textSize="20sp"
+        android:text="Select a service"
+        android:textFontWeight="800"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="20dp"
+        >
+    </TextView>
+
     <Button
-        android:id="@+id/button6"
-        android:layout_width="140dp"
+        android:id="@+id/btn_brgy_certification"
+        android:layout_width="0dp"
         android:layout_height="60dp"
-        android:text="Request"
+        android:layout_columnWeight="1"
+        android:text="Barangay Certification"
         android:textColor="@color/white"
         android:letterSpacing=".1"
         android:background="@drawable/button_sign_up"
         app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="16dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/btn_brgy_indigency"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_columnWeight="1"
+        android:text="Barangay Indigency"
+        android:textColor="@color/white"
+        android:letterSpacing=".1"
+        android:background="@drawable/button_sign_up"
+        app:backgroundTint="@null"
+        android:layout_margin="16dp" />
+
+    <Button
+        android:id="@+id/btn_brgy_id"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_columnWeight="1"
+        android:text="Barangay ID"
+        android:textColor="@color/white"
+        android:letterSpacing=".1"
+        android:background="@drawable/button_sign_up"
+        app:backgroundTint="@null"
+        android:layout_margin="16dp" />
+
+    <Button
+        android:id="@+id/btn_business_clearance"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_columnWeight="1"
+        android:text="Business Clearance"
+        android:textColor="@color/white"
+        android:letterSpacing=".1"
+        android:background="@drawable/button_sign_up"
+        app:backgroundTint="@null"
+        android:layout_margin="16dp" />
+
+    <Button
+        android:id="@+id/btn_cedula"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_columnWeight="1"
+        android:text="Cedula"
+        android:textColor="@color/white"
+        android:letterSpacing=".1"
+        android:background="@drawable/button_sign_up"
+        app:backgroundTint="@null"
+        android:layout_margin="16dp" />
+</GridLayout>
