@@ -10,4 +10,7 @@
     <color name="splash_blue">#4597cb</color>
     <color name="gold">#daa520</color>
     <color name="grey">#808080</color>
+    <color name="onGoingColor">#faf2be</color>
+    <color name="readyToClaimColor">#a5dec8</color>
+    <color name="claimedColor">#ecfaf5</color>
 </resources>

@@ -2,6 +2,8 @@ package com.example.app_e_ligas;
 
 
 
+import static java.security.AccessController.getContext;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +19,8 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +36,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class barangay_servicesActivity extends DrawerBasedActivity implements View.OnClickListener {
@@ -43,6 +49,8 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
     private Button btnBrgyID;
     private Button btnBusinessClearance;
     private Button btnCedula;
+    // Create a RecyclerView and set its layout manager and adapter
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +71,44 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
         btnBusinessClearance.setOnClickListener(this);
         btnCedula.setOnClickListener(this);
         btnBrgyIndegency.setOnClickListener(this);
+
+
+        // history
+        getRequestHistory();
+
     }
+
+    private void getRequestHistory() {
+        Log.i("RequestFetch", "Fetching Request...");
+        List<Request> requestList = new ArrayList<>();
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("servicesRequests/" + userID);
+
+        databaseReference
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        requestList.clear();
+                        // Iterate through dataSnapshot to get the data
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            // Corrected this line to use the 'snapshot' variable
+                            Request request = snapshot.getValue(Request.class);
+                            requestList.add(request);
+                            Log.i("RequestFetch", request.getType());
+                        }
+                        RecyclerView recyclerView = findViewById(R.id.historyRecyclerView);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(barangay_servicesActivity.this));
+                        RequestAdapter adapter = new RequestAdapter(requestList, barangay_servicesActivity.this); // Create an adapter for your data
+                        recyclerView.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle errors
+                    }
+                });
+    }
+
 
     private void showBottomSheetDialog(String type) {
         ProgressDialog progressDialog = new ProgressDialog(barangay_servicesActivity.this);
