@@ -17,56 +17,51 @@
         android:textColor="#4496ca"
         android:textStyle="bold"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="20dp"
+        ></TextView>
+
+    <ImageView
+        android:id="@+id/certificatePreview"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/ic_document"
+        ></ImageView>
+
+    <!-- infoUser -->
+    <TextView
+        android:id="@+id/infoUser"
+        android:backgroundTint="@color/md_blue_100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/md_blue_800"
+        android:background="@color/md_blue_50"
+        android:padding="5sp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
         ></TextView>
 
     <!-- Purpose -->
-    <EditText
-        android:id="@+id/editTextPurpose"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Purpose"/>]
-    <!-- Civil Status -->
-    <EditText
-        android:id="@+id/editTextCivilStatus"
+        android:text="Select Purpose"
+        android:textSize="16sp"
+        android:textColor="@color/md_blue_grey_800"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        ></TextView>
+    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/servicesRecViewList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Civil Status"/>
-
-    <!-- Age -->
-    <EditText
-        android:id="@+id/editTextAge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="Age"/>
-
-    <!-- Birthday -->
-    <EditText
-        android:id="@+id/editTextBirthday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Birthday"/>
-
-    <!-- Birthplace -->
-    <EditText
-        android:id="@+id/editTextBirthplace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Birthplace"/>
-
-    <!-- Address -->
-    <EditText
-        android:id="@+id/editTextAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Address"/>
-
-    <!-- Emergency Contact Person -->
-    <EditText
-        android:id="@+id/editTextEmergencyContact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Emergency Contact Person"/>
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="10dp"
+        tools:listitem="@layout/activity_bottom_sheet_layout" />
 
     <!-- Type of Certificates -->
     <EditText
@@ -77,50 +72,13 @@
         android:visibility="gone"
         />
 
-    <!-- Surname -->
-    <EditText
-        android:id="@+id/editTextSurname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Surname"/>
-
-    <!-- First Name -->
-    <EditText
-        android:id="@+id/editTextFirstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="First Name"/>
-
-    <!-- Middle Name -->
-    <EditText
-        android:id="@+id/editTextMiddleName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Middle Name"/>
-
-    <!-- Contact -->
-    <EditText
-        android:id="@+id/editTextContact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:hint="Contact"/>
-
-    <!-- Email -->
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"/>
-
-
     <!-- Send Button -->
     <Button
         android:id="@+id/submitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="90dp"
+        android:backgroundTint="#4496ca"
         android:text="Request"/>
 
 </LinearLayout>

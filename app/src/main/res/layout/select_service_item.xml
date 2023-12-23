@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="4dp"
+    android:id="@+id/parentBtn"
+    android:layout_margin="4dp">
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:justifyContent="space_between">
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_marginLeft="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:flexDirection="row"
+            android:padding="5dp"
+            app:justifyContent="space_between"
+            app:alignContent="center">
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:flexDirection="column"
+
+                >
+                <TextView
+                    android:id="@+id/txtServiceName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Service Name"
+                    android:textSize="13sp"
+                    android:layout_marginRight="5dp"
+                    app:layout_alignSelf="center"
+                    android:textColor="@color/md_grey_900"
+                    app:layout_flexGrow="@integer/material_motion_duration_long_1" />
+                <TextView
+                    android:id="@+id/txtServicePrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="₱0"
+                    android:textSize="10sp"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/md_grey_700"
+                    app:layout_flexGrow="@integer/material_motion_duration_long_1" />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <ImageView
+                android:id="@+id/viewImageId"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_check_white"
+                android:scaleType="centerCrop"
+                app:layout_flexShrink="0"
+                app:layout_alignSelf="center" />
+        </com.google.android.flexbox.FlexboxLayout>
+    </com.google.android.flexbox.FlexboxLayout>
+</androidx.cardview.widget.CardView>

@@ -43,6 +43,10 @@ public class User {
         this.emergencyContactPerson = emergencyContactPerson;
     }
 
+    public String getFullName(){
+        return userFirstName + " " + userMiddleName + " " + userLastName;
+    }
+
     public String getBirthPlace() {
         return birthPlace;
     }
