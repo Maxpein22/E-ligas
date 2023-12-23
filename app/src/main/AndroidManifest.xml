@@ -13,6 +13,10 @@
         android:theme="@style/Theme.App_ELigas"
         tools:targetApi="31">
         <activity
+            android:name="com.example.app_e_ligas.Terms_and_Condition"
+            android:exported="false">
+        </activity>
+        <activity
             android:name="com.example.app_e_ligas.bottom_sheet_layout"
             android:exported="false" />
         <activity
@@ -29,9 +33,6 @@
             android:exported="false" />
         <activity
             android:name="com.example.app_e_ligas.barangay_eventsActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.app_e_ligas.homeActivity"
             android:exported="false" />
         <activity
             android:name="com.example.app_e_ligas.DrawerBasedActivity"
