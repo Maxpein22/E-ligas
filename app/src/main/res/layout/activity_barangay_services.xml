@@ -1,94 +1,326 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    >
-    <GridLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="2"
-        android:background="#fff"
-        tools:context="com.example.app_e_ligas.barangay_servicesActivity">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
 
         <TextView
-            android:layout_columnSpan="2"
-            android:textSize="20sp"
-            android:text="Select to request service"
-            android:textFontWeight="800"
-            android:layout_marginLeft="12dp"
-            android:layout_marginBottom="5dp"
+            android:id="@+id/Bservices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            >
-        </TextView>
+            android:letterSpacing="0.05"
+            android:textColor="@color/black"
+            android:text="Select to Request Service"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            />
 
-        <Button
-            android:id="@+id/btn_brgy_certification"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:text="Barangay Certification"
-            android:textColor="@color/white"
-            android:letterSpacing=".1"
-            android:background="@drawable/button_sign_up"
-            app:backgroundTint="@null"
-            android:layout_margin="16dp" />
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Bservices">
 
-        <Button
-            android:id="@+id/btn_brgy_indigency"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:text="Barangay Indigency"
-            android:textColor="@color/white"
-            android:letterSpacing=".1"
-            android:background="@drawable/button_sign_up"
-            app:backgroundTint="@null"
-            android:layout_margin="16dp" />
 
-        <Button
-            android:id="@+id/btn_brgy_id"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:text="Barangay ID"
-            android:textColor="@color/white"
-            android:letterSpacing=".1"
-            android:background="@drawable/button_sign_up"
-            app:backgroundTint="@null"
-            android:layout_margin="16dp" />
+            <!-- First "Barangay Officials" card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_brgy_certification"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_margin="8dp"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:elevation="12dp"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="15dp">
 
-        <Button
-            android:id="@+id/btn_business_clearance"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:text="Business Clearance"
-            android:textColor="@color/white"
-            android:letterSpacing=".1"
-            android:background="@drawable/button_sign_up"
-            app:backgroundTint="@null"
-            android:layout_margin="16dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_cedula"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:text="Cedula"
-            android:textColor="@color/white"
-            android:letterSpacing=".1"
-            android:background="@drawable/button_sign_up"
-            app:backgroundTint="@null"
-            android:layout_margin="16dp" />
+                    <ImageView
+                        android:id="@+id/image_view_barangay_services1"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/certificate"
+                        app:layout_constraintBottom_toTopOf="@+id/textView_barangay_services1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView_barangay_services1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Barangay Certificate"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/image_view_barangay_services1" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Second "Barangay Officials" card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_brgy_indigency"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:elevation="12dp"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="15dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/image_view_barangay_services2"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/indigency"
+                        app:layout_constraintBottom_toTopOf="@+id/textView_barangay_services2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView_barangay_services2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Barangay Indigency"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/image_view_barangay_services2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+
+
+            <!-- Third "Barangay Officials" card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_brgy_id"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_margin="8dp"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:elevation="12dp"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/image_view_barangay_services3"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/id"
+                        app:layout_constraintBottom_toTopOf="@+id/textView_barangay_services3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView_barangay_services3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Barangay ID"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/image_view_barangay_services3" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Second "Barangay Officials" card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_business_clearance"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:elevation="12dp"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/image_view_barangay_services4"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/clearance"
+                        app:layout_constraintBottom_toTopOf="@+id/textView_barangay_services4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView_barangay_services4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Barangay Clearance"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/image_view_barangay_services4" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+
+
+            <!-- Third "Barangay Officials" card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_cedula"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_margin="8dp"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:elevation="12dp"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/image_view_barangay_services5"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/cedulla"
+                        app:layout_constraintBottom_toTopOf="@+id/textView_barangay_services5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView_barangay_services5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Cedulla"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/image_view_barangay_services5" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
         <TextView
             android:layout_columnSpan="2"
             android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="Request History"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -100,10 +332,12 @@
             android:id="@+id/historyRecyclerView"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_columnSpan="2"
+            android:layout_height="600dp"
             android:layout_width="match_parent"
             android:backgroundTint="@color/white"
-            >
-        </androidx.recyclerview.widget.RecyclerView>
-    </GridLayout>
+            />
+
+    </LinearLayout>
+
+
 </ScrollView>

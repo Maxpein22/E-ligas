@@ -49,12 +49,14 @@ public class SelectServicesRecViewAdapter extends RecyclerView.Adapter<SelectSer
                 if (barangay_servicesActivity.selectedServices.contains(service)) {
                     // Service already exists, remove it
                     barangay_servicesActivity.selectedServices.remove(service);
+                    if(service.getServiceName().equals("Others"))barangay_servicesActivity.showOthers(false);
                     ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#ffffff"));
                     ViewCompat.setBackgroundTintList(holder.parentBtn, colorStateList);
                     holder.txtServiceName.setTextColor(Color.parseColor("#212121"));
                     holder.txtServicePrice.setTextColor(Color.parseColor("#212121"));
                 } else {
                     // Service doesn't exist, add it
+                    if(service.getServiceName().equals("Others"))barangay_servicesActivity.showOthers(true);
                     barangay_servicesActivity.selectedServices.add(service);
                     ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#4496ca"));
                     ViewCompat.setBackgroundTintList(holder.parentBtn, colorStateList);

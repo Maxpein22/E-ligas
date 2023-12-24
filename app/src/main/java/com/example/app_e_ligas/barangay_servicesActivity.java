@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,11 +50,12 @@ import java.util.Locale;
 public class barangay_servicesActivity extends DrawerBasedActivity implements View.OnClickListener {
     ActivityBarangayServicesBinding activityBarangayServicesBinding;
 
-    private Button btnBrgyCertification;
-    private Button btnBrgyIndegency;
-    private Button btnBrgyID;
-    private Button btnBusinessClearance;
-    private Button btnCedula;
+    private CardView btnBrgyCertification;
+    private CardView btnBrgyIndegency;
+    private CardView btnBrgyID;
+    private CardView btnBusinessClearance;
+    private CardView btnCedula;
+    public static View bottomSheetView;
     // Create a RecyclerView and set its layout manager and adapter
 
     private SelectServicesRecViewAdapter servicesRecViewAdapter;
@@ -140,7 +142,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                     User currentUser = dataSnapshot.getValue(User.class);
 
                     // Inflate the bottom sheet layout
-                    View bottomSheetView = getLayoutInflater().inflate(R.layout.activity_bottom_sheet_layout, null);
+                    bottomSheetView = getLayoutInflater().inflate(R.layout.activity_bottom_sheet_layout, null);
 
                     // Create a BottomSheetDialog
                     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(barangay_servicesActivity.this);
@@ -169,6 +171,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                     services.add(new ServiceModel("Travel and Immigration", "", "", "0", false));
                     services.add(new ServiceModel("Health Services", "", "", "0", false));
                     services.add(new ServiceModel("Government Assistance Programs", "", "", "0", false));
+                    services.add(new ServiceModel("Others", "", "", "0", false));
                     servicesRecViewAdapter = new SelectServicesRecViewAdapter(bottomSheetDialog.getContext());
                     servicesRecViewAdapter.setUsers(services);
                     // Assuming you want a 2-column grid
@@ -199,13 +202,27 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                         public void onClick(View view) {
 
                             if(selectedServices.isEmpty()){
-                                Toast.makeText(barangay_servicesActivity.this, "Select atleast one Purpose", Toast.LENGTH_LONG).show();
+                                Toast.makeText(barangay_servicesActivity.this, "Select at least one Purpose", Toast.LENGTH_LONG).show();
                                 return;
                             }
 
                             String purpose = "";
                             for (ServiceModel service : selectedServices) {
+                                if ("Others".equals(service.getServiceName())) {
+                                    TextView otherText = bottomSheetView.findViewById(R.id.others);
+                                    String otherPurpose = otherText.getText().toString().trim();
+
+                                    if (!otherPurpose.isEmpty()) {
+                                        purpose += otherPurpose + ", ";
+                                    }
+                                    continue;
+                                }
+
                                 purpose += service.getServiceName() + ", ";
+                            }
+                            if(purpose.isEmpty()){
+                                Toast.makeText(barangay_servicesActivity.this, "Select at least one Purpose", Toast.LENGTH_LONG).show();
+                                return;
                             }
 
                             // Remove the trailing comma and space
@@ -248,6 +265,12 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
             }
 
         });
+    }
+
+    public static void showOthers(boolean visible){
+        TextView otherText = bottomSheetView.findViewById(R.id.others);
+        if(visible)otherText.setVisibility(View.VISIBLE);
+        else otherText.setVisibility(View.GONE);
     }
 
     @Override

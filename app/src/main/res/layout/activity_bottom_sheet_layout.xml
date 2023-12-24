@@ -1,84 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="20dp"
-    >
-
-    <TextView
-        android:id="@+id/requestTitle"
-        android:layout_width="match_parent"
-        android:textAlignment="center"
-        android:layout_height="wrap_content"
-        android:text="Request For"
-        android:textSize="20sp"
-        android:textColor="#4496ca"
-        android:textStyle="bold"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="20dp"
-        ></TextView>
-
-    <ImageView
-        android:id="@+id/certificatePreview"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/ic_document"
-        ></ImageView>
-
-    <!-- infoUser -->
-    <TextView
-        android:id="@+id/infoUser"
-        android:backgroundTint="@color/md_blue_100"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/md_blue_800"
-        android:background="@color/md_blue_50"
-        android:padding="5sp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="10dp"
-        ></TextView>
-
-    <!-- Purpose -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Purpose"
-        android:textSize="16sp"
-        android:textColor="@color/md_blue_grey_800"
-        android:textStyle="bold"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="10dp"
-        ></TextView>
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/servicesRecViewList"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_marginBottom="10dp"
-        tools:listitem="@layout/activity_bottom_sheet_layout" />
+        android:orientation="vertical"
+        android:padding="20dp"
+        >
 
-    <!-- Type of Certificates -->
-    <EditText
-        android:id="@+id/requestType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Request Type"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/requestTitle"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:text="Request For"
+            android:textSize="20sp"
+            android:textColor="#4496ca"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="20dp"
+            ></TextView>
 
-    <!-- Send Button -->
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="90dp"
-        android:backgroundTint="#4496ca"
-        android:text="Request"/>
+        <ImageView
+            android:id="@+id/certificatePreview"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/ic_document"
+            ></ImageView>
 
-</LinearLayout>
+        <!-- infoUser -->
+        <TextView
+            android:id="@+id/infoUser"
+            android:backgroundTint="@color/md_blue_100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/md_blue_800"
+            android:background="@color/md_blue_50"
+            android:padding="5sp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            ></TextView>
+
+        <!-- Purpose -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Purpose"
+            android:textSize="16sp"
+            android:textColor="@color/md_blue_grey_800"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            ></TextView>
+        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/servicesRecViewList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="10dp"
+            tools:listitem="@layout/select_service_item" />
+
+        <!-- Type of Certificates -->
+        <EditText
+            android:id="@+id/others"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter purpose"
+            android:visibility="gone"
+            />
+
+        <!-- Type of Certificates -->
+        <EditText
+            android:id="@+id/requestType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Request Type"
+            android:visibility="gone"
+            />
+
+        <!-- Send Button -->
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="90dp"
+            android:backgroundTint="#4496ca"
+            android:text="Request"/>
+
+    </LinearLayout>
+</ScrollView>
