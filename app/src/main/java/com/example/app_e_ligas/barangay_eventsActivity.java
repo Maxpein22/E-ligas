@@ -1,17 +1,35 @@
 package com.example.app_e_ligas;
 
+import static android.content.ContentValues.TAG;
+
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
+import static java.security.AccessController.getContext;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.namespace.R;
 import com.example.namespace.databinding.ActivityBarangayEventsBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class barangay_eventsActivity extends DrawerBasedActivity {
@@ -23,6 +41,11 @@ public class barangay_eventsActivity extends DrawerBasedActivity {
 
     // Original list of events
     private List<Event> events;
+
+    PromosRecViewAdapter promosRecViewAdapter;
+    RecyclerView promoRecViewList;
+    ArrayList<PromoModel> promos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +86,14 @@ public class barangay_eventsActivity extends DrawerBasedActivity {
             // You can access other properties of the event, e.g., event.getEventDescription()
         });
 
+        promoRecViewList = findViewById(R.id.promoRecViewList);
+
+        // SHOW PROMOS
+        promosRecViewAdapter = new PromosRecViewAdapter(findViewById(R.id.nav_user_home).getContext(), getSupportFragmentManager());
+        promoRecViewList.setAdapter(promosRecViewAdapter);
+        promoRecViewList.setLayoutManager(new LinearLayoutManager(this));
+        showPromos();
+
     }
 
     // Method to generate sample events
@@ -91,4 +122,33 @@ public class barangay_eventsActivity extends DrawerBasedActivity {
         // TODO: Implement highlighting logic, e.g., change background color of the selected day
         // You may use a library or custom logic to achieve this based on your UI design.
     }
+
+    private void showPromos() {
+        System.out.println("Fetching Promos...");
+        Log.i(TAG, "Fetch Events: ");
+        DatabaseReference mPostReference = FirebaseDatabase.getInstance().getReference().child("events");
+        promos = new ArrayList<>();
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                promos.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    PromoModel promo = snapshot.getValue(PromoModel.class);
+                    promo.setID(snapshot.getKey());
+                    promos.add(0, promo);
+
+                }
+                promosRecViewAdapter.setPromos(promos );
+                Log.i("Events Size", Integer.toString(promos.size()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        mPostReference.addValueEventListener(postListener);
+    }
+
 }
