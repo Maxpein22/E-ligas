@@ -31,51 +31,135 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     // Assuming waterDistance is stored as a String
-                    String waterDistance = dataSnapshot.getValue(String.class);
+                    String waterDistanceString = dataSnapshot.getValue(String.class);
 
-                    // Display waterDistance value in a TextView
+// Convert waterDistance to meters with error checking
+                    double meter;
+                    try {
+                        int waterDistance = Integer.parseInt(waterDistanceString);
+                        meter = waterDistance / 1.524;
+                        meter = meter - 10.00;
+                        meter = -1 * meter;
+                    } catch (NumberFormatException e) {
+                        // Handle the case when waterDistance is not a valid integer string
+                        e.printStackTrace(); // Log the error or handle it as needed
+                        meter = 0.0; // Default value or appropriate fallback
+                    }
+
+// Display waterDistance value in meters in a TextView
                     TextView waterDistanceTextView = findViewById(R.id.textView5);
-                    waterDistanceTextView.setText(waterDistance + " Centimeters");
 
-                    // Display an image based on waterDistance
+                    waterDistanceTextView.setText(String.format("%.2f", meter) + " Meters");
+
+// Display an image based on the original waterDistance value
                     ImageView waterLevelImageView = findViewById(R.id.waterImage);
-                    int waterDistanceValue = Integer.parseInt(waterDistance);
-
-// Choose images based on water level (you should have these images in your res/drawable folder)
-                    if (waterDistanceValue >= 100) {
-                        waterLevelImageView.setImageResource(R.drawable.i0);
-                    } else if (waterDistanceValue >= 90) {
-                        waterLevelImageView.setImageResource(R.drawable.i10);
-                    } else if (waterDistanceValue >= 80) {
-                        waterLevelImageView.setImageResource(R.drawable.i20);
-                    } else if (waterDistanceValue >= 70) {
-                        waterLevelImageView.setImageResource(R.drawable.i30);
-                    } else if (waterDistanceValue >= 60) {
-                        waterLevelImageView.setImageResource(R.drawable.i40);
-                    } else if (waterDistanceValue >= 55) {
-                        waterLevelImageView.setImageResource(R.drawable.i50);
-                    } else if (waterDistanceValue >= 40) {
-                        waterLevelImageView.setImageResource(R.drawable.i60);
-                    } else if (waterDistanceValue >= 30) {
-                        waterLevelImageView.setImageResource(R.drawable.i70);
-                    } else if (waterDistanceValue >= 20) {
-                        waterLevelImageView.setImageResource(R.drawable.i80);
-                    } else if (waterDistanceValue >= 15) {
-                        waterLevelImageView.setImageResource(R.drawable.i90);
-                    } else if (waterDistanceValue >= 0) {
-                        waterLevelImageView.setImageResource(R.drawable.i100);
+                    int waterDistanceValue;
+                    try {
+                        waterDistanceValue = Integer.parseInt(waterDistanceString);
+                    } catch (NumberFormatException e) {
+                        // Handle the case when waterDistance is not a valid integer string
+                        e.printStackTrace(); // Log the error or handle it as needed
+                        waterDistanceValue = 0; // Default value or appropriate fallback
                     }
 
+// Choose images based on the exact water level (you should have these images in your res/drawable folder)
+                    int imageResource;
+                    switch (waterDistanceValue) {
+                        case 15:
+                            imageResource = R.drawable.i15;
+                            break;
+                        case 14:
+                            imageResource = R.drawable.i14;
+                            break;
+                        case 13:
+                            imageResource = R.drawable.i13;
+                            break;
+                        case 12:
+                            imageResource = R.drawable.i12;
+                            break;
+                        case 11:
+                            imageResource = R.drawable.i11;
+                            break;
+                        case 10:
+                            imageResource = R.drawable.i10;
+                            break;
+                        case 9:
+                            imageResource = R.drawable.i9;
+                            break;
+                        case 8:
+                            imageResource = R.drawable.i8;
+                            break;
+                        case 7:
+                            imageResource = R.drawable.i7;
+                            break;
+                        case 6:
+                            imageResource = R.drawable.i6;
+                            break;
+                        case 5:
+                            imageResource = R.drawable.i5;
+                            break;
+                        case 4:
+                            imageResource = R.drawable.i4;
+                            break;
+                        case 3:
+                            imageResource = R.drawable.i3;
+                            break;
+                        case 2:
+                            imageResource = R.drawable.i2;
+                            break;
+                        case 1:
+                            imageResource = R.drawable.i1;
+                            break;
+                        case 0:
+                            imageResource = R.drawable.i0;
+                            break;
+                        // Add cases for other values as needed
+                        default:
+                            // Default image when the exact value doesn't match any specific case
+                            imageResource = R.drawable.i0; // Replace with your default image
+                            break;
+                    }
 
-                    // Handle the status of Water Level
+                    waterLevelImageView.setImageResource(imageResource);
+
+// No changes to the status handling
                     TextView waterStatusTextView = findViewById(R.id.textView9);
-                    if (waterDistanceValue >= 100) {
-                        waterStatusTextView.setText("is Low!");
-                    } else if (waterDistanceValue >= 50 && waterDistanceValue < 100) {
-                        waterStatusTextView.setText("is Medium!");
-                    } else if (waterDistanceValue < 50) {
-                        waterStatusTextView.setText("is High!");
+                    if (waterDistanceValue == 0) {
+                        waterStatusTextView.setText("Alert Water Level!");
+                    } else if (waterDistanceValue == 1) {
+                        waterStatusTextView.setText("Alert Water Level!");
                     }
+                    else if (waterDistanceValue == 2) {
+                        waterStatusTextView.setText("Alert Water Level!");
+                    }
+                    else if (waterDistanceValue == 3) {
+                        waterStatusTextView.setText("Alert Water Level!");
+                    }else if (waterDistanceValue == 4) {
+                        waterStatusTextView.setText("High Water Level!");
+                    }else if (waterDistanceValue == 5) {
+                        waterStatusTextView.setText("High Water Level!");
+                    }else if (waterDistanceValue == 6) {
+                        waterStatusTextView.setText("High Water Level!");
+                    }else if (waterDistanceValue == 7) {
+                        waterStatusTextView.setText("High Water Level!");
+                    }else if (waterDistanceValue == 8) {
+                        waterStatusTextView.setText("Increasing Water Level!");
+                    }else if (waterDistanceValue == 9) {
+                        waterStatusTextView.setText("Increasing Water Level!");
+                    }else if (waterDistanceValue == 10) {
+                        waterStatusTextView.setText("Increasing Water Level!");
+                    }else if (waterDistanceValue == 11) {
+                        waterStatusTextView.setText("Increasing Water Level!");
+                    }else if (waterDistanceValue == 12) {
+                        waterStatusTextView.setText("Calm Water Level!");
+                    }else if (waterDistanceValue == 13) {
+                        waterStatusTextView.setText("Calm Water Level!");
+                    }else if (waterDistanceValue == 14) {
+                        waterStatusTextView.setText("Calm Water Level!");
+                    }else if (waterDistanceValue == 15) {
+                        waterStatusTextView.setText("Calm Water Level!");
+                    }
+
 
 
                 } else {
