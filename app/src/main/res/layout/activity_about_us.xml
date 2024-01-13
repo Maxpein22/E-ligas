@@ -7,4 +7,51 @@
     android:background="@color/white"
     tools:context="com.example.app_e_ligas.about_usActivity">
 
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:text="History of Ligas 1"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:text="Barangay Ligas 1 is one of the 73 Barangays in the City of Bacoor. Before, and was created under Republic Act No. 337, Section 83 of the Local Government Code as per Sangguniang Bayan Resolution No. 87 Series of 1990."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="350dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:text="Barangay Ligas 1 consists of Three subdivisions namely Sampaguita subdivision which is located near Proper Road, second is Dona Alicia Subdivision located in front of Barangay Hall Ligas 1 and lastly, F and E De Castro Village located near 7-11 convenience Store serves the boundary of this Barangay Ligas II."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="350dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:text="Barangay Ligas 1 is located 5 kilometers from Bacoor Government Center and the modes of transportation are Pedicabs, Tricycles, and Passenger Jeepneys, Barangay Ligas 1 is surrounded by different barangays as its boundaries such as Barangay Aniban IV and V on the North, Barangay Ligas 2 on the South, Barangay Pamplona, Las Pinas on the East and Barangay Niog 3 on the West, and it has a total land area of 180, 520 square meter."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

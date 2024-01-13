@@ -23,7 +23,7 @@ public class DashboardActivity extends DrawerBasedActivity {
     }
 
     private void setupCardClickListeners() {
-        CardView dashboardCard = activityDashboardBinding.dashboard;
+        CardView profile = activityDashboardBinding.profile;
         CardView barangayEventsCard = activityDashboardBinding.barangayEvents;
         CardView barangayServicesCard = activityDashboardBinding.barangayServices;
         CardView barangayEmergencyCard = activityDashboardBinding.barangayEmergency;
@@ -47,10 +47,10 @@ public class DashboardActivity extends DrawerBasedActivity {
             }
         });
 
-        dashboardCard.setOnClickListener(new View.OnClickListener() {
+        profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToDashboard();
+                navigateToProfile();
             }
         });
 
@@ -99,9 +99,9 @@ public class DashboardActivity extends DrawerBasedActivity {
         finish();
     }
 
-    private void navigateToDashboard() {
+    private void navigateToProfile() {
         // Handle click for the Dashboard CardView
-        Intent intent = new Intent(this, DashboardActivity.class);
+        Intent intent = new Intent(this, Profile.class);
         startActivity(intent);
     }
 

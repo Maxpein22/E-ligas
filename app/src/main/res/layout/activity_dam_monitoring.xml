@@ -16,13 +16,13 @@
         <ImageView
             android:id="@+id/waterImage"
             android:layout_width="334dp"
-            android:layout_height="450dp"
+            android:layout_height="300dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintVertical_bias="0.15"
             app:srcCompat="@drawable/i10" />
 
         <TextView
@@ -37,7 +37,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintVertical_bias="0.15" />
 
         <TextView
             android:id="@+id/textView6"
@@ -72,25 +72,120 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="420dp"
+            android:layout_marginTop="308dp"
             android:layout_marginEnd="50dp"
             android:text="Water Level legend"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/waterImage" />
+
+        <ImageView
+            android:id="@+id/secondImageView"
+            android:layout_width="372dp"
+            android:layout_height="192dp"
+            android:src="@drawable/legend"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newTextView"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/procedure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Procedure"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/waterImage" />
-        <ImageView
-            android:id="@+id/secondImageView"
+            app:layout_constraintTop_toBottomOf="@+id/secondImageView" />
+
+        <TextView
+            android:id="@+id/procedureBefore"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:src="@drawable/waterlegend"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Before the flood:"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/procedure" />
+
+        <ImageView
+            android:id="@+id/beforeImage"
+            android:layout_width="320dp"
+            android:layout_height="220dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/before"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.589"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newTextView"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/procedureBefore"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/procedureDuring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="During the flood:"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/beforeImage" />
+
+        <ImageView
+            android:id="@+id/duringImage"
+            android:layout_width="320dp"
+            android:layout_height="220dp"
+            android:src="@drawable/during"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.589"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/procedureDuring"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/procedureAfter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="After the flood:"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/duringImage" />
+
+        <ImageView
+            android:id="@+id/afterImage"
+            android:layout_width="320dp"
+            android:layout_height="220dp"
+            android:src="@drawable/after"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.589"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/procedureAfter"
+            />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
