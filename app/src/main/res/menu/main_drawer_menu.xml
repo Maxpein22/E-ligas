@@ -5,7 +5,9 @@
             <item android:id="@+id/nav_dashboard"
                 android:icon="@drawable/baseline_dashboard_24"
                 android:title="Dashboard"/>
-
+            <item android:id="@+id/nav_profile"
+                android:icon="@drawable/baseline_account_circle_24"
+                android:title="Profile"/>
             <item android:id="@+id/nav_events"
                 android:icon="@drawable/barangay_events"
                 android:title="Barangay Events"/>
