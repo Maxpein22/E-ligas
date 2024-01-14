@@ -14,5 +14,9 @@ public class about_usActivity extends DrawerBasedActivity {
         setContentView(activityAboutUsBinding.getRoot());
         allocateActivityTitle("About Us");
 
+
+
+
+
     }
 }

@@ -148,7 +148,7 @@
         <ImageView
             android:id="@+id/duringImage"
             android:layout_width="320dp"
-            android:layout_height="220dp"
+            android:layout_height="260dp"
             android:src="@drawable/during"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -174,7 +174,7 @@
         <ImageView
             android:id="@+id/afterImage"
             android:layout_width="320dp"
-            android:layout_height="220dp"
+            android:layout_height="240dp"
             android:src="@drawable/after"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
