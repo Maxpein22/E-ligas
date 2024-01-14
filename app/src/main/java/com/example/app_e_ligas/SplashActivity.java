@@ -62,8 +62,8 @@ public class SplashActivity extends AppCompatActivity {
                     e.printStackTrace();
                 } finally {
                     // Create an Intent to start the MainActivity
-                    //Intent intent = new Intent(SplashActivity.this, WecolmeAcvtivity.class);
-                    Intent intent = new Intent(SplashActivity.this, barangay_emergencyActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, WecolmeAcvtivity.class);
+                    //Intent intent = new Intent(SplashActivity.this, barangay_emergencyActivity.class);
                     startActivity(intent);
                     // Finish the current activity
                     finish();

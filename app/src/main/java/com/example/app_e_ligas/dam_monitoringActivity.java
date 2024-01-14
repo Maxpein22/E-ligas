@@ -38,8 +38,10 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
                     try {
                         int waterDistance = Integer.parseInt(waterDistanceString);
                         meter = waterDistance / 1.524;
-                        meter = meter - 10.00;
+                        meter = meter - 13.20;
                         meter = -1 * meter;
+                        if(meter > 10)meter = 10;
+                        if(meter < 0) meter = 0;
                     } catch (NumberFormatException e) {
                         // Handle the case when waterDistance is not a valid integer string
                         e.printStackTrace(); // Log the error or handle it as needed
@@ -119,8 +121,9 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
                             imageResource = R.drawable.i0; // Replace with your default image
                             break;
                     }
-
-                    waterLevelImageView.setImageResource(imageResource);
+                    String id = "w" +  String.valueOf(((int) meter));
+                    int resourceId = getResources().getIdentifier(id, "drawable", getPackageName());
+                    waterLevelImageView.setImageResource(resourceId);
 
 // No changes to the status handling
                     TextView waterStatusTextView = findViewById(R.id.textView9);
