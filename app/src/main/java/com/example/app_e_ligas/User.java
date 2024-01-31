@@ -7,14 +7,13 @@ public class User {
     public String userPhoneNumber;
     public String userEmail;
     public String userPassword;
-    public String userConfirmPassword;
     public String civilStatus;
     public String age;
     public String birthday;
     public String birthPlace;
     public String emergencyContactPerson;
     public String address;
-
+    public String validIDUrl; // Added field for valid ID URL
 
     public User() {
 
@@ -28,7 +27,7 @@ public class User {
         this.address = address;
     }
 
-    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String userConfirmPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String birthPlace, String address) {
+    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String birthPlace, String address, String validIDUrl) {
         this.birthPlace = birthPlace;
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
@@ -36,11 +35,11 @@ public class User {
         this.userPhoneNumber = userPhoneNumber;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
-        this.userConfirmPassword = userConfirmPassword;
         this.civilStatus = civilStatus;
         this.age = age;
         this.birthday = birthday;
         this.emergencyContactPerson = emergencyContactPerson;
+        this.validIDUrl = validIDUrl; // Set the valid ID URL
     }
 
     public String getFullName(){
@@ -113,15 +112,6 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public String getUserConfirmPassword() {
-        return userConfirmPassword;
-    }
-
-    public void setUserConfirmPassword(String userConfirmPassword) {
-        this.userConfirmPassword = userConfirmPassword;
-
-    }
-
     public String getCivilStatus() {
         return civilStatus;
     }
@@ -152,5 +142,13 @@ public class User {
 
     public void setEmergencyContactPerson(String emergencyContactPerson) {
         this.emergencyContactPerson = emergencyContactPerson;
+    }
+
+    public String getValidIDUrl() {
+        return validIDUrl;
+    }
+
+    public void setValidIDUrl(String validIDUrl) {
+        this.validIDUrl = validIDUrl;
     }
 }

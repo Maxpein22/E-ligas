@@ -2,14 +2,18 @@ package com.example.app_e_ligas;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,11 +21,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.namespace.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,16 +43,17 @@ public class SignUpActivity extends AppCompatActivity {
     EditText editTextEmail;
     EditText editTextPassword;
     EditText editTextConfirmPassword;
-    EditText editTextCivilStatus;
     EditText editTextAge;
     EditText editTextBirthday;
     EditText editTextBirthplace;
     EditText editTextAddress;
     EditText editTextEmergencyContact;
-
+    Spinner spinnerCivilStatus;
     Button buttonRegister;
+    Button buttonUploadID;
     ProgressBar progressBar;
-
+    Uri validIDUri;
+    ImageView imageViewValidID;
     private FirebaseAuth mAuth;
 
     @Override
@@ -59,15 +68,20 @@ public class SignUpActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
-        editTextCivilStatus = findViewById(R.id.editTextCivilStatus);
         editTextAge = findViewById(R.id.editTextAge);
         editTextBirthday = findViewById(R.id.editTextBirthday);
         editTextBirthplace = findViewById(R.id.editTextBirthplace);
         editTextAddress = findViewById(R.id.editTextAddress);
         editTextEmergencyContact = findViewById(R.id.editTextEmergencyContact);
-
+        spinnerCivilStatus = findViewById(R.id.spinnerCivilStatus);
         buttonRegister = findViewById(R.id.button3);
+        buttonUploadID = findViewById(R.id.buttonUploadID);
         progressBar = findViewById(R.id.progressBar);
+        mAuth = FirebaseAuth.getInstance();
+
+
+        imageViewValidID = findViewById(R.id.imageViewValidID);
+
 
         // birth date
         editTextBirthday = findViewById(R.id.editTextBirthday);
@@ -101,6 +115,11 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        // Set up civil status spinner
+        ArrayAdapter<CharSequence> civilStatusAdapter = ArrayAdapter.createFromResource(this, R.array.civil_status_choices_with_hint, android.R.layout.simple_spinner_item);
+        civilStatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCivilStatus.setAdapter(civilStatusAdapter);
+
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,27 +127,33 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        //fillTestData();
-
+        buttonUploadID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
     }
-    private void fillTestData() {
-        editTextLastName.setText("Doe");
-        editTextMiddleName.setText("John");
-        editTextFirstName.setText("Jane");
-        editTextPhoneNumber.setText("09398322222");
-        editTextEmail.setText("tester@gmail.com");
-        editTextPassword.setText("tester");
-        editTextConfirmPassword.setText("tester");
-        editTextCivilStatus.setText("Single");
-        editTextAge.setText("25");
-        editTextBirthday.setText("Dec 24 1998");
-        editTextEmergencyContact.setText("Juan Dela Cruz");
-        editTextBirthplace.setText("Palo Leyte");
-        editTextAddress.setText("Bacoor Cavite");
 
-        // You can call the validation function here to simulate a button click
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, 0);
     }
-    public void signupButtonClicked() {
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0) {
+                validIDUri = data.getData();
+                imageViewValidID.setImageURI(validIDUri); // Update imageViewValidID with the selected image
+            }
+        }
+    }
+
+    private void signupButtonClicked() {
         String txtLastName = editTextLastName.getText().toString().trim();
         String txtFirstName = editTextFirstName.getText().toString().trim();
         String txtMiddleName = editTextMiddleName.getText().toString().trim();
@@ -138,96 +163,82 @@ public class SignUpActivity extends AppCompatActivity {
         String txtConfirmPassword = editTextConfirmPassword.getText().toString().trim();
 
         // Additional fields
-        String txtCivilStatus = editTextCivilStatus.getText().toString().trim();
+        String txtCivilStatus = spinnerCivilStatus.getSelectedItem().toString();
         String txtAge = editTextAge.getText().toString().trim();
         String txtBirthday = editTextBirthday.getText().toString().trim();
         String txtBirthplace = editTextBirthplace.getText().toString().trim();
         String txtAddress = editTextAddress.getText().toString().trim();
         String txtEmergencyContact = editTextEmergencyContact.getText().toString().trim();
 
-
-
-        if (txtLastName.isEmpty()) {
-            editTextLastName.setError("Please Enter Your Last Name");
-            editTextLastName.requestFocus();
-            return;
-        }
+        // Validate fields
+        // Validation for first name
         if (txtFirstName.isEmpty()) {
             editTextFirstName.setError("Please Enter Your First Name");
             editTextFirstName.requestFocus();
             return;
         }
-        if (txtMiddleName.isEmpty()) {
-            editTextMiddleName.setError("Please Enter Your Middle Name");
-            editTextMiddleName.requestFocus();
+        // Validation for last name
+        if (txtLastName.isEmpty()) {
+            editTextLastName.setError("Please Enter Your Last Name");
+            editTextLastName.requestFocus();
             return;
         }
+
+        // Validation for phone number
         if (txtPhoneNumber.isEmpty() || txtPhoneNumber.length() < 11) {
             editTextPhoneNumber.setError("Please Enter a Valid Phone Number with at least 11 digits");
             editTextPhoneNumber.requestFocus();
             return;
         }
+        // Validation for email
         if (txtEmail.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(txtEmail).matches()) {
             editTextEmail.setError("Please Enter a Valid Email");
             editTextEmail.requestFocus();
             return;
         }
+        // Validation for password
         if (txtPassword.isEmpty() || txtPassword.length() < 6) {
             editTextPassword.setError("Please Enter Your Password Containing At Least Six Characters");
             editTextPassword.requestFocus();
             return;
         }
-        boolean b = txtConfirmPassword.isEmpty() || !txtConfirmPassword.equals(txtPassword);
-        if (b) {
-            editTextConfirmPassword.setError("Password does not Match!");
+        // Validation for confirming password
+        if (!txtConfirmPassword.equals(txtPassword)) {
+            editTextConfirmPassword.setError("Passwords do not Match!");
             editTextConfirmPassword.requestFocus();
             return;
         }
-        // Validation for phone number
-        if (txtPhoneNumber.isEmpty() || txtPhoneNumber.length() < 11) {
-            editTextPhoneNumber.setError("Please enter a valid phone number with at least 11 digits");
-            editTextPhoneNumber.requestFocus();
-            return;
-        }
-
-        // Additional field validations
+        // Validation for civil status
         if (txtCivilStatus.isEmpty()) {
-            editTextCivilStatus.setError("Please enter your civil status");
-            editTextCivilStatus.requestFocus();
+            Toast.makeText(SignUpActivity.this, "Please select your civil status", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        // Validate age is not empty and within a reasonable range (you can adjust the range as needed)
+        // Validation for age
         if (txtAge.isEmpty() || Integer.parseInt(txtAge) <= 0 || Integer.parseInt(txtAge) > 150) {
             editTextAge.setError("Please enter a valid age");
             editTextAge.requestFocus();
             return;
         }
-
-        // You can add similar validations for other fields...
-
         // Validation for email
-        if (txtEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(txtEmail).matches()) {
+        if (txtEmail.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(txtEmail).matches()) {
             editTextEmail.setError("Please enter a valid email address");
             editTextEmail.requestFocus();
             return;
         }
-
         // Validation for password
         if (txtPassword.isEmpty() || txtPassword.length() < 6) {
             editTextPassword.setError("Please enter a password with at least 6 characters");
             editTextPassword.requestFocus();
             return;
         }
-
         // Validation for confirming password
-        if (txtConfirmPassword.isEmpty() || !txtConfirmPassword.equals(txtPassword)) {
+        if (!txtConfirmPassword.equals(txtPassword)) {
             editTextConfirmPassword.setError("Passwords do not match");
             editTextConfirmPassword.requestFocus();
             return;
         }
+        // Start the registration process
         progressBar.setVisibility(View.VISIBLE);
-        mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(txtEmail, txtPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -235,30 +246,8 @@ public class SignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d("Firebase", "User created successfully");
 
-                            //User user = new User(txtLastName, txtMiddleName, txtFirstName, txtPhoneNumber, txtEmail, txtPassword);
-                            User user = new User(txtLastName, txtMiddleName, txtFirstName, txtPhoneNumber, txtEmail, txtPassword, txtConfirmPassword, txtCivilStatus, txtAge, txtBirthday, txtEmergencyContact, txtBirthplace, txtAddress);
-                            FirebaseDatabase.getInstance().getReference("users")  // Change to your desired database node
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Log.d("Firebase", "User data written to the database successfully");
-
-                                                Toast.makeText(SignUpActivity.this, "Registered Successfully", Toast.LENGTH_LONG).show();
-                                                progressBar.setVisibility(View.GONE);
-                                                Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-                                                startActivity(intent);
-                                                finish();
-                                            } else {
-                                                Log.e("Firebase", "Failed to write user data to the database", task.getException());
-
-                                                Toast.makeText(SignUpActivity.this, "Register Failed", Toast.LENGTH_LONG).show();
-                                                progressBar.setVisibility(View.GONE);
-                                            }
-                                        }
-                                    });
+                            // Upload the valid ID image and save user data
+                            uploadValidIDAndSaveUserData(txtLastName, txtMiddleName, txtFirstName, txtPhoneNumber, txtEmail, txtPassword, txtCivilStatus, txtAge, txtBirthday, txtBirthplace, txtAddress, txtEmergencyContact);
                         } else {
                             Log.e("Firebase", "User creation failed", task.getException());
 
@@ -268,6 +257,55 @@ public class SignUpActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_LONG).show();
                             }
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
+    }
+
+    private void uploadValidIDAndSaveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String age, String birthday, String birthplace, String address, String emergencyContact) {
+        if (validIDUri != null) {
+            final StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("valid_ids/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+            storageRef.putFile(validIDUri)
+                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        String validIDUrl = uri.toString();
+                                        saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, validIDUrl);
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(SignUpActivity.this, "Failed to upload valid ID image", Toast.LENGTH_SHORT).show();
+                                saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, null);
+                            }
+                        }
+                    });
+        } else {
+            saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, null);
+        }
+    }
+
+    private void saveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String age, String birthday, String birthplace, String address, String emergencyContact, String validIDUrl) {
+        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, emergencyContact, birthplace, address, validIDUrl);
+        FirebaseDatabase.getInstance().getReference("users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(user)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(SignUpActivity.this, "Registered Successfully", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
+                            Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Log.e("Firebase", "Failed to write user data to the database", task.getException());
+                            Toast.makeText(SignUpActivity.this, "Register Failed", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }

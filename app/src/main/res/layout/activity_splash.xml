@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textSplashScreen"
-        android:text="CommuniCare"
+        android:text="Ligas As Uno"
         android:textColor="#daa520"
         android:textSize="35sp"
         android:textStyle="bold"

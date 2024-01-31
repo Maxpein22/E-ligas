@@ -19,7 +19,7 @@
                 android:title="Barangay Emergency"/>
             <item android:id="@+id/nav_dam"
                 android:icon="@drawable/dam_monitoring"
-                android:title="Dam Moniroting"/>
+                android:title="Dam Monitoring"/>
             <item android:id="@+id/nav_about"
                 android:icon="@drawable/about"
                 android:title="About Us"/>
