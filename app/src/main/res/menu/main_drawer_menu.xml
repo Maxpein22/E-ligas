@@ -8,6 +8,9 @@
             <item android:id="@+id/nav_profile"
                 android:icon="@drawable/baseline_account_circle_24"
                 android:title="Profile"/>
+            <item android:id="@+id/nav_officials"
+                android:icon="@drawable/officials"
+                android:title="Barangay Officials"/>
             <item android:id="@+id/nav_events"
                 android:icon="@drawable/barangay_events"
                 android:title="Barangay Events"/>
