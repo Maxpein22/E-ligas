@@ -1,188 +1,118 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.app_e_ligas.Profile">
+    android:orientation="vertical"
+    android:background="#F6F5F5">
 
-    <!-- Profile Image -->
-    <ImageView
-        android:id="@+id/profileImageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/baseline_account_circle_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="248dp">
 
-    <!-- Name Icon -->
-    <ImageView
-        android:id="@+id/nameIcon"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/splash_blue"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:foregroundGravity="center_horizontal"
+                app:cardCornerRadius="100dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/baseline_account_circle_24" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/fullNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="Full Name"
+                android:textColor="#fff"
+                android:textSize="23dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_drive_file_rename_outline_24"
-        app:layout_constraintTop_toBottomOf="@+id/profileImageView"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"/>
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="100dp">
 
-    <!-- Edit Icon -->
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_phone_24"
+            android:layout_marginRight="10dp"/>
 
-    <!-- Fullname TextView -->
-
-    <!-- Phone Icon -->
-
-    <ImageView
-        android:id="@+id/editIcon"
+        <TextView
+            android:id="@+id/phoneNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1234567890"
+            android:textSize="18dp" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="196dp"
-        android:src="@drawable/baseline_edit_24"
-        app:layout_constraintStart_toEndOf="@+id/profileImageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
 
-    <TextView
-        android:id="@+id/fullNameTextView"
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_email_24"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="example@gmail.com"
+            android:textSize="18dp" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="John Doe"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toStartOf="@+id/editIcon"
-        app:layout_constraintHorizontal_bias="0.276"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImageView" />
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
 
-    <ImageView
-        android:id="@+id/phoneIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_phone_24"
-        app:layout_constraintTop_toBottomOf="@+id/fullNameTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_location_on_24"
+            android:layout_marginRight="10dp"/>
 
-    <!-- Phone Number TextView -->
+        <TextView
+            android:id="@+id/addressTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ligas"
+            android:textSize="18dp" />
+    </LinearLayout>
 
-    <!-- Email Icon -->
-    <TextView
-        android:id="@+id/phoneNumberTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="1234567890"
-        android:textSize="18dp"
-        app:layout_constraintStart_toEndOf="@+id/phoneIcon"
-        app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
-
-    <ImageView
-        android:id="@+id/emailIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_email_24"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumberTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"/>
-
-    <!-- Email TextView -->
-
-    <!-- Address Icon -->
-    <TextView
-        android:id="@+id/emailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="john.doe@example.com"
-        android:textSize="18dp"
-        app:layout_constraintStart_toEndOf="@+id/emailIcon"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumberTextView" />
-
-    <ImageView
-        android:id="@+id/addressIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_location_on_24"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"/>
-
-    <!-- Address TextView -->
-
-    <!-- Fillup the form Below TextView -->
-    <TextView
-        android:id="@+id/addressTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="123 Main Street, City, Country"
-        android:textSize="18dp"
-        app:layout_constraintStart_toEndOf="@+id/addressIcon"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:text="Fill up the form Below"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addressTextView" />
-
-    <!-- Fillup Button -->
     <Button
-        android:id="@+id/buttonFillup"
-        android:layout_width="140dp"
+        android:id="@+id/logout"
+        android:layout_width="170dp"
         android:layout_height="60dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/button_sign_up"
-        android:letterSpacing=".1"
-        android:textSize="18dp"
-        android:textAllCaps="false"
-        android:text="Fill up"
-        android:textColor="@color/white"
-        app:backgroundTint="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        android:layout_marginTop="100dp"
+        android:background="@drawable/button_sign_in"
+        android:text="Logout"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        />
 
-    <!-- Form Notice TextView -->
-    <TextView
-        android:id="@+id/textView26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:letterSpacing=".1"
-        android:text="!This form is for Barangay Census"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonFillup" />
-
-    <!-- Remarks TextView -->
-    <TextView
-        android:id="@+id/remarks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:text=""
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

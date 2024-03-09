@@ -37,6 +37,7 @@ public class User {
         this.userPassword = userPassword;
         this.civilStatus = civilStatus;
         this.age = age;
+        this.address = address;
         this.birthday = birthday;
         this.emergencyContactPerson = emergencyContactPerson;
         this.validIDUrl = validIDUrl; // Set the valid ID URL

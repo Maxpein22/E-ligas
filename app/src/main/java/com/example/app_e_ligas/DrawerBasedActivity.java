@@ -37,6 +37,7 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
         toggle.syncState();
     }
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);

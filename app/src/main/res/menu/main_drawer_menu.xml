@@ -27,7 +27,7 @@
                 android:icon="@drawable/about"
                 android:title="About Us"/>
             <item android:id="@+id/nav_Terms_Condition"
-                android:icon="@drawable/terms_condition"
+                android:icon="@drawable/baseline_terms"
                 android:title="Terms and Condition"/>
             <item android:id="@+id/nav_logout"
                 android:icon="@drawable/baseline_logout_24"
