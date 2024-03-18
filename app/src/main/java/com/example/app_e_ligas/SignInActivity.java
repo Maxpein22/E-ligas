@@ -1,7 +1,6 @@
 package com.example.app_e_ligas;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -52,6 +51,7 @@ public class SignInActivity extends AppCompatActivity {
         finish();
     }
 
+
     public void buttonSignInScrSignInClicked(View v) {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -101,4 +101,6 @@ public class SignInActivity extends AppCompatActivity {
         textViewRegister.setEnabled(isEnabled);
         // Disable or enable any other UI elements as needed
     }
+
+
 }

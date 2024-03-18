@@ -1,6 +1,7 @@
 package com.example.app_e_ligas;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,6 +39,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
+
     EditText editTextLastName;
     EditText editTextFirstName;
     EditText editTextMiddleName;
@@ -48,6 +52,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText editTextBirthplace;
     EditText editTextAddress;
     EditText editTextEmergencyContact;
+    EditText editTextEmergencyContactNo;
     Spinner spinnerCivilStatus;
     Button buttonRegister;
     Button buttonUploadID;
@@ -73,15 +78,14 @@ public class SignUpActivity extends AppCompatActivity {
         editTextBirthplace = findViewById(R.id.editTextBirthplace);
         editTextAddress = findViewById(R.id.editTextAddress);
         editTextEmergencyContact = findViewById(R.id.editTextEmergencyContact);
+        editTextEmergencyContactNo = findViewById(R.id.editTextEmergencyContactNo);
         spinnerCivilStatus = findViewById(R.id.spinnerCivilStatus);
         buttonRegister = findViewById(R.id.button3);
         buttonUploadID = findViewById(R.id.buttonUploadID);
         progressBar = findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
 
-
         imageViewValidID = findViewById(R.id.imageViewValidID);
-
 
         // birth date
         editTextBirthday = findViewById(R.id.editTextBirthday);
@@ -133,6 +137,18 @@ public class SignUpActivity extends AppCompatActivity {
                 openGallery();
             }
         });
+
+        // Checkbox for terms and conditions
+        CheckBox checkBoxTerms = findViewById(R.id.checkBoxTerms);
+        checkBoxTerms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Show terms and conditions dialog
+                    showTermsAndConditionsDialog();
+                }
+            }
+        });
     }
 
     private void openGallery() {
@@ -169,9 +185,18 @@ public class SignUpActivity extends AppCompatActivity {
         String txtBirthplace = editTextBirthplace.getText().toString().trim();
         String txtAddress = editTextAddress.getText().toString().trim();
         String txtEmergencyContact = editTextEmergencyContact.getText().toString().trim();
+        String txtEmergencyContactNo = editTextEmergencyContactNo.getText().toString().trim();
 
-        // Validate fields
-        // Validation for first name
+        // Your validation code...
+
+        if (validIDUri == null) {
+            Toast.makeText(SignUpActivity.this, "Please upload a valid ID photo", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Your existing validation code...
+
+
         if (txtFirstName.isEmpty()) {
             editTextFirstName.setError("Please Enter Your First Name");
             editTextFirstName.requestFocus();
@@ -237,6 +262,18 @@ public class SignUpActivity extends AppCompatActivity {
             editTextConfirmPassword.requestFocus();
             return;
         }
+        // Validate if the checkbox is checked
+        CheckBox checkBoxTerms = findViewById(R.id.checkBoxTerms);
+        if (!checkBoxTerms.isChecked()) {
+            Toast.makeText(SignUpActivity.this, "Please accept the terms and conditions", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (validIDUri == null) {
+            Toast.makeText(SignUpActivity.this, "Please upload a valid ID photo", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Start the registration process
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(txtEmail, txtPassword)
@@ -247,7 +284,7 @@ public class SignUpActivity extends AppCompatActivity {
                             Log.d("Firebase", "User created successfully");
 
                             // Upload the valid ID image and save user data
-                            uploadValidIDAndSaveUserData(txtLastName, txtMiddleName, txtFirstName, txtPhoneNumber, txtEmail, txtPassword, txtCivilStatus, txtAge, txtBirthday, txtBirthplace, txtAddress, txtEmergencyContact);
+                            uploadValidIDAndSaveUserData(txtLastName, txtMiddleName, txtFirstName, txtPhoneNumber, txtEmail, txtPassword, txtCivilStatus, txtAge, txtBirthday, txtBirthplace, txtAddress, txtEmergencyContact, txtEmergencyContactNo);
                         } else {
                             Log.e("Firebase", "User creation failed", task.getException());
 
@@ -263,7 +300,29 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
-    private void uploadValidIDAndSaveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String age, String birthday, String birthplace, String address, String emergencyContact) {
+    private void showTermsAndConditionsDialog() {
+        // Create a dialog
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.floating_terms_layout);
+        dialog.setCancelable(true); // Set if the dialog can be canceled by clicking outside
+
+        // Find views in the dialog layout
+        Button closeButton = dialog.findViewById(R.id.closeButton);
+
+        // Set click listener for the close button
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss(); // Dismiss the dialog when the close button is clicked
+            }
+        });
+
+        // Show the dialog
+        dialog.show();
+    }
+
+
+    private void uploadValidIDAndSaveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String age, String birthday, String birthplace, String address, String emergencyContact, String emergencyContactNo) {
         if (validIDUri != null) {
             final StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("valid_ids/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
             storageRef.putFile(validIDUri)
@@ -275,22 +334,22 @@ public class SignUpActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         String validIDUrl = uri.toString();
-                                        saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, validIDUrl);
+                                        saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, validIDUrl);
                                     }
                                 });
                             } else {
                                 Toast.makeText(SignUpActivity.this, "Failed to upload valid ID image", Toast.LENGTH_SHORT).show();
-                                saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, null);
+                                saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, null);
                             }
                         }
                     });
         } else {
-            saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, null);
+            saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, null);
         }
     }
 
-    private void saveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String age, String birthday, String birthplace, String address, String emergencyContact, String validIDUrl) {
-        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, emergencyContact, birthplace, address, validIDUrl);
+    private void saveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String age, String birthday, String birthplace, String address, String emergencyContact, String emergencyContactNo, String validIDUrl) {
+        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, emergencyContact, emergencyContactNo, birthplace, address, validIDUrl);
         FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .setValue(user)

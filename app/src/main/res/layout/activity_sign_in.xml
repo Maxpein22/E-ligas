@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:text="Forgot Password ?"
         android:onClick="txtSignInForgotPasswordClicked"
         android:textColor="@color/black"
@@ -86,7 +86,7 @@
         android:id="@+id/txtSignInRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:text="Register Here !"
         android:onClick="txtSignInRegisterClicked"
@@ -96,11 +96,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextSignInUserPassword" />
 
+    <TextView
+        android:id="@+id/txtGuessLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:letterSpacing=".1"
+        android:text="Login with Guest"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+
     <Button
         android:id="@+id/button4"
         android:layout_width="140dp"
         android:layout_height="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:text="Login"
         android:textColor="@color/white"
         android:letterSpacing=".1"

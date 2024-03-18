@@ -12,6 +12,7 @@ public class User {
     public String birthday;
     public String birthPlace;
     public String emergencyContactPerson;
+    public String emergencyContactPersonNo;
     public String address;
     public String validIDUrl; // Added field for valid ID URL
 
@@ -27,7 +28,7 @@ public class User {
         this.address = address;
     }
 
-    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String birthPlace, String address, String validIDUrl) {
+    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String address, String validIDUrl) {
         this.birthPlace = birthPlace;
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
@@ -40,6 +41,7 @@ public class User {
         this.address = address;
         this.birthday = birthday;
         this.emergencyContactPerson = emergencyContactPerson;
+        this.emergencyContactPersonNo = emergencyContactPersonNo;
         this.validIDUrl = validIDUrl; // Set the valid ID URL
     }
 
@@ -140,9 +142,16 @@ public class User {
     public String getEmergencyContactPerson() {
         return emergencyContactPerson;
     }
+    public String getEmergencyContactPersonNo() {
+        return emergencyContactPersonNo;
+    }
+
 
     public void setEmergencyContactPerson(String emergencyContactPerson) {
         this.emergencyContactPerson = emergencyContactPerson;
+    }
+    public void setEmergencyContactPersonNo(String emergencyContactPersonNo) {
+        this.emergencyContactPersonNo = emergencyContactPersonNo;
     }
 
     public String getValidIDUrl() {
