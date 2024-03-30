@@ -2,12 +2,15 @@ package com.example.app_e_ligas;
 
 
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static java.security.AccessController.getContext;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,12 +25,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app_e_ligas.Services.SelectServicesRecViewAdapter;
 import com.example.app_e_ligas.Services.ServiceModel;
+import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -58,9 +63,9 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
     public static View bottomSheetView;
     // Create a RecyclerView and set its layout manager and adapter
 
-    private SelectServicesRecViewAdapter servicesRecViewAdapter;
+    private static SelectServicesRecViewAdapter servicesRecViewAdapter;
 
-    RecyclerView servicesRecViewList;
+    static RecyclerView servicesRecViewList;
     public static ArrayList<ServiceModel> selectedServices = new ArrayList<>();
 
 
@@ -149,6 +154,21 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                     bottomSheetDialog.setContentView(bottomSheetView);
                     servicesRecViewList = bottomSheetView.findViewById(R.id.servicesRecViewList);
                     final TextView infoUser = bottomSheetView.findViewById(R.id.infoUser);
+                    final FlexboxLayout businessDetailsContainer = bottomSheetDialog.findViewById(R.id.businessDetailsContainer);
+                    final FlexboxLayout purposeContainer = bottomSheetDialog.findViewById(R.id.purposeContainer);
+                    final EditText kindOfBusiness = bottomSheetDialog.findViewById(R.id.kindOfBusiness);
+                    final EditText addressOfBusiness = bottomSheetDialog.findViewById(R.id.addressOfBusiness);
+
+                    if(type.equals("Business Clearance")){
+                        businessDetailsContainer.setVisibility(View.VISIBLE);
+                        purposeContainer.setVisibility(View.GONE);
+                        selectedServices.clear();
+                        selectedServices.add(new ServiceModel("Business Clearance", "", "", "0", false));
+                    }else{
+                        businessDetailsContainer.setVisibility(View.GONE);
+                        purposeContainer.setVisibility(View.VISIBLE);
+                        selectedServices.clear();
+                    }
 
                     // IMAGE PREVIEW
                     // Assuming your images are in the "drawable" folder
@@ -179,6 +199,8 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                     servicesRecViewList.setLayoutManager(new GridLayoutManager(bottomSheetDialog.getContext(), numberOfColumns));
 
                     servicesRecViewList.setAdapter(servicesRecViewAdapter);
+
+
                     TextView requestTitle = bottomSheetView.findViewById(R.id.requestTitle);
                     requestTitle.setText("Request for " + type);
 
@@ -232,7 +254,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                             progressDialog.show();
                             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("servicesRequests").child(userID);
                             String newRequestID = databaseReference.push().getKey();
-                            Request request = new Request(currentUser,purpose ,type, "on-going",dateString, "Request is under review");
+                            Request request = new Request(currentUser,purpose ,type, "on-going",dateString, "Request is under review", kindOfBusiness.getText().toString(), addressOfBusiness.getText().toString());
                             FirebaseDatabase.getInstance().getReference("servicesRequests")  // Change to your desired database node
                                     .child(userID)
                                     .child(newRequestID)
@@ -265,6 +287,23 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
             }
 
         });
+    }
+
+    public static void clickAllServices(SelectServicesRecViewAdapter.ViewHolder skipHolder){
+        try {
+            SelectServicesRecViewAdapter adapter = (SelectServicesRecViewAdapter)servicesRecViewList.getAdapter();
+            ArrayList<SelectServicesRecViewAdapter.ViewHolder> holder = adapter.getAllHolder();
+            for (SelectServicesRecViewAdapter.ViewHolder currentHolder : holder) {
+                if(!skipHolder.txtServiceName.equals(currentHolder.txtServiceName)){
+                    currentHolder.txtServiceName.setTextColor(Color.parseColor("#212121"));
+                    currentHolder.txtServicePrice.setTextColor(Color.parseColor("#212121"));
+                    ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#ffffff"));
+                    ViewCompat.setBackgroundTintList(currentHolder.parentBtn, colorStateList);
+                }
+            }
+        }catch (NullPointerException e){
+            Log.i(TAG, e.getMessage());
+        }
     }
 
     public static void showOthers(boolean visible){

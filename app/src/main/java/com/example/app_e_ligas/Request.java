@@ -9,6 +9,25 @@ public class Request {
     String description;
     String requestID;
 
+    String kindOfBusiness;
+    String addressOfBusiness;
+
+    public String getKindOfBusiness() {
+        return kindOfBusiness;
+    }
+
+    public void setKindOfBusiness(String kindOfBusiness) {
+        this.kindOfBusiness = kindOfBusiness;
+    }
+
+    public String getAddressOfBusiness() {
+        return addressOfBusiness;
+    }
+
+    public void setAddressOfBusiness(String addressOfBusiness) {
+        this.addressOfBusiness = addressOfBusiness;
+    }
+
     public Request(){
 
     }
@@ -20,6 +39,17 @@ public class Request {
         this.status = status;
         this.createdAt = createdAt;
         this.description = description;
+    }
+
+    public Request(User user, String purpose, String type, String status, String createdAt, String description, String kindOfBusiness, String addressOfBusiness) {
+        this.user = user;
+        this.purpose = purpose;
+        this.type = type;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.description = description;
+        this.kindOfBusiness = kindOfBusiness;
+        this.addressOfBusiness = addressOfBusiness;
     }
 
     public String getRequestID() {

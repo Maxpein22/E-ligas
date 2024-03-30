@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -24,6 +25,7 @@
             ></TextView>
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/certificatePreview"
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -44,36 +46,81 @@
             android:layout_marginTop="10dp"
             ></TextView>
 
-        <!-- Purpose -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Purpose"
-            android:textSize="16sp"
-            android:textColor="@color/md_blue_grey_800"
-            android:textStyle="bold"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            ></TextView>
-        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/servicesRecViewList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_marginBottom="10dp"
-            tools:listitem="@layout/select_service_item" />
 
-        <!-- Type of Certificates -->
-        <EditText
-            android:id="@+id/others"
+<!--        BUSINESS INFORMATION-->
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:flexDirection="column"
+            android:id="@+id/businessDetailsContainer"
+            android:visibility="gone"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Business Information"
+                android:textSize="16sp"
+                android:textColor="@color/md_blue_grey_800"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                ></TextView>
+
+            <EditText
+                android:id="@+id/kindOfBusiness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Kind of Business"
+                />
+
+            <EditText
+                android:id="@+id/addressOfBusiness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Business Adress"
+                />
+        </com.google.android.flexbox.FlexboxLayout>
+
+
+
+
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter purpose"
-            android:visibility="gone"
-            />
+            app:flexDirection="column"
+            android:id="@+id/purposeContainer"
+            >
+            <!-- Purpose -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Purpose"
+                android:textSize="16sp"
+                android:textColor="@color/md_blue_grey_800"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                ></TextView>
+            <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/servicesRecViewList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="10dp"
+                tools:listitem="@layout/select_service_item" />
+
+            <!-- Type of Certificates -->
+            <EditText
+                android:id="@+id/others"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter purpose"
+                android:visibility="gone"
+                />
+        </com.google.android.flexbox.FlexboxLayout>
 
         <!-- Type of Certificates -->
         <EditText

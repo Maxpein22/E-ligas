@@ -1,5 +1,7 @@
 package com.example.app_e_ligas.Services;
 
+import static com.example.app_e_ligas.barangay_servicesActivity.clickAllServices;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 public class SelectServicesRecViewAdapter extends RecyclerView.Adapter<SelectServicesRecViewAdapter.ViewHolder> {
 
     private ArrayList<ServiceModel> services = new ArrayList<>();
+    private ArrayList<ViewHolder> holders = new ArrayList<>();
     Context context;
 
     public SelectServicesRecViewAdapter(Context context) {
@@ -40,12 +43,16 @@ public class SelectServicesRecViewAdapter extends RecyclerView.Adapter<SelectSer
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holders.add(position, holder);
         ServiceModel service = services.get(position);
         holder.txtServiceName.setText(service.getServiceName());
         holder.txtServicePrice.setVisibility(View.GONE);
         holder.parentBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                barangay_servicesActivity.selectedServices.clear();
+                clickAllServices(holder);
                 if (barangay_servicesActivity.selectedServices.contains(service)) {
                     // Service already exists, remove it
                     barangay_servicesActivity.selectedServices.remove(service);
@@ -78,14 +85,19 @@ public class SelectServicesRecViewAdapter extends RecyclerView.Adapter<SelectSer
         this.services = services;
         Log.i("Services","Services has been set to Adapter");
         notifyDataSetChanged();
+
+    }
+
+    public ArrayList<ViewHolder> getAllHolder(){
+        return holders;
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtServiceName;
-        private TextView txtServicePrice;
+        public TextView txtServiceName;
+        public TextView txtServicePrice;
         private ScrollView listUsers;
-        private CardView parentBtn;
+        public CardView parentBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
