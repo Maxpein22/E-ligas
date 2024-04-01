@@ -7,14 +7,9 @@ public class PromoModel {
     String description;
     String eventBanner;
     String eventTitle;
-
-    public String getEventTitle() {
-        return eventTitle;
-    }
-
-    public void setEventTitle(String eventTitle) {
-        this.eventTitle = eventTitle;
-    }
+    String organizerName;
+    String startDate;
+    String endDate;
 
     public String getID() {
         return ID;
@@ -40,9 +35,6 @@ public class PromoModel {
         this.description = description;
     }
 
-
-
-
     public String getEventBanner() {
         return eventBanner;
     }
@@ -51,17 +43,50 @@ public class PromoModel {
         this.eventBanner = eventBanner;
     }
 
-    public PromoModel(String datePosted, String description, String eventTitle, String eventBanner) {
-        this.datePosted = datePosted;
-        this.description = description;
+    public String getEventTitle() {
+        return eventTitle;
+    }
+
+    public void setEventTitle(String eventTitle) {
         this.eventTitle = eventTitle;
-        this.eventBanner = eventBanner;
+    }
+
+    public String getOrganizerName() {
+        return organizerName;
+    }
+
+    public void setOrganizerName(String organizerName) {
+        this.organizerName = organizerName;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public PromoModel() {
-        // Default constructor required for calls to DataSnapshot.getValue(Post.class)
+        // Default constructor required for calls to DataSnapshot.getValue(PromoModel.class)
     }
-    
 
-
+    public PromoModel(String ID, String datePosted, String description, String eventBanner, String eventTitle, String organizerName, String startDate, String endDate) {
+        this.ID = ID;
+        this.datePosted = datePosted;
+        this.description = description;
+        this.eventBanner = eventBanner;
+        this.eventTitle = eventTitle;
+        this.organizerName = organizerName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }
