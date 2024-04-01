@@ -10,20 +10,20 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.22000003"
-        app:srcCompat="@drawable/ambulance" />
+        app:srcCompat="@drawable/ligas_uno" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:letterSpacing=".1"
-        android:text="Exellent Emergency App"
+        android:text="Bringing Your Barangay"
         android:textAlignment="center"
         android:textColor="#daa520"
         android:textSize="30sp"
@@ -37,9 +37,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="35dp"
         android:letterSpacing=".1"
-        android:text="Your safety is our top priority"
+        android:text="Closer: Access Services, Build Community!"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"

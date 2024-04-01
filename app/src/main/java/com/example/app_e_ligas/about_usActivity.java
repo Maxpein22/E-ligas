@@ -20,3 +20,4 @@ public class about_usActivity extends DrawerBasedActivity {
 
     }
 }
+

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -19,7 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.namespace.R;
@@ -34,6 +34,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -101,15 +102,27 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         // Update the EditText with the selected date
                         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.US);
-                        calendar.set(year, month, dayOfMonth);
-                        String formattedDate = dateFormat.format(calendar.getTime());
-                        editTextBirthday.setText(formattedDate);
+                        Calendar selectedDate = Calendar.getInstance();
+                        selectedDate.set(year, month, dayOfMonth);
+
+                        // Check if selected date is today or in the future
+                        if (selectedDate.after(Calendar.getInstance())) {
+                            Toast.makeText(SignUpActivity.this, "Please select a valid date", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String formattedDate = dateFormat.format(selectedDate.getTime());
+                            editTextBirthday.setText(formattedDate);
+                        }
                     }
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
         );
+
+        // Set the maximum date to yesterday
+        final Calendar maxCalendar = Calendar.getInstance();
+        maxCalendar.add(Calendar.DAY_OF_MONTH, -1);
+        datePickerDialog.getDatePicker().setMaxDate(maxCalendar.getTimeInMillis());
 
         // Show DatePickerDialog when the EditText is clicked
         editTextBirthday.setOnClickListener(new View.OnClickListener() {
@@ -187,14 +200,17 @@ public class SignUpActivity extends AppCompatActivity {
         String txtEmergencyContact = editTextEmergencyContact.getText().toString().trim();
         String txtEmergencyContactNo = editTextEmergencyContactNo.getText().toString().trim();
 
-        // Your validation code...
+
+
+
+        //  validation code...
 
         if (validIDUri == null) {
             Toast.makeText(SignUpActivity.this, "Please upload a valid ID photo", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Your existing validation code...
+
 
 
         if (txtFirstName.isEmpty()) {
@@ -274,6 +290,27 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
+
+        // Validate if the selected date is not in the future
+        Calendar selectedDate = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy", Locale.US);
+        try {
+            selectedDate.setTime(sdf.parse(txtBirthday));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(SignUpActivity.this, "Please enter a valid birthday", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+        if (selectedDate.after(today)) {
+            Toast.makeText(SignUpActivity.this, "Please select a valid date", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Start the registration process
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(txtEmail, txtPassword)
@@ -320,7 +357,6 @@ public class SignUpActivity extends AppCompatActivity {
         // Show the dialog
         dialog.show();
     }
-
 
     private void uploadValidIDAndSaveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String age, String birthday, String birthplace, String address, String emergencyContact, String emergencyContactNo) {
         if (validIDUri != null) {

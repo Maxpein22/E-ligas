@@ -22,7 +22,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="35dp"
                 android:foregroundGravity="center_horizontal"
-                app:cardCornerRadius="0dp">
+                app:cardCornerRadius="100dp">
 
                 <ImageView
                     android:id="@+id/profileImageView"
@@ -56,18 +56,121 @@
 
     </RelativeLayout>
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="start">
+
+        <ImageButton
+            android:id="@+id/editButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/edit"
+            android:padding="8dp"
+            android:background="@android:color/transparent"
+            android:layout_alignParentEnd="true"
+            android:scaleType="fitCenter" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="50dp">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/baseline_phone_24"
+            android:src="@drawable/civil"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/CivilStatusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Single"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/birthday"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/BirthdateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/age"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/ageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/orphanage"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/BirthPlaceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ligas"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/phone"
             android:layout_marginRight="10dp"/>
 
         <TextView
@@ -75,19 +178,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1234567890"
+            android:textColor="@color/black"
             android:textSize="18dp" />
     </LinearLayout>
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/baseline_email_24"
+            android:src="@drawable/email"
             android:layout_marginRight="10dp"/>
 
         <TextView
@@ -95,19 +200,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="example@gmail.com"
+            android:textColor="@color/black"
             android:textSize="18dp" />
     </LinearLayout>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/baseline_location_on_24"
+            android:src="@drawable/location"
             android:layout_marginRight="10dp"/>
 
         <TextView
@@ -115,6 +221,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ligas"
+            android:textColor="@color/black"
             android:textSize="18dp" />
     </LinearLayout>
 

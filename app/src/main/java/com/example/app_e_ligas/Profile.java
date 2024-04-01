@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
 import com.example.namespace.databinding.ActivityProfileBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,6 +40,7 @@ public class Profile extends DrawerBasedActivity {
 
     // Request code for selecting an image
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int EDIT_PROFILE_REQUEST = 1001; // Request code for EditProfileActivity
 
     // Uri to store the image selected from gallery
     private Uri imageUri;
@@ -72,6 +72,16 @@ public class Profile extends DrawerBasedActivity {
             Log.d(TAG, "User is not logged in");
             redirectToSignIn();
         }
+
+        // Add an OnClickListener to the editButton
+        activityProfileBinding.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the EditProfileActivity when the editButton is clicked
+                Intent intent = new Intent(Profile.this, EditProfileActivity.class);
+                startActivityForResult(intent, EDIT_PROFILE_REQUEST); // Start activity for result
+            }
+        });
 
         activityProfileBinding.profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,36 +127,32 @@ public class Profile extends DrawerBasedActivity {
         mDatabase.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Retrieve user data from dataSnapshot
                 if (dataSnapshot.exists()) {
-                    // User data found, populate UI with retrieved data
                     User user = dataSnapshot.getValue(User.class);
                     if (user != null) {
-                        // Populate UI elements with user data
                         activityProfileBinding.fullNameTextView.setText(user.getFullName());
                         activityProfileBinding.phoneNumberTextView.setText(user.getUserPhoneNumber());
                         activityProfileBinding.emailTextView.setText(user.getUserEmail());
                         activityProfileBinding.addressTextView.setText(user.getAddress());
-                        // Load profile image if URL exists
-                        if (user.getValidIDUrl() != null && !user.getValidIDUrl().isEmpty()) {
-                            // Load profile image using Glide or any other image loading library
-                            Glide.with(Profile.this).load(user.getValidIDUrl()).into(activityProfileBinding.profileImageView);
-                        }
-
+                        // Set new fields
+                        activityProfileBinding.CivilStatusTextView.setText(user.getCivilStatus());
+                        activityProfileBinding.ageTextView.setText(user.getAge());
+                        activityProfileBinding.BirthdateTextView.setText(user.getBirthday());
+                        activityProfileBinding.BirthPlaceTextView.setText(user.getBirthPlace());
+                        // Load profile image...
                     }
                 } else {
-                    // User data not found
                     Log.d(TAG, "User data not found");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle database error
                 Log.d(TAG, "Database error: " + databaseError.getMessage());
             }
         });
     }
+
 
     private void openGallery() {
         Intent galleryIntent = new Intent();
@@ -168,6 +174,9 @@ public class Profile extends DrawerBasedActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if (requestCode == EDIT_PROFILE_REQUEST && resultCode == RESULT_OK) {
+            // Refresh the profile page after updating profile data in EditProfileActivity
+            retrieveUserData(mAuth.getCurrentUser().getUid());
         }
     }
 
@@ -216,6 +225,8 @@ public class Profile extends DrawerBasedActivity {
         }
     }
 
+
+
     private void updateUserProfileImageUrl(String imageUrl) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
@@ -226,6 +237,8 @@ public class Profile extends DrawerBasedActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(Profile.this, "Profile image updated successfully", Toast.LENGTH_SHORT).show();
+                            // Refresh the profile page after updating profile image
+                            retrieveUserData(userId);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
