@@ -9,6 +9,15 @@ public class ReportModel {
 
     String reportedDate;
     String reportLocation;
+    String reportingType;
+
+    public String getReportingType() {
+        return reportingType;
+    }
+
+    public void setReportingType(String reportingType) {
+        this.reportingType = reportingType;
+    }
 
     public String getReportLocation() {
         return reportLocation;
@@ -21,7 +30,7 @@ public class ReportModel {
     public ReportModel() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
-    public ReportModel(String emergencyType, String userId, String proofUrl, String neededHelp, String status,String reportedDate, String reportLocation) {
+    public ReportModel(String emergencyType, String userId, String proofUrl, String neededHelp, String status,String reportedDate, String reportLocation, String reportingType) {
         this.emergencyType = emergencyType;
         this.userId = userId;
         this.proofUrl = proofUrl;
@@ -29,6 +38,7 @@ public class ReportModel {
         this.status = status;
         this.reportedDate = reportedDate;
         this.reportLocation = reportLocation;
+        this.reportingType = reportingType;
     }
 
     public String getReportedDate() {

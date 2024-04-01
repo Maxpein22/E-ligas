@@ -10,6 +10,8 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 
 import com.example.namespace.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -57,13 +59,16 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try {
                     // Sleep for 4 seconds (4000 milliseconds)
-                    sleep(4000);
+                    sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    // Create an Intent to start the MainActivity
+                    FirebaseUser currentUser  = FirebaseAuth.getInstance().getCurrentUser();
                     Intent intent = new Intent(SplashActivity.this, WecolmeAcvtivity.class);
-                    //Intent intent = new Intent(SplashActivity.this, barangay_servicesActivity.class);
+                    if(currentUser != null){
+                        intent = new Intent(SplashActivity.this, DashboardActivity.class);
+                    }
+                    // Create an Intent to start the MainActivity
                     startActivity(intent);
                     // Finish the current activity
                     finish();

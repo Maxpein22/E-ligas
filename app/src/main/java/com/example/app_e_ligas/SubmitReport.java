@@ -14,7 +14,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -67,20 +71,75 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
     FlexboxLayout helpSelection;
     Button submitReportBtn;
     ProgressDialog dialog;
+    FlexboxLayout submitReportContainer;
+    TableLayout selectModeContainer;
+    RelativeLayout photoBtn;
+    RelativeLayout videoBtn;
+    RelativeLayout voiceBtn;
     Uri uri;
     Authentication auth;
     StorageReference storageReference;
+    VideoView viewVideo;
     String reportLocation = "CX7J+4G5, Sampaguita, Bacoor, Cavite";
+    String reportingType = "image";
 
-    ActivityResultLauncher<Uri> mGetContent = registerForActivityResult(
+    ActivityResultLauncher<Uri> photoGetContent = registerForActivityResult(
             new ActivityResultContracts.TakePicture(),
             new ActivityResultCallback<Boolean>() {
                 @Override
                 public void onActivityResult(Boolean result) {
                     dialog.dismiss();
                     viewImageCaptured.setImageURI(uri);
+                    viewImageCaptured.setVisibility(View.VISIBLE);
+                    selectModeContainer.setVisibility(View.GONE);
+                    submitReportContainer.setVisibility(View.VISIBLE);
+                    reportingType = "image";
                 }
             });
+
+    ActivityResultLauncher voiceGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri uri) {
+                    // Handle the selected audio file URI
+                    if (uri != null) {
+                        // Do something with the selected audio file URI
+                    }
+                }
+            });
+    ActivityResultLauncher<Uri> videoGetContent = registerForActivityResult(
+            new ActivityResultContracts.CaptureVideo(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result) {
+                    dialog.dismiss();
+                    viewVideo.setVideoURI(uri);
+                    viewVideo.setVisibility(View.VISIBLE);
+                    // Create a MediaController
+                    MediaController mediaController = new MediaController(getBaseContext());
+                    mediaController.setAnchorView(submitReportBtn); // Set the MediaController's anchor view to the VideoView
+
+                    // Set MediaController to the VideoView
+                    viewVideo.setMediaController(mediaController);
+                    selectModeContainer.setVisibility(View.GONE);
+                    submitReportContainer.setVisibility(View.VISIBLE);
+                    //mediaController.show();
+                    reportingType = "video";
+
+                    new java.util.Timer().schedule(
+                            new java.util.TimerTask() {
+                                @Override
+                                public void run() {
+                                    viewVideo.start();
+                                }
+                            },
+                            2000
+                    );
+                }
+            });
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,9 +155,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     LOCATION_PERMISSION_REQUEST_CODE);
-        } else {
 
-            getCurrentLocation();
         }
 
         Bundle b = getIntent().getExtras();
@@ -109,7 +166,33 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         viewImageCaptured = findViewById(R.id.viewImageId);
         submitReportBtn = findViewById(R.id.submitReportBtn);
 
+        submitReportContainer = findViewById(R.id.submitReportContainer);
+        selectModeContainer = findViewById(R.id.selectModeContainer);
+        photoBtn = findViewById(R.id.photoBtn);
+        videoBtn = findViewById(R.id.videoBtn);
+        voiceBtn = findViewById(R.id.voiceBtn);
+        viewVideo = findViewById(R.id.viewVideo);
 
+        photoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCurrentLocation(photoGetContent, false);
+            }
+        });
+
+        videoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCurrentLocation(videoGetContent, false);
+            }
+        });
+
+        voiceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCurrentLocation(voiceGetContent, true);
+            }
+        });
 
 
         helpSelection = findViewById(R.id.helpSelection);
@@ -129,7 +212,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         }
     }
 
-    private void getCurrentLocation() {
+    private void getCurrentLocation(ActivityResultLauncher mGetContent, Boolean isVoice) {
         try {
             fusedLocationClient.getLastLocation()
                     .addOnCompleteListener(this, new OnCompleteListener<Location>() {
@@ -147,21 +230,32 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
                                     ActivityCompat.requestPermissions(SubmitReport.this,
                                             new String[]{Manifest.permission.CAMERA}, 101 );
                                 }
-                                // Display the location in a TextView
-                                File file = new File(getFilesDir(), "images");
-                                uri = FileProvider.getUriForFile(SubmitReport.this, getApplicationContext().getPackageName() + ".provider", file);
-                                dialog =  ProgressDialog.show(SubmitReport.this, "Emergency Report",
-                                        "Please wait...", true);
 
-                                new java.util.Timer().schedule(
-                                        new java.util.TimerTask() {
-                                            @Override
-                                            public void run() {
-                                                mGetContent.launch(uri);
-                                            }
-                                        },
-                                        2000
-                                );
+                                if(isVoice){
+                                    // Launch the audio recorder
+                                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                                    intent.setType("audio/*");  // Set the MIME type to audio
+                                    // You can also specify additional parameters like maximum duration, etc., if needed
+                                    mGetContent.launch(intent);
+                                }else{
+                                    // Display the location in a TextView
+                                    File file = new File(getFilesDir(), "images");
+                                    uri = FileProvider.getUriForFile(SubmitReport.this, getApplicationContext().getPackageName() + ".provider", file);
+                                    dialog =  ProgressDialog.show(SubmitReport.this, "Emergency Report",
+                                            "Please wait...", true);
+
+                                    new java.util.Timer().schedule(
+                                            new java.util.TimerTask() {
+                                                @Override
+                                                public void run() {
+                                                    mGetContent.launch(uri);
+                                                }
+                                            },
+                                            2000
+                                    );
+                                }
+
+
                                 submitReportBtn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -244,7 +338,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         // Format the date using the specified formatter
         String formattedDate = generateFormattedDateTime();
 
-        ReportModel report = new ReportModel(emergencyType,userId, downloadUri.toString(), getNeededHelp(emergencyType), "pending", formattedDate, locationName);
+        ReportModel report = new ReportModel(emergencyType,userId, downloadUri.toString(), getNeededHelp(emergencyType), "pending", formattedDate, locationName, reportingType);
         mDatabase.child("reports").child(userId).setValue(report)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
