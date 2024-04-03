@@ -1,5 +1,4 @@
 package com.example.app_e_ligas;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.namespace.databinding.ActivityProfileBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,7 +28,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
-
 public class Profile extends DrawerBasedActivity {
     private static final String TAG = "ProfileActivity";
     ActivityProfileBinding activityProfileBinding;
@@ -44,6 +43,9 @@ public class Profile extends DrawerBasedActivity {
 
     // Uri to store the image selected from gallery
     private Uri imageUri;
+
+    // Key for saving and restoring image URI
+    private static final String IMAGE_URI_KEY = "imageUri";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class Profile extends DrawerBasedActivity {
             }
         });
 
+        // Set click listener for profile image view
         activityProfileBinding.profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +93,7 @@ public class Profile extends DrawerBasedActivity {
             }
         });
 
+        // Set click listener for save button
         activityProfileBinding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +117,20 @@ public class Profile extends DrawerBasedActivity {
                 finish();
             }
         });
+
+        // Restore image URI if savedInstanceState is not null
+        if (savedInstanceState != null) {
+            imageUri = savedInstanceState.getParcelable(IMAGE_URI_KEY);
+            if (imageUri != null) {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                    activityProfileBinding.profileImageView.setImageBitmap(bitmap);
+                    activityProfileBinding.btnSave.setVisibility(View.VISIBLE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     // Method to redirect to sign-in activity
@@ -139,7 +157,13 @@ public class Profile extends DrawerBasedActivity {
                         activityProfileBinding.ageTextView.setText(user.getAge());
                         activityProfileBinding.BirthdateTextView.setText(user.getBirthday());
                         activityProfileBinding.BirthPlaceTextView.setText(user.getBirthPlace());
-                        // Load profile image...
+
+                        // Load profile image
+                        if (user.getValidIDUrl() != null) {
+                            Glide.with(Profile.this)
+                                    .load(user.getValidIDUrl())
+                                    .into(activityProfileBinding.profileImageView);
+                        }
                     }
                 } else {
                     Log.d(TAG, "User data not found");
@@ -152,7 +176,6 @@ public class Profile extends DrawerBasedActivity {
             }
         });
     }
-
 
     private void openGallery() {
         Intent galleryIntent = new Intent();
@@ -225,14 +248,12 @@ public class Profile extends DrawerBasedActivity {
         }
     }
 
-
-
     private void updateUserProfileImageUrl(String imageUrl) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
             // Store the image URL under the user's node in the database
-            mDatabase.child(userId).child("profileImageUrl").setValue(imageUrl)
+            mDatabase.child(userId).child("validIDUrl").setValue(imageUrl) // Update 'validIDUrl' field instead of 'profileImageUrl'
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -247,6 +268,28 @@ public class Profile extends DrawerBasedActivity {
                             Toast.makeText(Profile.this, "Failed to update profile image", Toast.LENGTH_SHORT).show();
                         }
                     });
+        }
+    }
+
+    // Save and restore image URI when the activity state changes
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(IMAGE_URI_KEY, imageUri);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        imageUri = savedInstanceState.getParcelable(IMAGE_URI_KEY);
+        if (imageUri != null) {
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                activityProfileBinding.profileImageView.setImageBitmap(bitmap);
+                activityProfileBinding.btnSave.setVisibility(View.VISIBLE);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
