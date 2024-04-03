@@ -39,17 +39,16 @@
                 android:text="Save"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/fullNameTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
-                android:text="Full Name"
+                android:text="Full Name Kenneth Lobiano Pogi"
                 android:textColor="#fff"
                 android:textSize="23dp" />
         </LinearLayout>

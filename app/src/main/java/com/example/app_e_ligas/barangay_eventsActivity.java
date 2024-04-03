@@ -1,18 +1,10 @@
 package com.example.app_e_ligas;
 
-import static android.content.ContentValues.TAG;
-
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
-import static java.security.AccessController.getContext;
-
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,12 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class barangay_eventsActivity extends DrawerBasedActivity {
@@ -46,6 +33,7 @@ public class barangay_eventsActivity extends DrawerBasedActivity {
     RecyclerView promoRecViewList;
     ArrayList<PromoModel> promos;
 
+    private static final String TAG = "BarangayEventsActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,8 +112,7 @@ public class barangay_eventsActivity extends DrawerBasedActivity {
     }
 
     private void showPromos() {
-        System.out.println("Fetching Promos...");
-        Log.i(TAG, "Fetch Events: ");
+        Log.i(TAG, "Fetching Promos...");
         DatabaseReference mPostReference = FirebaseDatabase.getInstance().getReference().child("events");
         promos = new ArrayList<>();
         ValueEventListener postListener = new ValueEventListener() {
@@ -138,8 +125,8 @@ public class barangay_eventsActivity extends DrawerBasedActivity {
                     promos.add(0, promo);
 
                 }
-                promosRecViewAdapter.setPromos(promos );
-                Log.i("Events Size", Integer.toString(promos.size()));
+                promosRecViewAdapter.setPromos(promos);
+                Log.i(TAG, "Events Size: " + promos.size());
             }
 
             @Override
