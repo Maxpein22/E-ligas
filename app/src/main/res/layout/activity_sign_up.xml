@@ -23,7 +23,6 @@
             android:src="@drawable/ligas_uno" />
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:textAlignment="center"
             android:layout_height="wrap_content"
@@ -33,61 +32,101 @@
             android:textSize="25sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/textF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="First Name*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
+
+
         <EditText
             android:id="@+id/editTextFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
-            android:hint="First Name"
             android:inputType="text"
             android:letterSpacing=".1"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Middle Name*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
 
         <EditText
             android:id="@+id/editTextMiddleName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
-            android:hint="Middle Name (Optional)"
+            android:hint="(Optional)"
             android:inputType="text"
             android:letterSpacing=".1"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"
             android:textSize="15sp" />
 
+        <TextView
+            android:id="@+id/textL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Last Name*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
 
         <EditText
             android:id="@+id/editTextLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
-            android:hint="Last Name"
+            android:hint=""
             android:inputType="text"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"
             android:textSize="15sp" />
 
 
+        <TextView
+            android:id="@+id/textP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Phone Number*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
         <EditText
             android:id="@+id/editTextPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
-            android:hint="Phone Number"
             android:inputType="phone"
             android:letterSpacing=".1"
             android:textColor="@android:color/black"
@@ -96,12 +135,13 @@
 
 
         <TextView
+            android:id="@+id/textCS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:text="Select Civil Status"
+            android:text="Select Civil Status*"
             android:textStyle="bold"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
@@ -114,25 +154,46 @@
             android:layout_marginEnd="15dp"
             android:entries="@array/civil_status_choices_with_hint" />
 
+
+        <TextView
+            android:id="@+id/textAg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Age*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
         <EditText
             android:id="@+id/editTextAge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
             android:inputType="number"
-            android:hint="Age"
+            android:hint=""
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"
             android:textSize="15sp" />
 
+        <TextView
+            android:id="@+id/textBd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Birthday*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutBirthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp">
 
@@ -140,8 +201,8 @@
                 android:id="@+id/editTextBirthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="-10dp"
-                android:hint="Birthday"
+                android:layout_marginStart="-17dp"
+                android:hint="Set Birthday Here"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/black"
                 android:textSize="15sp"
@@ -151,108 +212,202 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/textBp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Birth Place*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
 
         <EditText
             android:id="@+id/editTextBirthplace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
-            android:hint="Birth of Place"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Address*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
 
         <EditText
             android:id="@+id/editTextAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
-            android:hint="Address"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textECP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Emergency Contact Person*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
 
         <EditText
             android:id="@+id/editTextEmergencyContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
-            android:hint="Emergency Contact Person"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"
             android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textECN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Emergency Contact Number*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
 
         <EditText
             android:id="@+id/editTextEmergencyContactNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
             android:inputType="number"
-            android:hint="Emergency Contact Number"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"
             android:textSize="15sp" />
 
 
 
-
+        <TextView
+            android:id="@+id/textEL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Email*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
 
         <EditText
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
-            android:hint="Email"
             android:inputType="textEmailAddress"
             android:letterSpacing=".1"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"
             android:textSize="15sp" />
 
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textPass"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:letterSpacing=".1"
+            android:text="Password*"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black"
-            android:textSize="15sp" />
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp" />
 
-        <EditText
-            android:id="@+id/editTextConfirmPassword"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:ems="10"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:letterSpacing=".1"
+            android:layout_marginEnd="20dp">
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:letterSpacing=".1"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textSize="15sp"
+                android:layout_toStartOf="@+id/showPasswordCheckbox"/>
+
+            <CheckBox
+                android:id="@+id/showPasswordCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show"
+                android:textColor="@android:color/black"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textCpass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Confirm Password*"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black"
-            android:textSize="15sp" />
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <EditText
+                android:id="@+id/editTextConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:letterSpacing=".1"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textSize="15sp"
+                android:layout_toStartOf="@+id/showConfirmPasswordCheckbox"/>
+
+            <CheckBox
+                android:id="@+id/showConfirmPasswordCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show"
+                android:textColor="@android:color/black"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
 
 
         <LinearLayout
@@ -263,9 +418,10 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/textUVI"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload Valid ID:"
+                android:text="Upload Valid ID*"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
@@ -294,7 +450,7 @@
             android:id="@+id/checkBoxTerms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="I agree to the Terms and Conditions"
+            android:text="I agree to the Terms and Conditions*"
             android:textColor="@android:color/black"
             app:layout_constraintTop_toBottomOf="@id/imageViewValidID"
             app:layout_constraintStart_toStartOf="parent"

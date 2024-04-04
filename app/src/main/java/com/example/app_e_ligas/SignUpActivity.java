@@ -3,9 +3,14 @@ package com.example.app_e_ligas;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.InputType;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -18,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,6 +73,8 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+
+
         editTextLastName = findViewById(R.id.editTextLastName);
         editTextMiddleName = findViewById(R.id.editTextMiddleName);
         editTextFirstName = findViewById(R.id.editTextFirstName);
@@ -87,6 +95,247 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         imageViewValidID = findViewById(R.id.imageViewValidID);
+
+        // Password visibility toggling
+        final CheckBox showPasswordCheckbox = findViewById(R.id.showPasswordCheckbox);
+        final CheckBox showConfirmPasswordCheckbox = findViewById(R.id.showConfirmPasswordCheckbox);
+        final EditText passwordEditText = findViewById(R.id.editTextPassword);
+        final EditText confirmPasswordEditText = findViewById(R.id.editTextConfirmPassword);
+
+        showPasswordCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                } else {
+                    passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+            }
+        });
+
+        showConfirmPasswordCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    confirmPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                } else {
+                    confirmPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+            }
+        });
+
+        TextView textView = findViewById(R.id.textF); // Assuming you have assigned an id to the TextView in your XML layout
+        String text = "First Name*";
+        SpannableString spannableString = new SpannableString(text);
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.RED);
+        spannableString.setSpan(colorSpan, text.indexOf("*"), text.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(spannableString);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView1 = findViewById(R.id.textM); // Assuming you have assigned an id to the TextView in your XML layout
+        String text1 = "Middle Name*";
+        SpannableString spannableString1 = new SpannableString(text1);
+        ForegroundColorSpan colorSpan1 = new ForegroundColorSpan(Color.RED);
+        spannableString1.setSpan(colorSpan1, text1.indexOf("*"), text1.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView1.setText(spannableString1);
+        textView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        TextView textView2 = findViewById(R.id.textL); // Assuming you have assigned an id to the TextView in your XML layout
+        String text2 = "Last Name*";
+        SpannableString spannableString2 = new SpannableString(text2);
+        ForegroundColorSpan colorSpan2 = new ForegroundColorSpan(Color.RED);
+        spannableString2.setSpan(colorSpan2, text2.indexOf("*"), text2.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView2.setText(spannableString2);
+        textView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView3 = findViewById(R.id.textP); // Assuming you have assigned an id to the TextView in your XML layout
+        String text3 = "Phone Number*";
+        SpannableString spannableString3 = new SpannableString(text3);
+        ForegroundColorSpan colorSpan3 = new ForegroundColorSpan(Color.RED);
+        spannableString3.setSpan(colorSpan3, text3.indexOf("*"), text3.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView3.setText(spannableString3);
+        textView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView4 = findViewById(R.id.textCS); // Assuming you have assigned an id to the TextView in your XML layout
+        String text4 = "Select Civil Status*";
+        SpannableString spannableString4 = new SpannableString(text4);
+        ForegroundColorSpan colorSpan4 = new ForegroundColorSpan(Color.RED);
+        spannableString4.setSpan(colorSpan4, text4.indexOf("*"), text4.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView4.setText(spannableString4);
+        textView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView5 = findViewById(R.id.textAg); // Assuming you have assigned an id to the TextView in your XML layout
+        String text5 = "Age*";
+        SpannableString spannableString5 = new SpannableString(text5);
+        ForegroundColorSpan colorSpan5 = new ForegroundColorSpan(Color.RED);
+        spannableString5.setSpan(colorSpan5, text5.indexOf("*"), text5.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView5.setText(spannableString5);
+        textView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView6 = findViewById(R.id.textBd); // Assuming you have assigned an id to the TextView in your XML layout
+        String text6 = "Birthday*";
+        SpannableString spannableString6 = new SpannableString(text6);
+        ForegroundColorSpan colorSpan6 = new ForegroundColorSpan(Color.RED);
+        spannableString6.setSpan(colorSpan6, text6.indexOf("*"), text6.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView6.setText(spannableString6);
+        textView6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView7 = findViewById(R.id.textBp); // Assuming you have assigned an id to the TextView in your XML layout
+        String text7 = "Birth Place*";
+        SpannableString spannableString7 = new SpannableString(text7);
+        ForegroundColorSpan colorSpan7 = new ForegroundColorSpan(Color.RED);
+        spannableString7.setSpan(colorSpan7, text7.indexOf("*"), text7.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView7.setText(spannableString7);
+        textView7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView8 = findViewById(R.id.textAdd); // Assuming you have assigned an id to the TextView in your XML layout
+        String text8 = "Address*";
+        SpannableString spannableString8 = new SpannableString(text8);
+        ForegroundColorSpan colorSpan8 = new ForegroundColorSpan(Color.RED);
+        spannableString8.setSpan(colorSpan8, text8.indexOf("*"), text8.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView8.setText(spannableString8);
+        textView8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView9 = findViewById(R.id.textECP); // Assuming you have assigned an id to the TextView in your XML layout
+        String text9 = "Emergency Contact Person*";
+        SpannableString spannableString9 = new SpannableString(text9);
+        ForegroundColorSpan colorSpan9 = new ForegroundColorSpan(Color.RED);
+        spannableString9.setSpan(colorSpan9, text9.indexOf("*"), text9.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView9.setText(spannableString9);
+        textView9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView10 = findViewById(R.id.textECN); // Assuming you have assigned an id to the TextView in your XML layout
+        String text10 = "Emergency Contact Number*";
+        SpannableString spannableString10 = new SpannableString(text10);
+        ForegroundColorSpan colorSpan10 = new ForegroundColorSpan(Color.RED);
+        spannableString10.setSpan(colorSpan10, text10.indexOf("*"), text10.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView10.setText(spannableString10);
+        textView10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView11 = findViewById(R.id.textEL); // Assuming you have assigned an id to the TextView in your XML layout
+        String text11 = "Email*";
+        SpannableString spannableString11 = new SpannableString(text11);
+        ForegroundColorSpan colorSpan11 = new ForegroundColorSpan(Color.RED);
+        spannableString11.setSpan(colorSpan11, text11.indexOf("*"), text11.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView11.setText(spannableString11);
+        textView11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView12 = findViewById(R.id.textPass); // Assuming you have assigned an id to the TextView in your XML layout
+        String text12 = "Password*";
+        SpannableString spannableString12 = new SpannableString(text12);
+        ForegroundColorSpan colorSpan12 = new ForegroundColorSpan(Color.RED);
+        spannableString12.setSpan(colorSpan12, text12.indexOf("*"), text12.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView12.setText(spannableString12);
+        textView12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView13 = findViewById(R.id.textCpass); // Assuming you have assigned an id to the TextView in your XML layout
+        String text13 = "Confirm Password*";
+        SpannableString spannableString13 = new SpannableString(text13);
+        ForegroundColorSpan colorSpan13 = new ForegroundColorSpan(Color.RED);
+        spannableString13.setSpan(colorSpan13, text13.indexOf("*"), text13.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView13.setText(spannableString13);
+        textView13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView14 = findViewById(R.id.textUVI); // Assuming you have assigned an id to the TextView in your XML layout
+        String text14 = "UPLOAD VALID ID*";
+        SpannableString spannableString14 = new SpannableString(text14);
+        ForegroundColorSpan colorSpan14 = new ForegroundColorSpan(Color.RED);
+        spannableString14.setSpan(colorSpan14, text14.indexOf("*"), text14.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView14.setText(spannableString14);
+        textView14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textView15 = findViewById(R.id.checkBoxTerms); // Assuming you have assigned an id to the TextView in your XML layout
+        String text15 = "I agree to the Terms and Conditions*";
+        SpannableString spannableString15 = new SpannableString(text15);
+        ForegroundColorSpan colorSpan15 = new ForegroundColorSpan(Color.RED);
+        spannableString15.setSpan(colorSpan15, text15.indexOf("*"), text15.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView15.setText(spannableString15);
+        textView15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
 
         // birth date
         editTextBirthday = findViewById(R.id.editTextBirthday);
