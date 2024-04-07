@@ -158,10 +158,10 @@ public class Profile extends DrawerBasedActivity {
                         activityProfileBinding.BirthdateTextView.setText(user.getBirthday());
                         activityProfileBinding.BirthPlaceTextView.setText(user.getBirthPlace());
 
-                        // Load profile image
-                        if (user.getValidIDUrl() != null) {
+                        // Load profile image from userProfileImage URL
+                        if (user.getUserProfileImage() != null) {
                             Glide.with(Profile.this)
-                                    .load(user.getValidIDUrl())
+                                    .load(user.getUserProfileImage())
                                     .into(activityProfileBinding.profileImageView);
                         }
                     }
@@ -176,6 +176,7 @@ public class Profile extends DrawerBasedActivity {
             }
         });
     }
+
 
     private void openGallery() {
         Intent galleryIntent = new Intent();
@@ -253,7 +254,7 @@ public class Profile extends DrawerBasedActivity {
         if (currentUser != null) {
             String userId = currentUser.getUid();
             // Store the image URL under the user's node in the database
-            mDatabase.child(userId).child("validIDUrl").setValue(imageUrl) // Update 'validIDUrl' field instead of 'profileImageUrl'
+            mDatabase.child(userId).child("userProfileImage").setValue(imageUrl) // Update 'userProfileImage' node
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -270,6 +271,7 @@ public class Profile extends DrawerBasedActivity {
                     });
         }
     }
+
 
     // Save and restore image URI when the activity state changes
     @Override

@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp">
+    android:layout_margin="10dp">
 
     <LinearLayout
-        android:layout_width="250dp"
-        android:layout_height="400dp"
+        android:layout_width="300dp"
+        android:layout_height="350dp"
         android:layout_centerInParent="true"
         android:background="@color/white"
         android:orientation="vertical"
@@ -15,8 +15,8 @@
         <!-- Profile Image -->
         <ImageView
             android:id="@+id/profileImageView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="210dp"
+            android:layout_height="190dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/default_profile_image" />
 
@@ -24,7 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <!-- Full Name -->
@@ -33,8 +33,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Full Name"
                 android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="Full Name"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/black" />
 
@@ -55,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
                 android:text="View more"
                 android:textAppearance="?android:textAppearanceMedium"

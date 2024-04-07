@@ -63,6 +63,18 @@
 
             <!-- Description text outside the CardView -->
             <TextView
+                android:id="@+id/txtFacebookLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Visit our Facebook Page"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:autoLink="web"/>
+            <TextView
                 android:id="@+id/txtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,6 +82,7 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:layout_marginLeft="5dp" />
+
 
             <TextView
                 android:layout_width="match_parent"

@@ -3,9 +3,11 @@ package com.example.app_e_ligas;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -62,11 +64,15 @@ public class SignUpActivity extends AppCompatActivity {
     EditText editTextEmergencyContactNo;
     Spinner spinnerCivilStatus;
     Button buttonRegister;
-    Button buttonUploadID;
+
     ProgressBar progressBar;
     Uri validIDUri;
     ImageView imageViewValidID;
+    Button buttonUploadID;
     private FirebaseAuth mAuth;
+
+    private TextView textFileSize;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +102,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         imageViewValidID = findViewById(R.id.imageViewValidID);
 
+        textFileSize = findViewById(R.id.textFileSize);
+
+
         // Password visibility toggling
         final CheckBox showPasswordCheckbox = findViewById(R.id.showPasswordCheckbox);
         final CheckBox showConfirmPasswordCheckbox = findViewById(R.id.showConfirmPasswordCheckbox);
@@ -124,6 +133,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+
         TextView textView = findViewById(R.id.textF); // Assuming you have assigned an id to the TextView in your XML layout
         String text = "First Name*";
         SpannableString spannableString = new SpannableString(text);
@@ -136,20 +146,6 @@ public class SignUpActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
             }
         });
-
-        TextView textView1 = findViewById(R.id.textM); // Assuming you have assigned an id to the TextView in your XML layout
-        String text1 = "Middle Name*";
-        SpannableString spannableString1 = new SpannableString(text1);
-        ForegroundColorSpan colorSpan1 = new ForegroundColorSpan(Color.RED);
-        spannableString1.setSpan(colorSpan1, text1.indexOf("*"), text1.indexOf("*") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView1.setText(spannableString1);
-        textView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_SHORT).show();
-            }
-        });
-
 
         TextView textView2 = findViewById(R.id.textL); // Assuming you have assigned an id to the TextView in your XML layout
         String text2 = "Last Name*";
@@ -334,9 +330,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-
-
-
         // birth date
         editTextBirthday = findViewById(R.id.editTextBirthday);
 
@@ -418,7 +411,6 @@ public class SignUpActivity extends AppCompatActivity {
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, 0);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -427,6 +419,24 @@ public class SignUpActivity extends AppCompatActivity {
             if (requestCode == 0) {
                 validIDUri = data.getData();
                 imageViewValidID.setImageURI(validIDUri); // Update imageViewValidID with the selected image
+
+                // Calculate file size and display it
+                Cursor cursor = getContentResolver().query(validIDUri, null, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+                    long fileSize = cursor.getLong(sizeIndex);
+                    cursor.close();
+
+                    double fileSizeInMB = (double) fileSize / (1024 * 1024);
+                    if (fileSizeInMB > 5) {
+                        // File size exceeds 5 MB, show toast message
+                        Toast.makeText(getApplicationContext(), "File size exceeds 5 MB. Please select a smaller image.", Toast.LENGTH_SHORT).show();
+                        imageViewValidID.setImageResource(0); // Clear the image view
+                    } else {
+                        String formattedSize = String.format("%.2f", fileSizeInMB);
+                        textFileSize.setText("File Size: " + formattedSize + " MB");
+                    }
+                }
             }
         }
     }
@@ -450,18 +460,7 @@ public class SignUpActivity extends AppCompatActivity {
         String txtEmergencyContactNo = editTextEmergencyContactNo.getText().toString().trim();
 
 
-
-
         //  validation code...
-
-        if (validIDUri == null) {
-            Toast.makeText(SignUpActivity.this, "Please upload a valid ID photo", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-
-
-
         if (txtFirstName.isEmpty()) {
             editTextFirstName.setError("Please Enter Your First Name");
             editTextFirstName.requestFocus();
@@ -634,7 +633,13 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void saveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String age, String birthday, String birthplace, String address, String emergencyContact, String emergencyContactNo, String validIDUrl) {
-        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, emergencyContact, emergencyContactNo, birthplace, address, validIDUrl);
+        // You need to add the userProfileImage field here
+        String userProfileImage = null; // Initially set to null, update it if you have a profile image URL
+
+        // Create a User object with all the fields
+        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, emergencyContact, emergencyContactNo, birthplace, address, validIDUrl, userProfileImage);
+
+        // Get a reference to the Firebase Database and save the User object
         FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .setValue(user)
@@ -655,4 +660,5 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

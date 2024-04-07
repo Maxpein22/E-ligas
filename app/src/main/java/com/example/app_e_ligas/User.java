@@ -15,6 +15,7 @@ public class User {
     public String emergencyContactPersonNo;
     public String address;
     public String validIDUrl; // Added field for valid ID URL
+    public String userProfileImage; // Added field for user profile image
 
     public User() {
 
@@ -28,7 +29,7 @@ public class User {
         this.address = address;
     }
 
-    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String address, String validIDUrl) {
+    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String address, String validIDUrl, String userProfileImage) {
         this.birthPlace = birthPlace;
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
@@ -43,6 +44,7 @@ public class User {
         this.emergencyContactPerson = emergencyContactPerson;
         this.emergencyContactPersonNo = emergencyContactPersonNo;
         this.validIDUrl = validIDUrl; // Set the valid ID URL
+        this.userProfileImage = userProfileImage; // Set the user profile image URL
     }
 
     public String getFullName(){
@@ -160,5 +162,13 @@ public class User {
 
     public void setValidIDUrl(String validIDUrl) {
         this.validIDUrl = validIDUrl;
+    }
+
+    public String getUserProfileImage() {
+        return userProfileImage;
+    }
+
+    public void setUserProfileImage(String userProfileImage) {
+        this.userProfileImage = userProfileImage;
     }
 }
