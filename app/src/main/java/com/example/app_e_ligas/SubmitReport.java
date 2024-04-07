@@ -14,9 +14,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -38,8 +38,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -48,7 +46,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -72,7 +69,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
     Button submitReportBtn;
     ProgressDialog dialog;
     FlexboxLayout submitReportContainer;
-    TableLayout selectModeContainer;
+    LinearLayout selectModeContainer;
     RelativeLayout photoBtn;
     RelativeLayout videoBtn;
     RelativeLayout voiceBtn;
