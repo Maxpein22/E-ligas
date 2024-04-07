@@ -11,19 +11,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/square_border"/>
+        android:padding="5dp"
+        />
 
 
-    <TextView
-        android:id="@+id/txtUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User Name"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"/>
+
 
     <!-- Your FlexboxLayout -->
     <com.google.android.flexbox.FlexboxLayout
@@ -32,10 +24,13 @@
         app:justifyContent="space_between"
         android:id="@+id/parentBtn">
 
+
+
         <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:flexDirection="column_reverse">
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -73,7 +68,9 @@
                 android:layout_marginLeft="5dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:autoLink="web"/>
+                android:autoLink="web"
+                android:visibility="gone"
+                />
             <TextView
                 android:id="@+id/txtEmail"
                 android:layout_width="match_parent"
@@ -92,19 +89,25 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
+                android:visibility="gone"
                 android:layout_marginLeft="5dp" />
+
 
             <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:justifyContent="space_between">
+                app:justifyContent="space_between"
+                android:id="@+id/moreInfoContainer"
+                android:visibility="gone"
+                >
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     app:flexDirection="column"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
+
                    >
 
 
@@ -138,13 +141,14 @@
                         android:textSize="14sp"
                         android:maxWidth="250dp"
                         android:textColor="@color/black" />
+
                 </com.google.android.flexbox.FlexboxLayout>
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:flexDirection="column"
-                    android:layout_marginTop="30dp">
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/txtOrganizerName"
@@ -186,6 +190,16 @@
                 android:visibility="gone"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:textSize="10sp" />
+            <TextView
+                android:id="@+id/txtUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Name"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
         </com.google.android.flexbox.FlexboxLayout>
     </com.google.android.flexbox.FlexboxLayout>
 

@@ -11,6 +11,15 @@ public class Request {
 
     String kindOfBusiness;
     String addressOfBusiness;
+    String controlNo;
+
+    public String getControlNo() {
+        return controlNo;
+    }
+
+    public void setControlNo(String controlNo) {
+        this.controlNo = controlNo;
+    }
 
     public String getKindOfBusiness() {
         return kindOfBusiness;
@@ -32,16 +41,8 @@ public class Request {
 
     }
 
-    public Request(User user, String purpose, String type, String status, String createdAt, String description) {
-        this.user = user;
-        this.purpose = purpose;
-        this.type = type;
-        this.status = status;
-        this.createdAt = createdAt;
-        this.description = description;
-    }
 
-    public Request(User user, String purpose, String type, String status, String createdAt, String description, String kindOfBusiness, String addressOfBusiness) {
+    public Request(User user, String purpose, String type, String status, String createdAt, String description, String kindOfBusiness, String addressOfBusiness, String controlNo) {
         this.user = user;
         this.purpose = purpose;
         this.type = type;
@@ -50,6 +51,7 @@ public class Request {
         this.description = description;
         this.kindOfBusiness = kindOfBusiness;
         this.addressOfBusiness = addressOfBusiness;
+        this.controlNo = controlNo;
     }
 
     public String getRequestID() {

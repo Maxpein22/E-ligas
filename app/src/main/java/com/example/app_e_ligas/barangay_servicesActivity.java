@@ -67,6 +67,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
 
     static RecyclerView servicesRecViewList;
     public static ArrayList<ServiceModel> selectedServices = new ArrayList<>();
+    int totalRequests = 1;
 
 
     @Override
@@ -100,7 +101,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
         Log.i("RequestFetch", "Fetching Request...");
         List<Request> requestList = new ArrayList<>();
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("servicesRequests/" + userID);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("servicesRequests");
 
         databaseReference
                 .addValueEventListener(new ValueEventListener() {
@@ -110,9 +111,14 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                         // Iterate through dataSnapshot to get the data
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             // Corrected this line to use the 'snapshot' variable
-                            Request request = snapshot.getValue(Request.class);
-                            requestList.add(0,request);
-                            Log.i("RequestFetch", request.getType());
+                            for (DataSnapshot requestSnaps : snapshot.getChildren()) {
+                                if(snapshot.getKey() ==  userID) {
+                                    Request request = requestSnaps.getValue(Request.class);
+                                    requestList.add(0, request);
+                                    Log.i("RequestFetch", request.getType());
+                                }
+                                totalRequests++;
+                            }
                         }
                         RecyclerView recyclerView = findViewById(R.id.historyRecyclerView);
                         recyclerView.setLayoutManager(new LinearLayoutManager(barangay_servicesActivity.this));
@@ -159,16 +165,33 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                     final EditText kindOfBusiness = bottomSheetDialog.findViewById(R.id.kindOfBusiness);
                     final EditText addressOfBusiness = bottomSheetDialog.findViewById(R.id.addressOfBusiness);
 
+                    boolean hidePurposeContainer = false;
+
                     if(type.equals("Business Clearance")){
+                        hidePurposeContainer = true;
                         businessDetailsContainer.setVisibility(View.VISIBLE);
-                        purposeContainer.setVisibility(View.GONE);
                         selectedServices.clear();
                         selectedServices.add(new ServiceModel("Business Clearance", "", "", "0", false));
                     }else{
                         businessDetailsContainer.setVisibility(View.GONE);
-                        purposeContainer.setVisibility(View.VISIBLE);
                         selectedServices.clear();
                     }
+
+                    if(type.equals("Barangay ID")){
+                        hidePurposeContainer = true;
+                        selectedServices.clear();
+                        selectedServices.add(new ServiceModel("Residency", "", "", "0", false));
+                        // TODO: Show the incase of emergency container
+                    }else{
+                        selectedServices.clear();
+                    }
+
+                    if(hidePurposeContainer){
+                        purposeContainer.setVisibility(View.GONE);
+                    }else{
+                        purposeContainer.setVisibility(View.VISIBLE);
+                    }
+
 
                     // IMAGE PREVIEW
                     // Assuming your images are in the "drawable" folder
@@ -254,7 +277,8 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                             progressDialog.show();
                             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("servicesRequests").child(userID);
                             String newRequestID = databaseReference.push().getKey();
-                            Request request = new Request(currentUser,purpose ,type, "on-going",dateString, "Request is under review", kindOfBusiness.getText().toString(), addressOfBusiness.getText().toString());
+                            String controlNo = "000" + Integer.toString(totalRequests);
+                            Request request = new Request(currentUser,purpose ,type, "on-going",dateString, "Request is under review", kindOfBusiness.getText().toString(), addressOfBusiness.getText().toString(), controlNo);
                             FirebaseDatabase.getInstance().getReference("servicesRequests")  // Change to your desired database node
                                     .child(userID)
                                     .child(newRequestID)

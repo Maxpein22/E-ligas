@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,9 +23,11 @@ public class PromosRecViewAdapter extends RecyclerView.Adapter<PromosRecViewAdap
 
     private ArrayList<PromoModel> promos = new ArrayList<>();
     private Context context;
+    public PromoBottomSheetFragment bottomSheetView;
 
     public PromosRecViewAdapter(Context context, FragmentManager supportFragmentManager) {
         this.context = context;
+
     }
 
     @NonNull
@@ -59,6 +62,7 @@ public class PromosRecViewAdapter extends RecyclerView.Adapter<PromosRecViewAdap
         private TextView txtEndDate;
         private ImageView viewImageId;
         private Button verifyBtn;
+        private  TextView txtFacebookLink;
         private FlexboxLayout parentBtn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -76,11 +80,19 @@ public class PromosRecViewAdapter extends RecyclerView.Adapter<PromosRecViewAdap
         public void bind(PromoModel promo) {
             txtUsername.setText(promo.getEventTitle());
             txtEmail.setText(promo.getDescription());
-            txtOrganizerName.setText(promo.getOrganizerName());
+            txtOrganizerName.setVisibility(View.GONE);
             txtStartDate.setText(promo.getStartDate());
             txtEndDate.setText(promo.getEndDate());
             Glide.with(context).load(promo.getEventBanner()).into(viewImageId);
-            verifyBtn.setText("JOIN");
+            bottomSheetView = new PromoBottomSheetFragment();
+
+            parentBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    bottomSheetView.updateContent(promo);
+                    bottomSheetView.show(((AppCompatActivity)itemView.getContext()).getSupportFragmentManager(), bottomSheetView.getTag());
+                }
+            });
         }
     }
 }
