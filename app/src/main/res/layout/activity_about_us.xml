@@ -64,5 +64,55 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text2" />
 
+
+
+
+        <ImageView
+            android:id="@+id/imageFacebook"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/facebook"
+            app:layout_constraintTop_toBottomOf="@id/text3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageGmail"
+            android:layout_marginStart="20dp"/>
+
+        <ImageView
+            android:id="@+id/imageGmail"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/gmail"
+            app:layout_constraintTop_toBottomOf="@id/text3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintStart_toEndOf="@+id/imageFacebook"
+            app:layout_constraintEnd_toStartOf="@+id/imageHotline"
+            android:layout_marginStart="20dp"/>
+
+        <ImageView
+            android:id="@+id/imageHotline"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/telephone"
+            app:layout_constraintTop_toBottomOf="@id/text3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintStart_toEndOf="@+id/imageGmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="20dp"/>
+
+
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
