@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.app_e_ligas.SignInActivity"
-    android:background="#e0e0e0">
+    android:background="#e0e0e0"
+    tools:context="com.example.app_e_ligas.SignInActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -31,15 +31,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Email"
+        android:textColor="@color/black"
+        android:ems="10"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tex" />
+
     <EditText
         android:id="@+id/editTextSignInUserName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
-        android:hint="Email"
         android:inputType="text"
         android:letterSpacing=".1"
         android:textColor="@color/black"
@@ -50,23 +61,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tex" />
 
-    <EditText
-        android:id="@+id/editTextSignInUserPassword"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/passw"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:letterSpacing=".1"
+        android:layout_marginTop="10dp"
+        android:text="Password"
         android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:ems="10"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextSignInUserName" />
+
+    <RelativeLayout
+        android:id="@+id/pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/passw"
+        tools:layout_editor_absoluteX="20dp">
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/showPasswordCheckbox"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:letterSpacing=".1"
+            android:layout_marginLeft="20dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="15sp" />
+
+        <CheckBox
+            android:id="@+id/showPasswordCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="Show"
+            android:layout_marginRight="20dp"
+            android:textColor="@android:color/black" />
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/txtSignInForgotPassword"
@@ -79,7 +116,7 @@
         android:textColor="#0000EE"
         android:letterSpacing=".1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSignInUserPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/pass" />
 
     <TextView
         android:id="@+id/txtSignInRegister"
@@ -87,15 +124,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
-        android:text="Register Here !"
-        android:onClick="txtSignInRegisterClicked"
         android:letterSpacing=".1"
+        android:onClick="txtSignInRegisterClicked"
+        android:text="Register Here !"
         android:textColor="#0000EE"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSignInUserPassword" />
-
-
-
+        app:layout_constraintTop_toBottomOf="@+id/pass" />
 
     <Button
         android:id="@+id/button4"
@@ -135,5 +169,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,8 +2,10 @@ package com.example.app_e_ligas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ public class SignInActivity extends AppCompatActivity {
     TextView textViewForgotPassword, textViewRegister;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
+    CheckBox showPasswordCheckbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,8 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         editTextEmail = findViewById(R.id.editTextSignInUserName);
-        editTextPassword = findViewById(R.id.editTextSignInUserPassword);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        showPasswordCheckbox = findViewById(R.id.showPasswordCheckbox);
 
         textViewForgotPassword = findViewById(R.id.txtSignInForgotPassword);
         textViewRegister = findViewById(R.id.txtSignInRegister);
@@ -38,6 +42,20 @@ public class SignInActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar2);
 
         mAuth = FirebaseAuth.getInstance();
+
+        // Set OnClickListener to the CheckBox to toggle password visibility
+        showPasswordCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (showPasswordCheckbox.isChecked()) {
+                    // Show the password
+                    editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT);
+                } else {
+                    // Hide the password
+                    editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+            }
+        });
     }
 
     public void txtSignInForgotPasswordClicked(View v) {
@@ -99,8 +117,7 @@ public class SignInActivity extends AppCompatActivity {
         editTextPassword.setEnabled(isEnabled);
         textViewForgotPassword.setEnabled(isEnabled);
         textViewRegister.setEnabled(isEnabled);
+        showPasswordCheckbox.setEnabled(isEnabled);
         // Disable or enable any other UI elements as needed
     }
-
-
 }
