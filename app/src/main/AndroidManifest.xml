@@ -24,18 +24,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App_ELigas"
         tools:targetApi="31">
-        <activity
-            android:name="com.example.app_e_ligas.EventdetailsActivity"
-            android:exported="false" />
+
         <activity
             android:name="com.example.app_e_ligas.EditProfileActivity"
             android:exported="false" />
-        <activity
-            android:name="com.example.app_e_ligas.activity_edit_profile"
-            android:exported="false" />
-        <activity
-            android:name="com.example.app_e_ligas.activity_edit_profile"
-            android:exported="false" />
+
+
         <activity
             android:name="com.example.app_e_ligas.BarangayOfficialsActivity"
             android:exported="false" />
@@ -97,6 +91,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+
         <activity
             android:name="com.example.app_e_ligas.SplashActivity"
             android:exported="true">

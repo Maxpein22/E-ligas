@@ -63,7 +63,6 @@ public class EditProfileActivity extends AppCompatActivity {
         ageEditText = findViewById(R.id.ageEditText);
         birthPlaceEditText = findViewById(R.id.birthPlaceEditText);
         contactNumberEditText = findViewById(R.id.contactNumberEditText);
-        emailEditText = findViewById(R.id.emailEditText);
         locationEditText = findViewById(R.id.locationEditText);
         civilStatusSpinner = findViewById(R.id.spinnerCivilStatus);
         saveButton = findViewById(R.id.button8);
@@ -128,7 +127,6 @@ public class EditProfileActivity extends AppCompatActivity {
         String age = ageEditText.getText().toString();
         String birthPlace = birthPlaceEditText.getText().toString();
         String contactNumber = contactNumberEditText.getText().toString();
-        String email = emailEditText.getText().toString();
         String location = locationEditText.getText().toString();
 
         // Get current user
@@ -170,9 +168,6 @@ public class EditProfileActivity extends AppCompatActivity {
                         if (!contactNumber.isEmpty()) {
                             user.setUserPhoneNumber(contactNumber);
                         }
-                        if (!email.isEmpty()) {
-                            user.setUserEmail(email);
-                        }
                         if (!location.isEmpty()) {
                             user.setAddress(location);
                         }
@@ -206,4 +201,5 @@ public class EditProfileActivity extends AppCompatActivity {
             Toast.makeText(EditProfileActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
