@@ -1,68 +1,477 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/white"
-tools:context="com.example.app_e_ligas.DashboardActivity">
-
-<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.example.app_e_ligas.DashboardActivity">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="History of Ligas 1"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/text1"
-        android:layout_width="340dp"
-        android:layout_height="150dp"
-        android:src="@drawable/text_1"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        <!-- Container for Logo, Title, Description, and Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="30dp"
+            android:background="@color/splash_blue">
 
-    <ImageView
-        android:id="@+id/image1"
-        android:layout_width="330dp"
-        android:layout_height="330dp"
-        android:src="@drawable/about_officials"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text1"
-        />
+            <!-- Logo ImageView -->
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/ligas_uno"
+                android:scaleType="centerCrop" />
 
-    <ImageView
-        android:id="@+id/text2"
-        android:layout_width="340dp"
-        android:layout_height="150dp"
-        android:src="@drawable/text_2"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image1" />
+            <!-- Title TextView -->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Discover The District"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
 
-    <ImageView
-        android:id="@+id/text3"
-        android:layout_width="340dp"
-        android:layout_height="210dp"
-        android:src="@drawable/text_3"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text2" />
+            <!-- Barangay Title TextView -->
+            <TextView
+                android:id="@+id/barangayTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Barangay Barangay Ligas Uno"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="8dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Description TextView -->
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="The most exciting district of Bacoor Cavite, get your opportunity to move forwards together."
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="8dp" />
+
+            <!-- Learn More Button -->
+            <Button
+                android:id="@+id/learnMoreButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Learn More"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#FF018786"/>
+
+        </LinearLayout>
+
+        <!-- Additional Layout Below -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="30dp"
+            android:gravity="center_vertical"
+            android:background="#e0e0e0">
+
+            <!-- Icon 1 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/icon1"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/office" />
+
+                <TextView
+                    android:id="@+id/icon1Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Offices"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+            <!-- Icon 2 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/icon2"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/hospital" />
+
+                <TextView
+                    android:id="@+id/icon2Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hospital"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+            <!-- Icon 3 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/icon3"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/government" />
+
+                <TextView
+                    android:id="@+id/icon3Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Government"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center_vertical"
+            android:background="#e0e0e0">
+            <!-- Icon 4 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/icon4"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/parking" />
+
+                <TextView
+                    android:id="@+id/icon4Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Parking"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+            <!-- Icon 5 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/icon5"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/creative" />
+
+                <TextView
+                    android:id="@+id/icon5Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recreation"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+            <!-- Icon 6 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/icon6"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/house" />
+
+                <TextView
+                    android:id="@+id/icon6Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Housing"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Additional Layout Below -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="#e0e0e0">
+
+            <!-- Image -->
+            <ImageView
+                android:id="@+id/sectionImage"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/bg"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/sectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="About Us"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Subtitle -->
+            <TextView
+                android:id="@+id/sectionSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="If you change your city, you're changing the world"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Description -->
+            <TextView
+                android:id="@+id/sectionDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Barangay Ligas 1 is determined to address everything that hinder its way to be the best."
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="MISSION"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/splash_blue"/>
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="VISION"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/splash_blue"/>
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="GOAL"
+                    android:backgroundTint="@color/splash_blue"/>
+            </LinearLayout>
+
+
+
+
+            <!-- Another Description -->
+            <TextView
+                android:id="@+id/anotherDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A Barangay that is God-centered, competent, orderly, honest, peaceful, creadible, gender responsive and abides the Code of Conduct"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Text and Number -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/textLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Call To Ask Any Questions"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/textValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0912345678"
+                    android:textSize="18sp"
+                    android:textColor="@color/splash_blue"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+
+            <!-- Image, Text, and Another Text -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/anotherImage"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/captain"
+                    android:layout_marginEnd="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/yetAnotherText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="George G. Medina"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="7dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/anotherText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Barangay Captain"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <!-- Image -->
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/captain"/>
+
+            <!-- Title Image -->
+            <TextView
+                android:id="@+id/titleImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:text="Barangay Captain"
+                android:gravity="center"/>
+
+
+            <!-- Full Name -->
+            <TextView
+                android:id="@+id/fullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="George G. Medina"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <!-- Text Quote -->
+            <TextView
+                android:id="@+id/textQuote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="'A true leader does not create separtion, A true leader brings peoples together.' - Tendai Ruben Mbofana"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                android:layout_marginTop="8dp"/>
+
+
+            <TextView
+                android:id="@+id/descriptionss"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Barangay Captain George G. Medina, an accomplished advocate for working people and a proud product of the District, is renowned for his unwavering dedication to serving the community with passion and dignity. His commitment to uplifting the lives of residents and his tireless efforts in promoting welfare initiatives have earned him widespread admiration and respect."
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:lineSpacingMultiplier="1.2"/>
+
+            <!-- Button -->
+            <Button
+                android:id="@+id/actionButton"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Contact Us"
+                android:layout_marginTop="16dp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
 </ScrollView>

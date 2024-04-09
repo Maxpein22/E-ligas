@@ -21,7 +21,14 @@
         <color name="black">#FF000000</color>
         <color name="white">#FFFFFFFF</color>
 
-        <color name="homeNotificationBarColor">#fff</color>
+
+
+
+        <color name="colorClicked">#808080</color> <!-- Green color for clicked -->
+        <color name="colorNotClicked">#4597cb</color> <!-- White color for not clicked -->
+
+
+    <color name="homeNotificationBarColor">#fff</color>
 
         <!--reds-->
         <color name="md_red_50">#FFEBEE</color>
