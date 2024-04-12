@@ -95,7 +95,7 @@
             app:layout_constraintTop_toBottomOf="@+id/newTextView"
             app:layout_constraintVertical_bias="0.0" />
 
-        <Button
+        <TextView
             android:id="@+id/procedure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,6 +106,42 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/secondImageView" />
+
+        <!-- LinearLayout for horizontally aligned buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/procedure">
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Before"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/splash_blue"/>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="During"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/splash_blue"/>
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="After"
+                android:backgroundTint="@color/splash_blue"/>
+        </LinearLayout>
+
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

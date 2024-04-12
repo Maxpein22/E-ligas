@@ -1,7 +1,13 @@
 package com.example.app_e_ligas;
 
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.namespace.R;
@@ -23,7 +29,17 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
         setContentView(activityDamMonitoringBinding.getRoot());
         allocateActivityTitle("Barangay Dam Monitoring");
 
-        // Retrieve waterDistance value from Firebase Realtime Database
+        // Initialize the buttons
+        Button button1 = findViewById(R.id.button1);
+        Button button2 = findViewById(R.id.button2);
+        Button button3 = findViewById(R.id.button3);
+
+        // Set click listeners for each button
+        button1.setOnClickListener(v -> showPopupWindow1());
+        button2.setOnClickListener(v -> showPopupWindow2());
+        button3.setOnClickListener(v -> showPopupWindow3());
+
+
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("waterDistance");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -33,27 +49,26 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
                     // Assuming waterDistance is stored as a String
                     String waterDistanceString = dataSnapshot.getValue(String.class);
 
-// Convert waterDistance to meters with error checking
+                    // Convert waterDistance to meters with error checking
                     double meter;
                     try {
                         int waterDistance = Integer.parseInt(waterDistanceString);
                         meter = waterDistance / 1.524;
                         meter = meter - 13.20;
                         meter = -1 * meter;
-                        if(meter > 10)meter = 10;
-                        if(meter < 0) meter = 0;
+                        if (meter > 10) meter = 10;
+                        if (meter < 0) meter = 0;
                     } catch (NumberFormatException e) {
                         // Handle the case when waterDistance is not a valid integer string
                         e.printStackTrace(); // Log the error or handle it as needed
                         meter = 0.0; // Default value or appropriate fallback
                     }
 
-// Display waterDistance value in meters in a TextView
+                    // Display waterDistance value in meters in a TextView
                     TextView waterDistanceTextView = findViewById(R.id.textView5);
-
                     waterDistanceTextView.setText(String.format("%.2f", meter) + " Meters");
 
-// Display an image based on the original waterDistance value
+                    // Display an image based on the original waterDistance value
                     ImageView waterLevelImageView = findViewById(R.id.waterImage);
                     int waterDistanceValue;
                     try {
@@ -64,7 +79,7 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
                         waterDistanceValue = 0; // Default value or appropriate fallback
                     }
 
-// Choose images based on the exact water level (you should have these images in your res/drawable folder)
+                    // Choose images based on the exact water level (you should have these images in your res/drawable folder)
                     int imageResource;
                     switch (waterDistanceValue) {
                         case 15:
@@ -121,50 +136,45 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
                             imageResource = R.drawable.i0; // Replace with your default image
                             break;
                     }
-                    String id = "w" +  String.valueOf(((int) meter));
-                    int resourceId = getResources().getIdentifier(id, "drawable", getPackageName());
-                    waterLevelImageView.setImageResource(resourceId);
 
-// No changes to the status handling
+                    // Set the image resource for the water level ImageView
+                    waterLevelImageView.setImageResource(imageResource);
+
+                    // No changes to the status handling
                     TextView waterStatusTextView = findViewById(R.id.textView9);
                     if (waterDistanceValue == 0) {
                         waterStatusTextView.setText("Alert Water Level!");
                     } else if (waterDistanceValue == 1) {
                         waterStatusTextView.setText("Alert Water Level!");
-                    }
-                    else if (waterDistanceValue == 2) {
+                    } else if (waterDistanceValue == 2) {
                         waterStatusTextView.setText("Alert Water Level!");
-                    }
-                    else if (waterDistanceValue == 3) {
+                    } else if (waterDistanceValue == 3) {
                         waterStatusTextView.setText("Alert Water Level!");
-                    }else if (waterDistanceValue == 4) {
+                    } else if (waterDistanceValue == 4) {
                         waterStatusTextView.setText("High Water Level!");
-                    }else if (waterDistanceValue == 5) {
+                    } else if (waterDistanceValue == 5) {
                         waterStatusTextView.setText("High Water Level!");
-                    }else if (waterDistanceValue == 6) {
+                    } else if  (waterDistanceValue == 6) {
                         waterStatusTextView.setText("High Water Level!");
-                    }else if (waterDistanceValue == 7) {
+                    } else if  (waterDistanceValue == 7) {
                         waterStatusTextView.setText("High Water Level!");
-                    }else if (waterDistanceValue == 8) {
+                    } else if  (waterDistanceValue == 8) {
                         waterStatusTextView.setText("Increasing Water Level!");
-                    }else if (waterDistanceValue == 9) {
+                    } else if  (waterDistanceValue == 9) {
                         waterStatusTextView.setText("Increasing Water Level!");
-                    }else if (waterDistanceValue == 10) {
+                    } else if  (waterDistanceValue == 10) {
                         waterStatusTextView.setText("Increasing Water Level!");
-                    }else if (waterDistanceValue == 11) {
+                    } else if  (waterDistanceValue == 11) {
                         waterStatusTextView.setText("Increasing Water Level!");
-                    }else if (waterDistanceValue == 12) {
+                    } else if  (waterDistanceValue == 12) {
                         waterStatusTextView.setText("Calm Water Level!");
-                    }else if (waterDistanceValue == 13) {
+                    } else if  (waterDistanceValue == 13) {
                         waterStatusTextView.setText("Calm Water Level!");
-                    }else if (waterDistanceValue == 14) {
+                    } else if  (waterDistanceValue == 14) {
                         waterStatusTextView.setText("Calm Water Level!");
-                    }else if (waterDistanceValue == 15) {
+                    } else if  (waterDistanceValue == 15) {
                         waterStatusTextView.setText("Calm Water Level!");
                     }
-
-
-
                 } else {
                     // Handle the case when the data doesn't exist
                 }
@@ -176,4 +186,55 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
             }
         });
     }
+
+
+    private void showPopupWindow1() {
+        // Inflate the popup layout for button1
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_layout_button1, null);
+
+        // Create the PopupWindow with appropriate width and height
+        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
+        // Get the root view of the activity
+        View rootView = activityDamMonitoringBinding.getRoot();
+
+        // Show the popup window at the center of the screen
+        popupWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
+
+    }
+
+    private void showPopupWindow2() {
+        // Inflate the popup layout for button2
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_layout_button2, null);
+
+        // Create the PopupWindow with appropriate width and height
+        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
+        // Get the root view of the activity
+        View rootView = activityDamMonitoringBinding.getRoot();
+
+        // Show the popup window at the center of the screen
+        popupWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
+
+    }
+
+    private void showPopupWindow3() {
+        // Inflate the popup layout for button3
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_layout_button3, null);
+
+        // Create the PopupWindow with appropriate width and height
+        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
+        // Get the root view of the activity
+        View rootView = activityDamMonitoringBinding.getRoot();
+
+        // Show the popup window at the center of the screen
+        popupWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
+
+    }
 }
+
+
