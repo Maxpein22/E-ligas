@@ -100,9 +100,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Procedure"
-            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="20dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/secondImageView" />
@@ -111,32 +111,39 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@+id/procedure">
 
             <Button
                 android:id="@+id/button1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Before"
                 android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/splash_blue"/>
+                android:background="@drawable/button_sign_up"
+                android:backgroundTint="@color/splash_blue"
+                android:text="Before"
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="During"
                 android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/splash_blue"/>
+                android:background="@drawable/button_sign_up"
+                android:backgroundTint="@color/splash_blue"
+                android:text="During"
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/button3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_sign_up"
+                android:backgroundTint="@color/splash_blue"
                 android:text="After"
-                android:backgroundTint="@color/splash_blue"/>
+                app:backgroundTint="@null" />
         </LinearLayout>
 
 

@@ -14,10 +14,9 @@
             android:id="@+id/long_height_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/during"
-            android:scaleType="centerInside"
-            android:layout_marginTop="-400dp"
-            android:layout_marginBottom="-400dp"/>
+            android:src="@drawable/proc2"
+            android:scaleType="fitXY"
+            />
 
 
     </LinearLayout>

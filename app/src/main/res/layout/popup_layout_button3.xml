@@ -6,7 +6,7 @@
 
     <!-- LinearLayout to wrap the ImageView -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -14,12 +14,9 @@
             android:id="@+id/long_height_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/after"
-            android:scaleType="centerInside"
-            android:layout_marginTop="-490dp"
-            android:layout_marginBottom="-490dp"/>
-
-
+            android:src="@drawable/proc3"
+            android:scaleType="fitXY"
+            />
 
     </LinearLayout>
 
