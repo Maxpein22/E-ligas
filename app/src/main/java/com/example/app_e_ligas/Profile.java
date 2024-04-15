@@ -1,4 +1,5 @@
 package com.example.app_e_ligas;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -47,21 +48,44 @@ public class Profile extends DrawerBasedActivity {
     // Key for saving and restoring image URI
     private static final String IMAGE_URI_KEY = "imageUri";
 
+    // Add a request code for selecting an ID image
+    private static final int PICK_VALID_ID_REQUEST = 2;
+
+    // Uri to store the valid ID image selected from gallery
+    private Uri validIDImageUri;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityProfileBinding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(activityProfileBinding.getRoot());
         allocateActivityTitle("Profile");
-
-        // Initialize Firebase Authentication
+        // Initialize Firebase variables and layout setup
         mAuth = FirebaseAuth.getInstance();
-
-        // Initialize Firebase Realtime Database
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
-
-        // Initialize Firebase Storage
         mStorage = FirebaseStorage.getInstance().getReference();
+
+        // Call checkUserValidationStatus() to update the visibility of the layout
+        checkUserValidationStatus();
+
+
+// Add an OnClickListener to the savebtnVID button to save the valid ID image to Firebase Storage
+        activityProfileBinding.savebtnVID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveValidIDImage(validIDImageUri);
+            }
+        });
+        // Add an OnClickListener to the btnUploadValidID button
+        activityProfileBinding.btnUploadValidID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGalleryForValidID();
+            }
+        });
 
         // Check if user is logged in
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -158,6 +182,8 @@ public class Profile extends DrawerBasedActivity {
                         activityProfileBinding.BirthdateTextView.setText(user.getBirthday());
                         activityProfileBinding.BirthPlaceTextView.setText(user.getBirthPlace());
 
+
+
                         // Load profile image from userProfileImage URL
                         if (user.getUserProfileImage() != null) {
                             Glide.with(Profile.this)
@@ -168,6 +194,7 @@ public class Profile extends DrawerBasedActivity {
                 } else {
                     Log.d(TAG, "User data not found");
                 }
+
             }
 
             @Override
@@ -176,6 +203,8 @@ public class Profile extends DrawerBasedActivity {
             }
         });
     }
+
+
 
 
     private void openGallery() {
@@ -188,6 +217,8 @@ public class Profile extends DrawerBasedActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // Handle profile image selection
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             try {
@@ -201,6 +232,80 @@ public class Profile extends DrawerBasedActivity {
         } else if (requestCode == EDIT_PROFILE_REQUEST && resultCode == RESULT_OK) {
             // Refresh the profile page after updating profile data in EditProfileActivity
             retrieveUserData(mAuth.getCurrentUser().getUid());
+        }
+
+        // Handle valid ID image selection
+        if (requestCode == PICK_VALID_ID_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            // Set the URI to the valid ID image
+            validIDImageUri = data.getData();
+
+            try {
+                // Load the selected image into validIDImage ImageView
+                Glide.with(this)
+                        .load(validIDImageUri)
+                        .into(activityProfileBinding.validIDImage);
+
+                // Show the save button after an image is selected
+                activityProfileBinding.savebtnVID.setVisibility(View.VISIBLE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Handle other request codes (if any)
+            // Call parent method to handle other request codes
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    // Define the function to save the valid ID image to Firebase Storage
+    private void saveValidIDImage(Uri validIDImageUri) {
+        if (validIDImageUri != null) {
+            // Create a reference to the valid ID image in Firebase Storage
+            StorageReference validIDImageRef = mStorage.child("valid_id_images/" + mAuth.getCurrentUser().getUid() + "_valid_id.jpg");
+
+            // Upload the valid ID image to Firebase Storage
+            validIDImageRef.putFile(validIDImageUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        // Valid ID image uploaded successfully, get the download URL
+                        validIDImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                            String validIDImageUrl = uri.toString();
+
+                            // Update user's data in Firebase with the valid ID image URL
+                            updateUserValidIDUrl(validIDImageUrl);
+                        });
+                    })
+                    .addOnFailureListener(e -> {
+                        // Handle failed upload
+                        Toast.makeText(Profile.this, "Failed to upload valid ID image", Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            // No valid ID image selected, hide the save button and show an error message
+            activityProfileBinding.savebtnVID.setVisibility(View.GONE);
+            Toast.makeText(Profile.this, "Please select a valid ID image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Method to update user's data in Firebase with the valid ID image URL
+    private void updateUserValidIDUrl(String validIDImageUrl) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            // Store the valid ID image URL under the user's node in the database
+            mDatabase.child(userId).child("validIDUrl").setValue(validIDImageUrl)
+                    .addOnSuccessListener(aVoid -> {
+                        // Hide the save button after successful upload
+                        activityProfileBinding.savebtnVID.setVisibility(View.GONE);
+
+                        // Hide the valid ID upload layout
+                        activityProfileBinding.uploadValidIdLayout.setVisibility(View.GONE);
+
+                        // Show a success message
+                        Toast.makeText(Profile.this, "Valid ID image uploaded successfully", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(Profile.this, "Failed to update valid ID image URL", Toast.LENGTH_SHORT).show();
+                    });
         }
     }
 
@@ -294,4 +399,58 @@ public class Profile extends DrawerBasedActivity {
             }
         }
     }
+
+
+    private void checkUserValidationStatus() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            // Reference to the user's data in the database
+            DatabaseReference userRef = mDatabase.child(userId);
+
+            // Add a listener to check the validation status
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // Check if dataSnapshot exists and contains user data
+                    if (dataSnapshot.exists()) {
+                        // Retrieve the validation status
+                        Boolean isUserValidated = dataSnapshot.child("validated").getValue(Boolean.class);
+
+                        // Retrieve the valid ID image URL from the user's data
+                        String validIDImageUrl = dataSnapshot.child("validIDUrl").getValue(String.class);
+
+                        // Determine whether to show or hide the upload valid
+                        // Determine whether to show or hide the upload valid ID layout
+                        if (validIDImageUrl != null) {
+                            // Valid ID image has been uploaded, hide the upload valid ID layout
+                            activityProfileBinding.uploadValidIdLayout.setVisibility(View.GONE);
+                        } else {
+                            // Valid ID image has not been uploaded, show the upload valid ID layout
+                            activityProfileBinding.uploadValidIdLayout.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Log.d(TAG, "User data not found");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.d(TAG, "Database error: " + databaseError.getMessage());
+                }
+            });
+        }
+    }
+
+
+    // Method to open the gallery for selecting a valid ID image
+    private void openGalleryForValidID() {
+        Intent galleryIntent = new Intent();
+        galleryIntent.setType("image/*");
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(galleryIntent, "Select Valid ID"), PICK_VALID_ID_REQUEST);
+    }
+
+
+
 }

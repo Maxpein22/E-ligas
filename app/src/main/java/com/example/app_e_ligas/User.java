@@ -21,6 +21,9 @@ public class User {
 
     }
 
+    public boolean validated; // Add a new field for validation status
+
+
     public String getAddress() {
         return address;
     }
@@ -29,8 +32,7 @@ public class User {
         this.address = address;
     }
 
-    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String address, String validIDUrl, String userProfileImage) {
-        this.birthPlace = birthPlace;
+    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String address, String validIDUrl, boolean validated) {
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
         this.userFirstName = userFirstName;
@@ -39,14 +41,25 @@ public class User {
         this.userPassword = userPassword;
         this.civilStatus = civilStatus;
         this.age = age;
-        this.address = address;
         this.birthday = birthday;
         this.emergencyContactPerson = emergencyContactPerson;
         this.emergencyContactPersonNo = emergencyContactPersonNo;
-        this.validIDUrl = validIDUrl; // Set the valid ID URL
-        this.userProfileImage = userProfileImage; // Set the user profile image URL
+        this.birthPlace = birthPlace;
+        this.address = address;
+        this.validIDUrl = validIDUrl;
+        this.userProfileImage = userProfileImage;
+        this.validated = validated; // Initialize the validated field
     }
 
+
+    // Add getter and setter methods for the validated field
+    public boolean isValidated() {
+        return validated;
+    }
+
+    public void setValidated(boolean validated) {
+        this.validated = validated;
+    }
     public String getFullName(){
         return userFirstName + " " + userMiddleName + " " + userLastName;
     }

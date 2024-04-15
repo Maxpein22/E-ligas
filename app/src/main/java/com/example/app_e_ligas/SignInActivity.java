@@ -19,6 +19,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SignInActivity extends AppCompatActivity {
     EditText editTextEmail, editTextPassword;
@@ -98,17 +102,50 @@ public class SignInActivity extends AppCompatActivity {
                 // Re-enable UI elements after authentication completes
                 setUIEnabled(true);
 
+                // Within the mAuth.signInWithEmailAndPassword() method
+// When authentication completes, check whether the sign-in was successful
                 if (task.isSuccessful()) {
-                    Toast.makeText(SignInActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                    // Sign-in was successful
+                    String uid = mAuth.getCurrentUser().getUid();
+                    FirebaseDatabase.getInstance().getReference("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            // Retrieve the user object from the database
+                            User user = snapshot.getValue(User.class);
+                            if (user != null) {
+                                // Pass the validation status as an extra to the next activity
+                                boolean isValidated = user.isValidated();
+                                Intent intent = new Intent(SignInActivity.this, DashboardActivity.class);
+                                intent.putExtra("isValidated", isValidated);
+                                startActivity(intent);
+                                finish();
 
-                    startActivity(new Intent(SignInActivity.this, DashboardActivity.class));
-                    finish();
+                                // Show a message based on the user's validation status
+                                if (isValidated) {
+                                    Toast.makeText(SignInActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(SignInActivity.this, "Login Successfully, but your account is not validated yet. Certain features may be restricted.", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                // Handle the case where the user data could not be retrieved
+                                Toast.makeText(SignInActivity.this, "Failed to retrieve user data. Please try again.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Handle database error
+                            Toast.makeText(SignInActivity.this, "Failed to retrieve user data. Please try again.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } else {
                     // Show a generic error message
                     Toast.makeText(SignInActivity.this, "Login Failed. Please check your credentials and try again.", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
+
     }
 
     // Method to enable or disable UI elements based on the parameter

@@ -149,7 +149,6 @@ public class SignUpActivity extends AppCompatActivity {
         setupTextView(findViewById(R.id.textEL), "Email*", "This field is required");
         setupTextView(findViewById(R.id.textPass), "Password*", "This field is required");
         setupTextView(findViewById(R.id.textCpass), "Confirm Password*", "This field is required");
-        setupTextView(findViewById(R.id.textUVI), "UPLOAD VALID ID*", "This field is required");
         setupTextView(findViewById(R.id.checkBoxTerms), "I agree to the Terms and Conditions*", "This field is required");
 
 
@@ -357,10 +356,6 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
-        if (validIDUri == null) {
-            Toast.makeText(SignUpActivity.this, "Please upload a valid ID photo", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
 
         // Validate if the selected date is not in the future
@@ -453,26 +448,29 @@ public class SignUpActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         String validIDUrl = uri.toString();
-                                        saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, validIDUrl);
+                                        // If the valid ID is uploaded successfully, set validated to true
+                                        saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, validIDUrl, true);
                                     }
                                 });
                             } else {
                                 Toast.makeText(SignUpActivity.this, "Failed to upload valid ID image", Toast.LENGTH_SHORT).show();
-                                saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, null);
+                                // If image upload failed, save user data without a valid ID URL and set validated to false
+                                saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, null, false);
                             }
                         }
                     });
         } else {
-            saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, null);
+            // If no valid ID is provided, set validated to false
+            saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, null, false);
         }
     }
 
-    private void saveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String age, String birthday, String birthplace, String address, String emergencyContact, String emergencyContactNo, String validIDUrl) {
-        // You need to add the userProfileImage field here
-        String userProfileImage = null; // Initially set to null, update it if you have a profile image URL
 
-        // Create a User object with all the fields
-        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, emergencyContact, emergencyContactNo, birthplace, address, validIDUrl, userProfileImage);
+    private void saveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String age, String birthday, String birthplace, String address, String emergencyContact, String emergencyContactNo, String validIDUrl, boolean validated) {
+        Log.d("SaveUserData", "Validated value: " + validated);
+
+        // Create a User object with all the fields, including the validated flag
+        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, emergencyContact, emergencyContactNo, birthplace, address, validIDUrl, validated);
 
         // Get a reference to the Firebase Database and save the User object
         FirebaseDatabase.getInstance().getReference("users")

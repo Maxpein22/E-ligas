@@ -421,7 +421,7 @@
                 android:id="@+id/textUVI"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload Valid ID*"
+                android:text="Upload Valid ID"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
