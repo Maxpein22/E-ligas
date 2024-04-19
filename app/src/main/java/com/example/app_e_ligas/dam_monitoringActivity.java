@@ -82,50 +82,68 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
                     // Choose images based on the exact water level (you should have these images in your res/drawable folder)
                     int imageResource;
                     switch (waterDistanceValue) {
-                        case 15:
+                        case 21:
                             imageResource = R.drawable.i15;
                             break;
-                        case 14:
+                        case 20:
+                            imageResource = R.drawable.i15;
+                            break;
+                        case 19:
+                            imageResource = R.drawable.i15;
+                            break;
+                        case 18:
                             imageResource = R.drawable.i14;
                             break;
-                        case 13:
-                            imageResource = R.drawable.i13;
-                            break;
-                        case 12:
+                        case 17:
                             imageResource = R.drawable.i12;
                             break;
-                        case 11:
+                        case 16:
                             imageResource = R.drawable.i11;
                             break;
-                        case 10:
+                        case 15:
                             imageResource = R.drawable.i10;
                             break;
-                        case 9:
+                        case 14:
                             imageResource = R.drawable.i9;
                             break;
-                        case 8:
+                        case 13:
                             imageResource = R.drawable.i8;
                             break;
-                        case 7:
+                        case 12:
                             imageResource = R.drawable.i7;
                             break;
-                        case 6:
+                        case 11:
                             imageResource = R.drawable.i6;
                             break;
-                        case 5:
+                        case 10:
                             imageResource = R.drawable.i5;
                             break;
-                        case 4:
+                        case 9:
                             imageResource = R.drawable.i4;
                             break;
-                        case 3:
+                        case 8:
                             imageResource = R.drawable.i3;
                             break;
-                        case 2:
+                        case 7:
                             imageResource = R.drawable.i2;
                             break;
-                        case 1:
+                        case 6:
                             imageResource = R.drawable.i1;
+                            break;
+                        case 5:
+                            imageResource = R.drawable.i1;
+                            break;
+                        case 4:
+                            imageResource = R.drawable.i0;
+                            break;
+                        case 3:
+                            imageResource = R.drawable.i0;
+                            break;
+                        case 2:
+                            imageResource = R.drawable.i0;
+                            break;
+                        case 1:
+                            imageResource = R.drawable.i0;
                             break;
                         case 0:
                             imageResource = R.drawable.i0;
@@ -140,40 +158,17 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
                     // Set the image resource for the water level ImageView
                     waterLevelImageView.setImageResource(imageResource);
 
-                    // No changes to the status handling
-                    TextView waterStatusTextView = findViewById(R.id.textView9);
-                    if (waterDistanceValue == 0) {
-                        waterStatusTextView.setText("Alert Water Level!");
-                    } else if (waterDistanceValue == 1) {
-                        waterStatusTextView.setText("Alert Water Level!");
-                    } else if (waterDistanceValue == 2) {
-                        waterStatusTextView.setText("Alert Water Level!");
-                    } else if (waterDistanceValue == 3) {
-                        waterStatusTextView.setText("Alert Water Level!");
-                    } else if (waterDistanceValue == 4) {
-                        waterStatusTextView.setText("High Water Level!");
-                    } else if (waterDistanceValue == 5) {
-                        waterStatusTextView.setText("High Water Level!");
-                    } else if  (waterDistanceValue == 6) {
-                        waterStatusTextView.setText("High Water Level!");
-                    } else if  (waterDistanceValue == 7) {
-                        waterStatusTextView.setText("High Water Level!");
-                    } else if  (waterDistanceValue == 8) {
-                        waterStatusTextView.setText("Increasing Water Level!");
-                    } else if  (waterDistanceValue == 9) {
-                        waterStatusTextView.setText("Increasing Water Level!");
-                    } else if  (waterDistanceValue == 10) {
-                        waterStatusTextView.setText("Increasing Water Level!");
-                    } else if  (waterDistanceValue == 11) {
-                        waterStatusTextView.setText("Increasing Water Level!");
-                    } else if  (waterDistanceValue == 12) {
-                        waterStatusTextView.setText("Calm Water Level!");
-                    } else if  (waterDistanceValue == 13) {
-                        waterStatusTextView.setText("Calm Water Level!");
-                    } else if  (waterDistanceValue == 14) {
-                        waterStatusTextView.setText("Calm Water Level!");
-                    } else if  (waterDistanceValue == 15) {
-                        waterStatusTextView.setText("Calm Water Level!");
+                    // Change the text in the TextView based on water level
+                    TextView waterLevelLegendTextView = findViewById(R.id.newTextViews);
+                    // Define the text for each water level
+                    if (meter <= 2.5) {
+                        waterLevelLegendTextView.setText("Stay informed and monitor weather updates.");
+                    } else if (meter <= 5.0) {
+                        waterLevelLegendTextView.setText("Prepare for potential changes, check supplies, and be ready to act if necessary.");
+                    } else if (meter <= 7.5) {
+                        waterLevelLegendTextView.setText("Be ready to evacuate if needed. Secure property and move valuables up.");
+                    } else {
+                        waterLevelLegendTextView.setText("Evacuate immediately. Follow local orders and take essential items with you.");
                     }
                 } else {
                     // Handle the case when the data doesn't exist
