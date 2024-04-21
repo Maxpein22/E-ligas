@@ -91,7 +91,7 @@
             app:layout_alignSelf="center"
             android:backgroundTint="@color/white"
             android:textColor="@color/md_green_800"
-            android:text="Help Recieved"
+            android:text="Help Received"
             />
     </com.google.android.flexbox.FlexboxLayout>
 
