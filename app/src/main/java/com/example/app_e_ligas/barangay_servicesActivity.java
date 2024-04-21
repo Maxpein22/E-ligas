@@ -17,6 +17,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -57,6 +58,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -89,6 +91,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
     static RecyclerView servicesRecViewList;
     public static ArrayList<ServiceModel> selectedServices = new ArrayList<>();
     int totalRequests = 1;
+    String fcmToken = "";
     String photo1x1URL = "https://imgv3.fotor.com/images/blog-richtext-image/ID-Photo-Requirements-for-Passport-and-Identity-Card.jpg";
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
@@ -163,6 +166,18 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
 
         // history
         getRequestHistory();
+
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
+            if (!TextUtils.isEmpty(token)) {
+                Log.d(TAG, "retrieve token successful : " + token);
+            } else{
+                Log.w(TAG, "token should not be null...");
+            }
+        }).addOnFailureListener(e -> {
+            //handle e
+        }).addOnCanceledListener(() -> {
+            //handle cancel
+        }).addOnCompleteListener((task) -> fcmToken = task.getResult());
 
     }
 
@@ -401,7 +416,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                             String newRequestID = databaseReference.push().getKey();
                             String controlNo = "000" + Integer.toString(totalRequests);
 
-                            Request request = new Request(currentUser,purpose ,type, "on-going",dateString, "Request is under review", kindOfBusiness.getText().toString(), addressOfBusiness.getText().toString(), controlNo, photo1x1URL);
+                            Request request = new Request(currentUser,purpose ,type, "on-going",dateString, "Request is under review", kindOfBusiness.getText().toString(), addressOfBusiness.getText().toString(), controlNo, photo1x1URL, fcmToken);
                             FirebaseDatabase.getInstance().getReference("servicesRequests")  // Change to your desired database node
                                     .child(userID)
                                     .child(newRequestID)

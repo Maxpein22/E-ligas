@@ -13,6 +13,15 @@ public class Request {
     String addressOfBusiness;
     String controlNo;
     String photo1x1URL;
+    String fcmToken;
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
 
     public String getPhoto1x1URL() {
         return photo1x1URL;
@@ -51,7 +60,7 @@ public class Request {
     }
 
 
-    public Request(User user, String purpose, String type, String status, String createdAt, String description, String kindOfBusiness, String addressOfBusiness, String controlNo, String photo1x1URL) {
+    public Request(User user, String purpose, String type, String status, String createdAt, String description, String kindOfBusiness, String addressOfBusiness, String controlNo, String photo1x1URL, String fcmToken) {
         this.user = user;
         this.purpose = purpose;
         this.type = type;
@@ -62,6 +71,7 @@ public class Request {
         this.addressOfBusiness = addressOfBusiness;
         this.controlNo = controlNo;
         this.photo1x1URL = photo1x1URL;
+        this.fcmToken = fcmToken;
     }
 
     public String getRequestID() {
