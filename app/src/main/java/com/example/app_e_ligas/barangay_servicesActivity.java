@@ -203,10 +203,16 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                                         case "Cedula":
                                             toDisbaleCard = btnCedula;
                                     }
-                                    if(toDisbaleCard != null && !request.getStatus().equals("rejected")){
-                                        toDisbaleCard.setCardBackgroundColor(getResources().getColor(R.color.md_blue_grey_100));
-                                        toDisbaleCard.setEnabled(false);
+                                    if(toDisbaleCard != null){
+                                        if(!request.getStatus().equals("rejected")){
+                                            toDisbaleCard.setCardBackgroundColor(getResources().getColor(R.color.md_blue_grey_100));
+                                            toDisbaleCard.setEnabled(false);
+                                        }else{
+                                            toDisbaleCard.setEnabled(true);
+                                            toDisbaleCard.setCardBackgroundColor(getResources().getColor(R.color.white));
+                                        }
                                     }
+
                                 totalRequests++;
                         }
                         RecyclerView recyclerView = findViewById(R.id.historyRecyclerView);
@@ -298,7 +304,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                         selectedServices.add(new ServiceModel("Residency", "", "", "0", false));
                         // TODO: Show the incase of emergency container
                     }else{
-                        selectedServices.clear();
+                        if(!type.equals("Business Clearance"))selectedServices.clear();
                     }
 
                     if(hidePurposeContainer){
