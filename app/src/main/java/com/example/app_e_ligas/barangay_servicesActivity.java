@@ -141,6 +141,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyFirebaseMessagingService msg = new MyFirebaseMessagingService();
         activityBarangayServicesBinding = ActivityBarangayServicesBinding.inflate(getLayoutInflater());
         setContentView(activityBarangayServicesBinding.getRoot());
         allocateActivityTitle("Barangay Services");
