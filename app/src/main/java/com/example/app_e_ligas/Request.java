@@ -12,6 +12,15 @@ public class Request {
     String kindOfBusiness;
     String addressOfBusiness;
     String controlNo;
+    String photo1x1URL;
+
+    public String getPhoto1x1URL() {
+        return photo1x1URL;
+    }
+
+    public void setPhoto1x1URL(String photo1x1URL) {
+        this.photo1x1URL = photo1x1URL;
+    }
 
     public String getControlNo() {
         return controlNo;
@@ -42,7 +51,7 @@ public class Request {
     }
 
 
-    public Request(User user, String purpose, String type, String status, String createdAt, String description, String kindOfBusiness, String addressOfBusiness, String controlNo) {
+    public Request(User user, String purpose, String type, String status, String createdAt, String description, String kindOfBusiness, String addressOfBusiness, String controlNo, String photo1x1URL) {
         this.user = user;
         this.purpose = purpose;
         this.type = type;
@@ -52,6 +61,7 @@ public class Request {
         this.kindOfBusiness = kindOfBusiness;
         this.addressOfBusiness = addressOfBusiness;
         this.controlNo = controlNo;
+        this.photo1x1URL = photo1x1URL;
     }
 
     public String getRequestID() {

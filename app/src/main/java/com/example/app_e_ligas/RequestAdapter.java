@@ -13,6 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.namespace.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.YourViewHolder> {
@@ -35,7 +39,11 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.YourView
     @Override
     public void onBindViewHolder(@NonNull YourViewHolder holder, int position) {
         Request item = dataList.get(position);
-        holder.bind(item);
+        try {
+            holder.bind(item);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -54,10 +62,34 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.YourView
             statusBtn = itemView.findViewById(R.id.statusBtn); // Replace with actual ID
         }
 
-        public void bind(Request item) {
+        public void bind(Request item) throws ParseException {
 
             txtTitle.setText(item.getType());
-            txtSubtitle.setText(item.getDescription());
+            String createdAt = item.getCreatedAt();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            // Parse string to Date
+            Date date = dateFormat.parse(createdAt);
+
+            // Create a Calendar instance and set it to the parsed date
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            // Add 6 months
+            calendar.add(Calendar.MONTH, 6);
+
+            // Get the date after adding 6 months
+            Date dateAfter6Months = calendar.getTime();
+
+            // Define output date format
+            SimpleDateFormat outputDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+
+            // Format the date to "April 21, 2024"
+            String formattedDate = " \nNote: Next request of this service will be available at " + outputDateFormat.format(dateAfter6Months);
+            if(item.getStatus().equals("rejected")){
+                formattedDate = "";
+            }
+            txtSubtitle.setText(item.getDescription() + formattedDate);
 
             String status = item.getStatus();
             String resultString = status.replace("-", " ");

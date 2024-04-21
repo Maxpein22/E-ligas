@@ -3,14 +3,19 @@ package com.example.app_e_ligas;
 
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+import static com.example.app_e_ligas.SubmitReport.generateRandomString;
 import static java.security.AccessController.getContext;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,8 +28,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +44,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.app_e_ligas.Services.SelectServicesRecViewAdapter;
 import com.example.app_e_ligas.Services.ServiceModel;
 import com.google.android.flexbox.FlexboxLayout;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -45,16 +57,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 public class barangay_servicesActivity extends DrawerBasedActivity implements View.OnClickListener {
     ActivityBarangayServicesBinding activityBarangayServicesBinding;
-
+    private FlexboxLayout uploadPhotoContainer;
+    private Button upload1x1Photo;
+    private ImageView upload1x1ImageView;
     private CardView btnBrgyCertification;
     private CardView btnBrgyIndegency;
     private CardView btnBrgyID;
@@ -68,6 +89,53 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
     static RecyclerView servicesRecViewList;
     public static ArrayList<ServiceModel> selectedServices = new ArrayList<>();
     int totalRequests = 1;
+    String photo1x1URL = "https://imgv3.fotor.com/images/blog-richtext-image/ID-Photo-Requirements-for-Passport-and-Identity-Card.jpg";
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
+    ProgressDialog dialog;
+
+    // Register the activity result launcher outside of the onClick method
+    ActivityResultLauncher<String> getContent = registerForActivityResult(
+            new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri uri) {
+                    // Handle the selected image URI
+                    if (uri != null) {
+                        // Do something with the selected image URI
+                        // For example, display it in an ImageView
+                         upload1x1ImageView.setImageURI(uri);
+                        String randomString = generateRandomString(10);
+
+                        StorageReference storageReference = FirebaseStorage.getInstance().getReference("reports/"+randomString);
+
+                        UploadTask uploadTasId = storageReference.putFile(uri);
+
+                        Task<Uri> urlTask = uploadTasId.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                            @Override
+                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                if (!task.isSuccessful()) {
+                                    throw task.getException();
+                                }
+
+                                // Continue with the task to get the download URL
+                                return storageReference.getDownloadUrl();
+                            }
+                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                if (task.isSuccessful()) {
+                                    Uri downloadUri = task.getResult();
+                                    photo1x1URL = downloadUri.toString();
+                                    dialog.dismiss();
+                                }
+                            }
+                        });
+
+                    }
+                }
+            }
+    );
 
 
     @Override
@@ -101,24 +169,45 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
         Log.i("RequestFetch", "Fetching Request...");
         List<Request> requestList = new ArrayList<>();
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("servicesRequests");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference("servicesRequests");
 
         databaseReference
+                .child(userID)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         requestList.clear();
                         // Iterate through dataSnapshot to get the data
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        for (DataSnapshot requestSnaps : dataSnapshot.getChildren()) {
                             // Corrected this line to use the 'snapshot' variable
-                            for (DataSnapshot requestSnaps : snapshot.getChildren()) {
-                                if(snapshot.getKey() ==  userID) {
                                     Request request = requestSnaps.getValue(Request.class);
                                     requestList.add(0, request);
                                     Log.i("RequestFetch", request.getType());
-                                }
+
+                                    CardView toDisbaleCard = null;
+                                    switch (request.getType()){
+                                        case "Barangay Certification":
+                                            // Set background color with opacity (e.g., 50% transparent)
+                                            toDisbaleCard = btnBrgyCertification;
+                                            break;
+                                        case "Barangay Indigency":
+                                            toDisbaleCard = btnBrgyIndegency;
+                                            break;
+                                        case "Barangay ID":
+                                            toDisbaleCard = btnBrgyID;
+                                            break;
+                                        case "Business Clearance":
+                                            toDisbaleCard = btnBusinessClearance;
+                                            break;
+                                        case "Cedula":
+                                            toDisbaleCard = btnCedula;
+                                    }
+                                    if(toDisbaleCard != null && !request.getStatus().equals("rejected")){
+                                        toDisbaleCard.setCardBackgroundColor(getResources().getColor(R.color.md_blue_grey_100));
+                                        toDisbaleCard.setEnabled(false);
+                                    }
                                 totalRequests++;
-                            }
                         }
                         RecyclerView recyclerView = findViewById(R.id.historyRecyclerView);
                         recyclerView.setLayoutManager(new LinearLayoutManager(barangay_servicesActivity.this));
@@ -164,6 +253,32 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                     final FlexboxLayout purposeContainer = bottomSheetDialog.findViewById(R.id.purposeContainer);
                     final EditText kindOfBusiness = bottomSheetDialog.findViewById(R.id.kindOfBusiness);
                     final EditText addressOfBusiness = bottomSheetDialog.findViewById(R.id.addressOfBusiness);
+
+                    uploadPhotoContainer = bottomSheetDialog.findViewById(R.id.uploadPhotoContainer);
+                    upload1x1Photo = bottomSheetDialog.findViewById(R.id.upload1x1Photo);
+                    upload1x1ImageView = bottomSheetDialog.findViewById(R.id.upload1x1ImageView);
+                    if(type.equals("Barangay ID")){
+                        uploadPhotoContainer.setVisibility(View.VISIBLE);
+
+                        upload1x1Photo.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                // Inside your onClick method
+                                ActivityCompat.requestPermissions(barangay_servicesActivity.this,
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 101);
+
+                                // Now, handle permission result in onRequestPermissionsResult method of your activity or fragment
+                                dialog =  ProgressDialog.show(barangay_servicesActivity.this, "Uploading Image",
+                                        "Please wait...", true);
+                                // Once permission is granted, launch the file picker intent
+                                getContent.launch("image/*"); // Adjust MIME type if you want to select a specific type of file
+
+                            }
+                        });
+                    }else{
+                        uploadPhotoContainer.setVisibility(View.GONE);
+                    }
 
                     boolean hidePurposeContainer = false;
 
@@ -278,7 +393,8 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("servicesRequests").child(userID);
                             String newRequestID = databaseReference.push().getKey();
                             String controlNo = "000" + Integer.toString(totalRequests);
-                            Request request = new Request(currentUser,purpose ,type, "on-going",dateString, "Request is under review", kindOfBusiness.getText().toString(), addressOfBusiness.getText().toString(), controlNo);
+
+                            Request request = new Request(currentUser,purpose ,type, "on-going",dateString, "Request is under review", kindOfBusiness.getText().toString(), addressOfBusiness.getText().toString(), controlNo, photo1x1URL);
                             FirebaseDatabase.getInstance().getReference("servicesRequests")  // Change to your desired database node
                                     .child(userID)
                                     .child(newRequestID)
@@ -288,6 +404,19 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                                         public void onComplete(@NonNull Task<Void> task) {
                                             progressDialog.dismiss();
                                             if (task.isSuccessful()) {
+
+                                                // Get the current date
+                                                Calendar calendar = Calendar.getInstance();
+                                                Date currentDate = calendar.getTime();
+
+                                                // Add 6 months
+                                                calendar.add(Calendar.MONTH, 6);
+
+                                                // Get the date after adding 6 months
+                                                Date dateAfter6Months = calendar.getTime();
+                                                // Convert the date to a string
+                                                String dateAfter6MonthsString = dateFormat.format(dateAfter6Months);
+
                                                 selectedServices.clear();
                                                 Toast.makeText(barangay_servicesActivity.this, "Successfully Requested", Toast.LENGTH_SHORT).show();
                                             } else {

@@ -131,6 +131,32 @@
             android:visibility="gone"
             />
 
+        <!-- upload 1x1 image-->
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/uploadPhotoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:flexDirection="column"
+            app:alignItems="center"
+            >
+            <ImageView
+                android:id="@+id/upload1x1ImageView"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/baseline_person_24"
+                android:layout_marginBottom="10dp"
+                android:scaleType="fitXY"
+            />
+            <Button
+                android:id="@+id/upload1x1Photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:backgroundTint="#b8e3ff"
+                android:text="Upload 1x1 Photo"/>
+        </com.google.android.flexbox.FlexboxLayout>
+
         <!-- Send Button -->
         <Button
             android:id="@+id/submitButton"
