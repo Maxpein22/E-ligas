@@ -65,6 +65,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.net.URI;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -83,6 +84,13 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
     private CardView btnBrgyID;
     private CardView btnBusinessClearance;
     private CardView btnCedula;
+
+    private TextView brgycertnotavailable;
+    private TextView brgyindigencynotavailable;
+    private TextView brgyidnotavailable;
+    private TextView clearancenotavailable;
+    private TextView cedullanotavailable;
+
     public static View bottomSheetView;
     // Create a RecyclerView and set its layout manager and adapter
 
@@ -163,6 +171,12 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
         btnCedula.setOnClickListener(this);
         btnBrgyIndegency.setOnClickListener(this);
 
+        brgycertnotavailable = findViewById(R.id.brgycertnotavailable);
+        brgyindigencynotavailable = findViewById(R.id.brgyindigencynotavailable);
+        brgyidnotavailable = findViewById(R.id.brgyidnotavailable);
+        clearancenotavailable = findViewById(R.id.clearancenotavailable);
+        cedullanotavailable = findViewById(R.id.cedullanotavailable);
+
 
         // history
         getRequestHistory();
@@ -202,30 +216,72 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                                     Log.i("RequestFetch", request.getType());
 
                                     CardView toDisbaleCard = null;
+                                    TextView toDisableTextView = null;
                                     switch (request.getType()){
                                         case "Barangay Certification":
                                             // Set background color with opacity (e.g., 50% transparent)
                                             toDisbaleCard = btnBrgyCertification;
+                                            toDisableTextView = brgycertnotavailable;
                                             break;
                                         case "Barangay Indigency":
                                             toDisbaleCard = btnBrgyIndegency;
+                                            toDisableTextView = brgyindigencynotavailable;
+
                                             break;
                                         case "Barangay ID":
+                                            toDisableTextView = brgyidnotavailable;
                                             toDisbaleCard = btnBrgyID;
                                             break;
                                         case "Business Clearance":
+                                            toDisableTextView = clearancenotavailable;
                                             toDisbaleCard = btnBusinessClearance;
                                             break;
                                         case "Cedula":
+                                            toDisableTextView = cedullanotavailable;
                                             toDisbaleCard = btnCedula;
                                     }
                                     if(toDisbaleCard != null){
                                         if(!request.getStatus().equals("rejected")){
                                             toDisbaleCard.setCardBackgroundColor(getResources().getColor(R.color.md_blue_grey_100));
                                             toDisbaleCard.setEnabled(false);
+                                            toDisableTextView.setVisibility(View.VISIBLE);
+                                            if(request.getStatus().equals("on-going")){
+                                                toDisableTextView.setText("Not Available \n You have pending request");
+                                            }else{
+                                                String createdAt = request.getCreatedAt();
+                                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                                                // Parse string to Date
+                                                Date date = null;
+                                                try {
+                                                    date = dateFormat.parse(createdAt);
+                                                } catch (ParseException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+
+                                                // Create a Calendar instance and set it to the parsed date
+                                                Calendar calendar = Calendar.getInstance();
+                                                calendar.setTime(date);
+
+                                                // Add 6 months
+                                                calendar.add(Calendar.MONTH, 6);
+
+                                                // Get the date after adding 6 months
+                                                Date dateAfter6Months = calendar.getTime();
+
+                                                // Define output date format
+
+                                                SimpleDateFormat outputDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+
+                                                // Format the date to "April 21, 2024"
+                                                String formattedDate = "You already request \n Available Again in " + outputDateFormat.format(dateAfter6Months);
+                                                toDisableTextView.setText( formattedDate);
+                                            }
+
                                         }else{
                                             toDisbaleCard.setEnabled(true);
                                             toDisbaleCard.setCardBackgroundColor(getResources().getColor(R.color.white));
+                                            toDisableTextView.setVisibility(View.GONE);
                                         }
                                     }
 
