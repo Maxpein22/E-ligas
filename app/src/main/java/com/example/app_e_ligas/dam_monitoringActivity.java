@@ -1,6 +1,10 @@
 package com.example.app_e_ligas;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class dam_monitoringActivity extends DrawerBasedActivity {
 
@@ -41,6 +46,8 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
 
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("waterDistance");
+
+        saveFCMToken();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -179,6 +186,25 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
             public void onCancelled(DatabaseError databaseError) {
                 // Handle errors, if any
             }
+        });
+    }
+
+    private void saveFCMToken(){
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
+            if (!TextUtils.isEmpty(token)) {
+                Log.d(TAG, "retrieve token successful : " + token);
+            } else{
+                Log.w(TAG, "token should not be null...");
+            }
+        }).addOnFailureListener(e -> {
+            //handle e
+        }).addOnCanceledListener(() -> {
+            //handle cancel
+        }).addOnCompleteListener((task) -> {
+            FirebaseDatabase.getInstance()
+                    .getReference("damNotificationReceivers")
+                    .child(task.getResult())
+                    .setValue(task.getResult());
         });
     }
 

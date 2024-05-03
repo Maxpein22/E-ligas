@@ -240,7 +240,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                                             toDisableTextView = cedullanotavailable;
                                             toDisbaleCard = btnCedula;
                                     }
-                                    if(toDisbaleCard != null){
+                                    if(toDisbaleCard != null && request.getType().equals("Barangay ID")){
                                         if(!request.getStatus().equals("rejected")){
                                             toDisbaleCard.setCardBackgroundColor(getResources().getColor(R.color.md_blue_grey_100));
                                             toDisbaleCard.setEnabled(false);

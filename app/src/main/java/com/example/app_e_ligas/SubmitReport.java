@@ -1,5 +1,7 @@
 package com.example.app_e_ligas;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,6 +11,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -40,6 +44,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -79,6 +84,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
     VideoView viewVideo;
     String reportLocation = "CX7J+4G5, Sampaguita, Bacoor, Cavite";
     String reportingType = "image";
+    String fcmToken = "";
 
     ActivityResultLauncher<Uri> photoGetContent = registerForActivityResult(
             new ActivityResultContracts.TakePicture(),
@@ -207,6 +213,18 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         if(emergencyType.equals("others")){
             helpSelection.setVisibility(View.VISIBLE);
         }
+
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
+            if (!TextUtils.isEmpty(token)) {
+                Log.d(TAG, "retrieve token successful : " + token);
+            } else{
+                Log.w(TAG, "token should not be null...");
+            }
+        }).addOnFailureListener(e -> {
+            //handle e
+        }).addOnCanceledListener(() -> {
+            //handle cancel
+        }).addOnCompleteListener((task) -> fcmToken = task.getResult());
     }
 
     private void getCurrentLocation(ActivityResultLauncher mGetContent, Boolean isVoice) {
@@ -335,7 +353,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         // Format the date using the specified formatter
         String formattedDate = generateFormattedDateTime();
 
-        ReportModel report = new ReportModel(emergencyType,userId, downloadUri.toString(), getNeededHelp(emergencyType), "pending", formattedDate, locationName, reportingType);
+        ReportModel report = new ReportModel(emergencyType,userId, downloadUri.toString(), getNeededHelp(emergencyType), "pending", formattedDate, locationName, reportingType, fcmToken);
         mDatabase.child("reports").child(userId).setValue(report)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

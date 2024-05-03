@@ -10,6 +10,15 @@ public class ReportModel {
     String reportedDate;
     String reportLocation;
     String reportingType;
+    String fcmToken;
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
 
     public String getReportingType() {
         return reportingType;
@@ -23,6 +32,7 @@ public class ReportModel {
         return reportLocation;
     }
 
+
     public void setReportLocation(String reportLocation) {
         this.reportLocation = reportLocation;
     }
@@ -30,7 +40,7 @@ public class ReportModel {
     public ReportModel() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
-    public ReportModel(String emergencyType, String userId, String proofUrl, String neededHelp, String status,String reportedDate, String reportLocation, String reportingType) {
+    public ReportModel(String emergencyType, String userId, String proofUrl, String neededHelp, String status,String reportedDate, String reportLocation, String reportingType, String fcmToken) {
         this.emergencyType = emergencyType;
         this.userId = userId;
         this.proofUrl = proofUrl;
@@ -39,6 +49,7 @@ public class ReportModel {
         this.reportedDate = reportedDate;
         this.reportLocation = reportLocation;
         this.reportingType = reportingType;
+        this.fcmToken = fcmToken;
     }
 
     public String getReportedDate() {

@@ -38,9 +38,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Intent to launch when notification is tapped
         Intent intent = new Intent(this, barangay_servicesActivity.class);
+
+        if(title.equals("Water Level Alert")){
+            intent = new Intent(this, dam_monitoringActivity.class);
+        }else if(title.equals("Emergency Report Update")) {
+            intent = new Intent(this, barangay_emergencyActivity.class);
+        }
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+
+        // Create a BigTextStyle for the notification
+        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        bigTextStyle.setBigContentTitle(title);
+        bigTextStyle.bigText(body);
 
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
@@ -49,7 +61,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent) // Attach the intent
-                        .setSmallIcon(R.drawable.logo_ligas1);
+                        .setSmallIcon(R.drawable.logo_ligas1)
+                        .setStyle(bigTextStyle); // Apply the BigTextStyle
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -66,5 +79,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Show the notification.
         notificationManager.notify(0, notificationBuilder.build());
     }
+
 
 }
