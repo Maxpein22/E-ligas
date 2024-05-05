@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+      >
 
         <TextView
             android:layout_width="match_parent"
@@ -114,42 +115,53 @@
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/voicePlayContainer"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp"
-            tools:context=".MainActivity">
+            android:layout_marginBottom="100dp"
+            android:layout_marginTop="300dp"
+            tools:context=".MainActivity"
+            android:visibility="gone"
+            >
+
+            <SeekBar
+                android:id="@+id/seek_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:max="100"
+                android:progress="0"
+                 />
 
             <Button
                 android:id="@+id/play_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Play Audio"
-                android:layout_centerHorizontal="true"/>
+                android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                android:layout_below="@id/seek_bar"
+                android:drawableLeft="@drawable/baseline_play_circle_24"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/button_background_round" />
 
-            <SeekBar
-                android:id="@+id/seek_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/play_button"
-                android:layout_marginTop="16dp"
-                android:max="100"
-                android:progress="0"/>
         </RelativeLayout>
        <VideoView
-           android:layout_width="match_parent"
+           android:layout_marginTop="160dp"
+           android:layout_width="800dp"
            android:layout_height="350dp"
            android:id="@+id/viewVideo"
            app:layout_alignSelf="center"
-           android:layout_marginBottom="10dp"
+           android:layout_marginBottom="50dp"
            android:visibility="gone"
            />
        <ImageView
-           android:layout_width="match_parent"
+           android:layout_marginTop="160dp"
+           android:layout_width="600dp"
            android:layout_height="350dp"
            android:id="@+id/viewImageId"
            app:layout_alignSelf="center"
-           android:layout_marginBottom="10dp"
+           android:layout_marginBottom="50dp"
            android:visibility="gone"
            />
 
@@ -193,10 +205,11 @@
 
        <Button
            android:id="@+id/submitReportBtn"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
+           android:layout_width="140dp"
+           android:layout_height="50dp"
            app:layout_alignSelf="center"
            android:text="Submit Report"
+           android:textAllCaps="false"
            />
    </com.google.android.flexbox.FlexboxLayout>
 

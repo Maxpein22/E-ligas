@@ -65,6 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Learn More"
+                android:textAllCaps="false"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="#FF018786"/>
 
@@ -254,9 +255,9 @@
             <ImageView
                 android:id="@+id/sectionImage"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="250dp"
                 android:layout_marginBottom="16dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/bg" />
 
             <!-- Subtitle -->
@@ -290,6 +291,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="MISSION"
+                    android:textAllCaps="false"
                     android:layout_marginEnd="8dp"
                     android:backgroundTint="@color/splash_blue"/>
 
@@ -298,6 +300,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="VISION"
+                    android:textAllCaps="false"
                     android:layout_marginEnd="8dp"
                     android:backgroundTint="@color/splash_blue"/>
 
@@ -306,6 +309,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="GOAL"
+                    android:textAllCaps="false"
                     android:backgroundTint="@color/splash_blue"/>
             </LinearLayout>
 
