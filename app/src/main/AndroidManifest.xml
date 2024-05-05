@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -25,6 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App_ELigas"
         tools:targetApi="31">
+
         <service
             android:name="com.example.app_e_ligas.MyFirebaseMessagingService"
             android:exported="false">
@@ -32,6 +34,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <!-- Add all activities here -->
         <activity
             android:name="com.example.app_e_ligas.EditProfileActivity"
             android:exported="false" />

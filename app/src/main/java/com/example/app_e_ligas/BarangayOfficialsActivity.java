@@ -18,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class BarangayOfficialsActivity extends DrawerBasedActivity {
@@ -53,6 +55,15 @@ public class BarangayOfficialsActivity extends DrawerBasedActivity {
                     BarangayOfficial official = snapshot.getValue(BarangayOfficial.class);
                     officials.add(official);
                 }
+
+                // Sort the officials based on position
+                Collections.sort(officials, new Comparator<BarangayOfficial>() {
+                    @Override
+                    public int compare(BarangayOfficial o1, BarangayOfficial o2) {
+                        return o1.compareTo(o2);
+                    }
+                });
+
                 officialsAdapter.notifyDataSetChanged();
             }
 

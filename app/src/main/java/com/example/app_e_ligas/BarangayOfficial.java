@@ -1,6 +1,6 @@
 package com.example.app_e_ligas;
 
-public class BarangayOfficial {
+public class BarangayOfficial implements Comparable<BarangayOfficial> {
     private String id;
     private String firstName;
     private String lastName;
@@ -29,6 +29,43 @@ public class BarangayOfficial {
         this.email = email;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public int compareTo(BarangayOfficial otherOfficial) {
+        // Define the order of positions
+        String[] positionsOrder = {
+                "Barangay Captain",
+                "Kagawad - Committee on Human Rights",
+                "Kagawad - Committee on Disaster Risk",
+                "Kagawad - Appropriation",
+                "Kagawad- Committee on Protection of Children",
+                "Kagawad- Committee on Nutrition",
+                "Kagawad- Committee on Peace And Order",
+                "Kagawad- Committee on Ecological Solid Waste",
+                "SK Chairman",
+                "Barangay Secretary",
+                "Barangay Treasurer",
+                "IT Staff"
+        };
+
+        // Get the index of the position for this official
+        int thisIndex = getPositionIndex(this.position, positionsOrder);
+
+        // Get the index of the position for the other official
+        int otherIndex = getPositionIndex(otherOfficial.getPosition(), positionsOrder);
+
+        // Compare the positions based on their indices
+        return thisIndex - otherIndex;
+    }
+
+    private int getPositionIndex(String position, String[] positionsOrder) {
+        for (int i = 0; i < positionsOrder.length; i++) {
+            if (position.equals(positionsOrder[i])) {
+                return i;
+            }
+        }
+        return -1; // Position not found
     }
 
     // Getters and setters

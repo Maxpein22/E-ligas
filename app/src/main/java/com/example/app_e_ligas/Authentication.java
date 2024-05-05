@@ -3,25 +3,11 @@ package com.example.app_e_ligas;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
 
-import com.example.namespace.R;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Arrays;
-import java.util.List;
 
 //Source: https://github.com/firebase/snippets-android/blob/bc74fe8e59253db2b712eb0d1e362e990b7d69fe/auth/app/src/main/java/com/google/firebase/quickstart/auth/GoogleSignInActivity.java#L67-L68
 
@@ -60,7 +46,7 @@ public class Authentication {
 
 
     public FirebaseUser getUser() {
-       return FirebaseAuth.getInstance().getCurrentUser();
+        return FirebaseAuth.getInstance().getCurrentUser();
     }
 
 
