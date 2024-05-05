@@ -9,8 +9,11 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -56,6 +60,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class SubmitReport extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
@@ -85,6 +91,11 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
     String reportLocation = "CX7J+4G5, Sampaguita, Bacoor, Cavite";
     String reportingType = "image";
     String fcmToken = "";
+    RelativeLayout voicePlayContainer;
+    Button play_button;
+    SeekBar seek_bar;
+    MediaPlayer mediaPlayer;
+    private Handler handler = new Handler();
 
     ActivityResultLauncher<Uri> photoGetContent = registerForActivityResult(
             new ActivityResultContracts.TakePicture(),
@@ -106,10 +117,15 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
                 public void onActivityResult(Uri uri) {
                     // Handle the selected audio file URI
                     if (uri != null) {
-                        // Do something with the selected audio file URI
+                        dialog.dismiss();
+                        selectModeContainer.setVisibility(View.GONE);
+                        submitReportContainer.setVisibility(View.VISIBLE);
+                        reportingType = "voice";
                     }
                 }
             });
+
+    private static final int REQUEST_RECORD_AUDIO = 1;
     ActivityResultLauncher<Uri> videoGetContent = registerForActivityResult(
             new ActivityResultContracts.CaptureVideo(),
             new ActivityResultCallback<Boolean>() {
@@ -142,7 +158,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
             });
 
 
-
+    private ActivityResultLauncher<Intent> voiceRecorderLauncher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -175,6 +191,9 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         videoBtn = findViewById(R.id.videoBtn);
         voiceBtn = findViewById(R.id.voiceBtn);
         viewVideo = findViewById(R.id.viewVideo);
+        voicePlayContainer = findViewById(R.id.voicePlayContainer);
+        play_button = findViewById(R.id.play_button);
+        seek_bar = findViewById(R.id.seek_bar);
 
         photoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,6 +244,73 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         }).addOnCanceledListener(() -> {
             //handle cancel
         }).addOnCompleteListener((task) -> fcmToken = task.getResult());
+
+        // Register the launcher for voice recorder activity
+        voiceRecorderLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        // Handle successful recording
+                        Intent data = result.getData();
+                        if (data != null && data.getData() != null) {
+                            // Get the URI of the recorded audio file
+                            Uri recordedAudioUri = data.getData();
+                            // Handle the URI as needed (e.g., save it, play it, etc.)
+                            selectModeContainer.setVisibility(View.GONE);
+                            submitReportContainer.setVisibility(View.VISIBLE);
+                            voicePlayContainer.setVisibility(View.VISIBLE);
+                            mediaPlayer =  MediaPlayer.create(this, recordedAudioUri); // Load audio file
+                            play_button.setOnClickListener(view -> {
+                                mediaPlayer.start(); // Start playback
+                                updateSeekBar();
+                            });
+
+                            seek_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                                @Override
+                                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                                    if (fromUser) {
+                                        mediaPlayer.seekTo(progress);
+                                    }
+                                }
+
+                                @Override
+                                public void onStartTrackingTouch(SeekBar seekBar) {}
+
+                                @Override
+                                public void onStopTrackingTouch(SeekBar seekBar) {}
+                            });
+
+                            reportingType = "voice";
+                            uri = recordedAudioUri;
+                            Toast.makeText(this, "Recorded audio URI: " + recordedAudioUri, Toast.LENGTH_LONG).show();
+                        } else {
+                            // No data available
+                            Toast.makeText(this, "No recorded audio available", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (result.getResultCode() == RESULT_CANCELED) {
+                        // Handle cancellation
+                        Toast.makeText(this, "Recording cancelled", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Handle other result codes
+                        Toast.makeText(this, "Recording failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void updateSeekBar() {
+        seek_bar.setMax(mediaPlayer.getDuration());
+
+        Runnable updateSeekBarTask = new Runnable() {
+            @Override
+            public void run() {
+                if (mediaPlayer != null) {
+                    int currentPosition = mediaPlayer.getCurrentPosition();
+                    seek_bar.setProgress(currentPosition);
+                    seek_bar.postDelayed(this, 1000);
+                }
+            }
+        };
+        handler.postDelayed(updateSeekBarTask, 0);
     }
 
     private void getCurrentLocation(ActivityResultLauncher mGetContent, Boolean isVoice) {
@@ -245,20 +331,17 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
                                     ActivityCompat.requestPermissions(SubmitReport.this,
                                             new String[]{Manifest.permission.CAMERA}, 101 );
                                 }
-
+                                dialog =  ProgressDialog.show(SubmitReport.this, "Emergency Report",
+                                        "Please wait...", true);
                                 if(isVoice){
+                                    dialog.dismiss();
                                     // Launch the audio recorder
-                                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                    intent.setType("audio/*");  // Set the MIME type to audio
-                                    // You can also specify additional parameters like maximum duration, etc., if needed
-                                    mGetContent.launch(intent);
+                                    Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
+                                    voiceRecorderLauncher.launch(intent);
                                 }else{
                                     // Display the location in a TextView
                                     File file = new File(getFilesDir(), "images");
                                     uri = FileProvider.getUriForFile(SubmitReport.this, getApplicationContext().getPackageName() + ".provider", file);
-                                    dialog =  ProgressDialog.show(SubmitReport.this, "Emergency Report",
-                                            "Please wait...", true);
-
                                     new java.util.Timer().schedule(
                                             new java.util.TimerTask() {
                                                 @Override

@@ -50,7 +50,7 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-//                    Intent intent = new Intent(SplashActivity.this, DashboardActivity.class);
+//                    Intent intent = new Intent(SplashActivity.this, barangay_emergencyActivity.class);
 
                     Intent intent = new Intent(SplashActivity.this, WecolmeAcvtivity.class);
                     startActivity(intent);
