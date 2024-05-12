@@ -2,11 +2,11 @@ package com.example.app_e_ligas;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +29,7 @@ public class SignInActivity extends AppCompatActivity {
     TextView textViewForgotPassword, textViewRegister;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
-    CheckBox showPasswordCheckbox;
+    ImageButton imageButtonShowPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class SignInActivity extends AppCompatActivity {
 
         editTextEmail = findViewById(R.id.editTextSignInUserName);
         editTextPassword = findViewById(R.id.editTextPassword);
-        showPasswordCheckbox = findViewById(R.id.showPasswordCheckbox);
+        imageButtonShowPassword = findViewById(R.id.imageButtonShowPassword); // Change the initialization to ImageButton
 
         textViewForgotPassword = findViewById(R.id.txtSignInForgotPassword);
         textViewRegister = findViewById(R.id.txtSignInRegister);
@@ -48,18 +48,31 @@ public class SignInActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // Set OnClickListener to the CheckBox to toggle password visibility
-        showPasswordCheckbox.setOnClickListener(new View.OnClickListener() {
+        // Set OnClickListener to the ImageButton to toggle password visibility
+        imageButtonShowPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (showPasswordCheckbox.isChecked()) {
-                    // Show the password
-                    editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT);
+                // Save the current cursor position
+                int cursorPosition = editTextPassword.getSelectionStart();
+
+                // Toggle password visibility
+                if (editTextPassword.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
+                    // Password is currently hidden, so show it
+                    editTextPassword.setTransformationMethod(null);
+                    imageButtonShowPassword.setImageResource(R.drawable.baseline_visibility_off_24); // Set hide password icon
                 } else {
-                    // Hide the password
-                    editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    // Password is currently visible, so hide it
+                    editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    imageButtonShowPassword.setImageResource(R.drawable.baseline_remove_red_eye_24); // Set show password icon
                 }
+
+                // Restore cursor position
+                editTextPassword.setSelection(cursorPosition);
             }
         });
+
+
+
     }
 
     public void txtSignInForgotPasswordClicked(View v) {
@@ -70,7 +83,6 @@ public class SignInActivity extends AppCompatActivity {
     public void txtSignInRegisterClicked(View v) {
         Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
         startActivity(intent);
-        finish();
     }
 
 
@@ -123,8 +135,10 @@ public class SignInActivity extends AppCompatActivity {
                                 // Show a message based on the user's validation status
                                 if (isValidated) {
                                     Toast.makeText(SignInActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 } else {
                                     Toast.makeText(SignInActivity.this, "Login Successfully, but your account is not validated yet. Certain features may be restricted.", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             } else {
                                 // Handle the case where the user data could not be retrieved
@@ -154,7 +168,7 @@ public class SignInActivity extends AppCompatActivity {
         editTextPassword.setEnabled(isEnabled);
         textViewForgotPassword.setEnabled(isEnabled);
         textViewRegister.setEnabled(isEnabled);
-        showPasswordCheckbox.setEnabled(isEnabled);
+        imageButtonShowPassword.setEnabled(isEnabled);
         // Disable or enable any other UI elements as needed
     }
 }

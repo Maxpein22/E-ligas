@@ -21,6 +21,8 @@
         android:layout_gravity="start"
         android:id="@+id/nav_views"
         app:headerLayout="@layout/main_drawer_header"
-        app:menu="@menu/main_drawer_menu"/>
+        app:menu="@menu/main_drawer_menu"
+        app:itemIconTint="@color/splash_blue"/>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -11,6 +11,7 @@ import com.example.namespace.databinding.ActivityDashboardBinding;
 
 public class DashboardActivity extends DrawerBasedActivity {
 
+
     ActivityDashboardBinding activityDashboardBinding;
     String originalDescriptionText;
 
@@ -66,7 +67,6 @@ public class DashboardActivity extends DrawerBasedActivity {
             public void onClick(View v) {
 
                 startActivity(new Intent(DashboardActivity.this, about_usActivity.class));
-                finish();
             }
         });
 

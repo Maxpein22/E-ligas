@@ -57,14 +57,18 @@
                 android:text="The most exciting district of Bacoor Cavite, get your opportunity to move forwards together."
                 android:textSize="14sp"
                 android:textColor="@color/white"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:justificationMode="inter_word" />
+
 
             <!-- Learn More Button -->
             <Button
                 android:id="@+id/learnMoreButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
                 android:text="Learn More"
+                android:background="@drawable/button_sign_up"
+                app:backgroundTint="@null"
                 android:textAllCaps="false"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="#FF018786"/>
@@ -268,7 +272,10 @@
                 android:text="If you change your city, you're changing the world"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:textStyle="italic"
+                android:gravity="center"/>
+
 
             <!-- Description -->
             <TextView
@@ -278,7 +285,8 @@
                 android:text="Barangay Ligas 1 is determined to address everything that hinder its way to be the best."
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                android:justificationMode="inter_word"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -325,7 +333,8 @@
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:justificationMode="inter_word"/>
 
 
 
@@ -378,7 +387,8 @@
                 android:textColor="@color/black"
                 android:textStyle="italic"
                 android:layout_marginTop="8dp"
-                android:gravity="start|top" />
+                android:gravity="start|top"
+                android:justificationMode="inter_word"/>
 
 
 
@@ -392,16 +402,22 @@
                 android:layout_marginTop="8dp"
                 android:gravity="start"
                 android:textAlignment="textStart"
-                android:maxLines="10" />
+                android:maxLines="10"
+                android:justificationMode="inter_word"/>
 
             <!-- Button -->
             <Button
                 android:id="@+id/actionButton"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
                 android:text="Contact Us"
+                android:textAllCaps="false"
+                android:background="@drawable/button_sign_up"
+                app:backgroundTint="@null"
                 android:layout_marginTop="16dp"
-                android:gravity="center"/>
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center_horizontal" />
+
 
         </LinearLayout>
 

@@ -4,6 +4,17 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp">
 
+    <TextView
+        android:id="@+id/currentOfficialsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Officials"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="350dp"
@@ -23,7 +34,7 @@
         <!-- Text Information -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="140dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
@@ -33,11 +44,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:text="Full Name"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/black" />
+
+            <!-- Term Duration -->
+            <TextView
+                android:id="@+id/termDurationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="(2020-2024)"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="15dp" />
 
             <!-- Position -->
             <TextView
@@ -45,7 +69,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
                 android:gravity="center_horizontal"
                 android:text="Position"
                 android:textAppearance="?android:textAppearanceMedium"
@@ -56,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
                 android:text="View more"
                 android:textAppearance="?android:textAppearanceMedium"

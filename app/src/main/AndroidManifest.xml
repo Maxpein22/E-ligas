@@ -26,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App_ELigas"
         tools:targetApi="31">
+        <activity
+            android:name="com.example.app_e_ligas.activity_request_history"
+            android:exported="false" />
 
         <service
             android:name="com.example.app_e_ligas.MyFirebaseMessagingService"
@@ -33,9 +36,7 @@
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
-
-        <!-- Add all activities here -->
+        </service> <!-- Add all activities here -->
         <activity
             android:name="com.example.app_e_ligas.EditProfileActivity"
             android:exported="false" />

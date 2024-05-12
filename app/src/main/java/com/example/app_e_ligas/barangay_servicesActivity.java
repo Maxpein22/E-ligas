@@ -1,17 +1,11 @@
 package com.example.app_e_ligas;
 
 
-
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.example.app_e_ligas.SubmitReport.generateRandomString;
-import static java.security.AccessController.getContext;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -20,14 +14,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -35,8 +26,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,14 +33,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app_e_ligas.Services.SelectServicesRecViewAdapter;
 import com.example.app_e_ligas.Services.ServiceModel;
+import com.example.namespace.R;
+import com.example.namespace.databinding.ActivityBarangayServicesBinding;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-
-import com.example.namespace.R;
-import com.example.namespace.databinding.ActivityBarangayServicesBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -63,14 +51,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.net.URI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -91,6 +76,8 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
     private TextView clearancenotavailable;
     private TextView cedullanotavailable;
 
+
+
     public static View bottomSheetView;
     // Create a RecyclerView and set its layout manager and adapter
 
@@ -104,6 +91,8 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
     ProgressDialog dialog;
+
+
 
     // Register the activity result launcher outside of the onClick method
     ActivityResultLauncher<String> getContent = registerForActivityResult(
@@ -176,6 +165,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
         brgyidnotavailable = findViewById(R.id.brgyidnotavailable);
         clearancenotavailable = findViewById(R.id.clearancenotavailable);
         cedullanotavailable = findViewById(R.id.cedullanotavailable);
+
 
 
         // history

@@ -46,11 +46,16 @@ public class OfficialsAdapter extends RecyclerView.Adapter<OfficialsAdapter.Offi
         private TextView fullNameTextView;
         private TextView positionTextView;
 
+        private TextView termDurationTextView;
+
+
         public OfficialsViewHolder(@NonNull View itemView) {
             super(itemView);
             profileImageView = itemView.findViewById(R.id.profileImageView);
             fullNameTextView = itemView.findViewById(R.id.fullNameTextView);
             positionTextView = itemView.findViewById(R.id.positionTextView);
+            termDurationTextView = itemView.findViewById(R.id.termDurationTextView);
+
         }
 
         public void bind(final BarangayOfficial official) {
@@ -58,6 +63,12 @@ public class OfficialsAdapter extends RecyclerView.Adapter<OfficialsAdapter.Offi
             Picasso.get().load(official.getProfileImage()).into(profileImageView);
             fullNameTextView.setText(official.getFirstName() + " " + official.getMiddleName() + " " + official.getLastName());
             positionTextView.setText(official.getPosition());
+
+            // Set the term duration
+            String termDuration = "(" + official.getStartYear() + "-" + official.getEndYear() + ")";
+            termDurationTextView.setText(termDuration); // Add this line
+
+
 
             // Set OnClickListener to show full details when item clicked
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +94,10 @@ public class OfficialsAdapter extends RecyclerView.Adapter<OfficialsAdapter.Offi
             TextView phoneNumberTextView = dialogView.findViewById(R.id.phoneNumberTextView);
             TextView positionTextView = dialogView.findViewById(R.id.positionTextView);
             ImageView profileImageView = dialogView.findViewById(R.id.profileImageView);
+            TextView StartYear = dialogView.findViewById(R.id.StartYear);
+            TextView EndYear = dialogView.findViewById(R.id.EndYear);
+
+
 
             // Set details for the selected official
             addressTextView.setText("Address: " + official.getAddress());
@@ -94,6 +109,11 @@ public class OfficialsAdapter extends RecyclerView.Adapter<OfficialsAdapter.Offi
             middleNameTextView.setText("Middle Name: " + official.getMiddleName());
             phoneNumberTextView.setText("Phone Number: " + official.getPhoneNumber());
             positionTextView.setText("Position: " + official.getPosition());
+            StartYear.setText("Start Year of Term: " + official.getStartYear());
+            EndYear.setText("End Year of Term: " + official.getEndYear());
+
+
+
             Picasso.get().load(official.getProfileImage()).into(profileImageView);
             
             // Create AlertDialog to display the floating box

@@ -77,7 +77,8 @@
                 android:text="Description Text Goes Here"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginLeft="5dp" />
+                android:layout_marginLeft="5dp"
+                android:justificationMode="inter_word"/>
 
 
             <TextView
@@ -191,14 +192,14 @@
                 android:textSize="10sp" />
             <TextView
                 android:id="@+id/txtUsername"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="User Name"
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal"/>
+                android:gravity="center"/>
         </com.google.android.flexbox.FlexboxLayout>
     </com.google.android.flexbox.FlexboxLayout>
 

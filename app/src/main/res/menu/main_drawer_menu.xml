@@ -4,32 +4,49 @@
 
             <item android:id="@+id/nav_dashboard"
                 android:icon="@drawable/baseline_dashboard_24"
+                android:iconTint="@color/splash_blue"
                 android:title="Dashboard"/>
             <item android:id="@+id/nav_profile"
                 android:icon="@drawable/baseline_account_circle_24"
+                android:iconTint="@color/splash_blue"
                 android:title="Profile"/>
             <item android:id="@+id/nav_officials"
                 android:icon="@drawable/officials"
+                android:iconTint="@color/splash_blue"
                 android:title="Barangay Officials"/>
             <item android:id="@+id/nav_events"
+
+                android:iconTint="@color/splash_blue"
                 android:icon="@drawable/barangay_events"
                 android:title="Barangay Events"/>
             <item android:id="@+id/nav_services"
+
+                android:iconTint="@color/splash_blue"
                 android:icon="@drawable/services"
                 android:title="Barangay Services"/>
             <item android:id="@+id/nav_emergency"
+
+                android:iconTint="@color/splash_blue"
                 android:icon="@drawable/emergency"
                 android:title="Barangay Emergency"/>
             <item android:id="@+id/nav_dam"
+
+                android:iconTint="@color/splash_blue"
                 android:icon="@drawable/dam_monitoring"
                 android:title="Dam Monitoring"/>
             <item android:id="@+id/nav_about"
+
+                android:iconTint="@color/splash_blue"
                 android:icon="@drawable/about"
                 android:title="About Us"/>
             <item android:id="@+id/nav_Terms_Condition"
+
+                android:iconTint="@color/splash_blue"
                 android:icon="@drawable/baseline_terms"
                 android:title="Terms and Condition"/>
             <item android:id="@+id/nav_logout"
+                android:iconTint="@color/splash_blue"
+
                 android:icon="@drawable/baseline_logout_24"
                 android:title="Logout"/>
         </group>

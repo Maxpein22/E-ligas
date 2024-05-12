@@ -79,29 +79,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/passw"
-        tools:layout_editor_absoluteX="20dp">
+      >
 
-        <EditText
-            android:id="@+id/editTextPassword"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/showPasswordCheckbox"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:letterSpacing=".1"
-            android:layout_marginLeft="20dp"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black"
-            android:textSize="15sp" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
 
-        <CheckBox
-            android:id="@+id/showPasswordCheckbox"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColorHint="@android:color/black"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/imageButtonShowPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
             android:layout_alignParentEnd="true"
-            android:text="Show"
-            android:layout_marginRight="20dp"
-            android:textColor="@android:color/black" />
+            android:src="@drawable/baseline_remove_red_eye_24"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Show Password"/>
+
+
     </RelativeLayout>
 
 
@@ -135,10 +145,12 @@
         android:id="@+id/button4"
         android:layout_width="140dp"
         android:layout_height="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="80dp"
         android:text="Login"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:letterSpacing=".1"
+        android:textSize="18sp"
         android:background="@drawable/button_sign_up"
         app:backgroundTint="@null"
         android:onClick="buttonSignInScrSignInClicked"
@@ -146,19 +158,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSignInForgotPassword" />
 
-    <Button
-        android:id="@+id/guestButton"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="40dp"
-        android:text="Login as Guest"
-        android:textSize="14dp"
-        android:textColor="@color/white"
-        android:background="@drawable/button_sign_up"
-        app:backgroundTint="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
 
     <ProgressBar
         android:id="@+id/progressBar2"

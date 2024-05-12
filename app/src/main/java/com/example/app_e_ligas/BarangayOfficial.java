@@ -12,12 +12,14 @@ public class BarangayOfficial implements Comparable<BarangayOfficial> {
     private String email;
     private String gender;
     private String phoneNumber;
+    private String startYear; // New field for start year
+    private String endYear; // New field for end year
 
     public BarangayOfficial() {
         // Default constructor required for Firebase
     }
 
-    public BarangayOfficial(String id, String firstName, String lastName, String middleName, String position, String profileImage, String address, String civilStatus, String email, String gender, String phoneNumber) {
+    public BarangayOfficial(String id, String firstName, String lastName, String middleName, String position, String profileImage, String address, String civilStatus, String email, String gender, String phoneNumber, String startYear, String endYear) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,6 +31,8 @@ public class BarangayOfficial implements Comparable<BarangayOfficial> {
         this.email = email;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
+        this.startYear = startYear;
+        this.endYear = endYear;
     }
 
     @Override
@@ -155,5 +159,22 @@ public class BarangayOfficial implements Comparable<BarangayOfficial> {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+
+    public String getStartYear() {
+        return startYear;
+    }
+
+    public void setStartYear(String startYear) {
+        this.startYear = startYear;
+    }
+
+    public String getEndYear() {
+        return endYear;
+    }
+
+    public void setEndYear(String endYear) {
+        this.endYear = endYear;
     }
 }

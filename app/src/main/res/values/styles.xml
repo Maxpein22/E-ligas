@@ -16,6 +16,11 @@
         <!-- Add more styling attributes as needed -->
     </style>
 
+    <style name="AppTheme.NavigationView" parent="ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize other attributes if needed -->
+        <item name="itemIconTint">@color/splash_blue</item>
+    </style>
+
 
 
 </resources>
