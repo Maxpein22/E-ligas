@@ -92,7 +92,7 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
 
         } else if (itemId == R.id.nav_logout) {
             Toast.makeText(this, "Logout Successfully!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, WecolmeAcvtivity.class);
+            Intent intent = new Intent(this, SignInActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();

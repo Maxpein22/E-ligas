@@ -52,29 +52,16 @@
         android:id="@+id/button"
         android:layout_width="140dp"
         android:layout_height="60dp"
-        android:layout_marginStart="20dp"
         android:layout_marginBottom="80dp"
         android:background="@drawable/button_sign_up"
-        android:onClick="onButtonSignUpClicked"
-        android:text="Login"
         android:letterSpacing=".1"
+        android:onClick="onButtonSignUpClicked"
+        android:text="Next"
         android:textColor="@color/white"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="140dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="80dp"
-        android:background="@drawable/button_sign_in"
-        android:onClick="onButtonSignInClicked"
-        android:text="Register"
-        android:letterSpacing=".1"
-        android:textColor="@color/white"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

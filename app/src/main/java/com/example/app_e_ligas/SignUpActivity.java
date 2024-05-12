@@ -108,30 +108,21 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         // Password visibility toggling
-        final CheckBox showPasswordCheckbox = findViewById(R.id.showPasswordCheckbox);
-        final CheckBox showConfirmPasswordCheckbox = findViewById(R.id.showConfirmPasswordCheckbox);
+        final ImageView showPasswordImageView = findViewById(R.id.imageButtonShowPassword);
+        final ImageView showConfirmPasswordImageView = findViewById(R.id.imageViewShowConfirmPassword);
         final EditText passwordEditText = findViewById(R.id.editTextPassword);
         final EditText confirmPasswordEditText = findViewById(R.id.editTextConfirmPassword);
-
-        showPasswordCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        showPasswordImageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                } else {
-                    passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                }
+            public void onClick(View v) {
+                togglePasswordVisibility(passwordEditText, showPasswordImageView);
             }
         });
 
-        showConfirmPasswordCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        showConfirmPasswordImageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    confirmPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                } else {
-                    confirmPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                }
+            public void onClick(View v) {
+                togglePasswordVisibility(confirmPasswordEditText, showConfirmPasswordImageView);
             }
         });
 
@@ -511,7 +502,19 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
         });
     }
-
+    private void togglePasswordVisibility(EditText editText, ImageView imageView) {
+        if (editText.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)) {
+            // Password is currently visible, so hide it
+            editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            imageView.setImageResource(R.drawable.baseline_remove_red_eye_24); // Set hide password icon
+        } else {
+            // Password is currently hidden, so show it
+            editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            imageView.setImageResource(R.drawable.baseline_visibility_off_24); // Set show password icon
+        }
+        // Move cursor to the end of the text
+        editText.setSelection(editText.getText().length());
+    }
 
 
 

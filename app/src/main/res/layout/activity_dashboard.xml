@@ -62,9 +62,11 @@
             <!-- Learn More Button -->
             <Button
                 android:id="@+id/learnMoreButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
                 android:text="Learn More"
+                android:background="@drawable/button_sign_up"
+                app:backgroundTint="@null"
                 android:textAllCaps="false"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="#FF018786"/>
@@ -397,11 +399,16 @@
             <!-- Button -->
             <Button
                 android:id="@+id/actionButton"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
                 android:text="Contact Us"
+                android:textAllCaps="false"
+                android:background="@drawable/button_sign_up"
+                app:backgroundTint="@null"
                 android:layout_marginTop="16dp"
-                android:gravity="center"/>
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center_horizontal" />
+
 
         </LinearLayout>
 

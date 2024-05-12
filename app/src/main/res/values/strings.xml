@@ -2,6 +2,7 @@
     <string name="app_name">Ligas As One</string>
     <string name="menu_drawer_open">Drawer Open</string>
     <string name="menu_drawer_close">Drawer Close</string>
+    <string name="underlined_text"><u>Request History</u></string>
 
     <string-array name="civil_status_choices_with_hint">Select Civil Status
         <item>Single</item>

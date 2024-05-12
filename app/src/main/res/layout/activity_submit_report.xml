@@ -209,6 +209,8 @@
            android:layout_height="50dp"
            app:layout_alignSelf="center"
            android:text="Submit Report"
+           android:background="@drawable/button_sign_up"
+           app:backgroundTint="@null"
            android:textAllCaps="false"
            />
    </com.google.android.flexbox.FlexboxLayout>
