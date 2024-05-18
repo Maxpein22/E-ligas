@@ -439,23 +439,22 @@ public class SignUpActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         String validIDUrl = uri.toString();
-                                        // If the valid ID is uploaded successfully, set validated to true
-                                        saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, validIDUrl, true);
+                                        // Save user data without setting validated to true
+                                        saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, validIDUrl, false);
                                     }
                                 });
                             } else {
                                 Toast.makeText(SignUpActivity.this, "Failed to upload valid ID image", Toast.LENGTH_SHORT).show();
-                                // If image upload failed, save user data without a valid ID URL and set validated to false
+                                // If image upload failed, save user data without a valid ID URL
                                 saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, null, false);
                             }
                         }
                     });
         } else {
-            // If no valid ID is provided, set validated to false
+            // If no valid ID is provided
             saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, birthplace, address, emergencyContact, emergencyContactNo, null, false);
         }
     }
-
 
     private void saveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String age, String birthday, String birthplace, String address, String emergencyContact, String emergencyContactNo, String validIDUrl, boolean validated) {
         Log.d("SaveUserData", "Validated value: " + validated);
@@ -484,6 +483,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 
     // Helper function to set spannable text and click listener for a TextView
