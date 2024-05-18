@@ -11,6 +11,8 @@ public class PromoModel {
     String startDate;
     String endDate;
 
+    String eventLink;
+
     public String getID() {
         return ID;
     }
@@ -75,11 +77,19 @@ public class PromoModel {
         this.endDate = endDate;
     }
 
+    public String getEventLink() {
+        return eventLink;
+    }
+
+    public void setEventLink(String eventLink) {
+        this.eventLink = eventLink;
+    }
+
     public PromoModel() {
         // Default constructor required for calls to DataSnapshot.getValue(PromoModel.class)
     }
 
-    public PromoModel(String ID, String datePosted, String description, String eventBanner, String eventTitle, String organizerName, String startDate, String endDate) {
+    public PromoModel(String ID, String datePosted, String description, String eventBanner, String eventTitle, String organizerName, String startDate, String endDate, String eventLink) {
         this.ID = ID;
         this.datePosted = datePosted;
         this.description = description;
@@ -88,5 +98,6 @@ public class PromoModel {
         this.organizerName = organizerName;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.eventLink = eventLink;
     }
 }

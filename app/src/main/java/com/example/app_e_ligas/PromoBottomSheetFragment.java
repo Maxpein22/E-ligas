@@ -6,20 +6,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.example.namespace.R;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,15 +60,33 @@ public class PromoBottomSheetFragment extends BottomSheetDialogFragment {
         parentBtn.setPadding(40,60,40,500);
         txtFacebookLink.setVisibility(View.VISIBLE);
         moreInfoContainer.setVisibility(View.VISIBLE);
+        // Retrieve the Facebook link from Firebase
+        String facebookLink = promo.getEventLink();
+
+        // Set an onClickListener on the Facebook link TextView
         txtFacebookLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://www.facebook.com/pamunuanngligas.uno";
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
-                startActivity(intent);
+                // Create an Intent to open the Facebook link
+                if (facebookLink != null && !facebookLink.isEmpty()) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(facebookLink));
+
+                    // Check if Facebook app is installed, if yes, open the link in it
+                    intent.setPackage("com.facebook.katana");
+
+                    // Check if there's an app to handle this intent
+                    if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivity(intent);
+                    } else {
+                        // If Facebook app is not installed, open the link in a browser
+                        intent.setPackage(null);
+                        startActivity(intent);
+                    }
+                }
             }
         });
+
     }
 
     public static String firebaseDateFormat(String dashedDate){

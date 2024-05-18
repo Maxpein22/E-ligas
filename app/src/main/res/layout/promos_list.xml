@@ -60,7 +60,7 @@
                 android:id="@+id/txtFacebookLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Visit our Facebook Page"
+                android:text="Cick here for more Information"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
