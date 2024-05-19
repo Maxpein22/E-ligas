@@ -415,19 +415,16 @@ public class Profile extends DrawerBasedActivity {
                     // Check if dataSnapshot exists and contains user data
                     if (dataSnapshot.exists()) {
                         // Retrieve the validation status
-                        Boolean isUserValidated = dataSnapshot.child("validated").getValue(Boolean.class);
+                        String validationStatus = dataSnapshot.child("validationStatus").getValue(String.class);
 
                         // Retrieve the valid ID image URL from the user's data
                         String validIDImageUrl = dataSnapshot.child("validIDUrl").getValue(String.class);
 
-                        // Determine whether to show or hide the upload valid
-                        // Determine whether to show or hide the upload valid ID layout
-                        if (validIDImageUrl != null) {
-                            // Valid ID image has been uploaded, hide the upload valid ID layout
-                            activityProfileBinding.uploadValidIdLayout.setVisibility(View.GONE);
-                        } else {
-                            // Valid ID image has not been uploaded, show the upload valid ID layout
+                        // Show the upload valid ID layout if validationStatus is "rejected" and validIDUrl is not present
+                        if ("rejected".equals(validationStatus) || validIDImageUrl == null) {
                             activityProfileBinding.uploadValidIdLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            activityProfileBinding.uploadValidIdLayout.setVisibility(View.GONE);
                         }
                     } else {
                         Log.d(TAG, "User data not found");

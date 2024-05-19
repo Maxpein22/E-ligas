@@ -131,7 +131,7 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
                         // Hide specific menu items for non-validated users
                         menu.findItem(R.id.nav_officials).setVisible(false);
                         menu.findItem(R.id.nav_services).setVisible(false);
-                        menu.findItem(R.id.nav_emergency).setVisible(false);
+
                         // Hide other menu items as needed
                     }
                 } else {
