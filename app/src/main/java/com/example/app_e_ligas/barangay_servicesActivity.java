@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -166,6 +167,20 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
         clearancenotavailable = findViewById(R.id.clearancenotavailable);
         cedullanotavailable = findViewById(R.id.cedullanotavailable);
 
+        brgyidnotavailable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Not available. " +
+                                        "If badly needed, please direct to the barangay for assistance.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }, 1000);
+            }
+        });
 
 
         // history

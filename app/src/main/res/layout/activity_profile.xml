@@ -233,11 +233,12 @@
 
     <LinearLayout
         android:id="@+id/uploadValidIdLayout"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:visibility="gone"
         >
 
@@ -245,10 +246,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload Valid ID:"
+            android:text="Upload Valid ID or Certificate/Document that you are residents of Ligas 1:"
             android:textColor="@color/black"
             android:textSize="18dp"
-            android:layout_marginBottom="10dp" />
+            android:textStyle="italic"
+            android:layout_marginBottom="10dp"
+            android:justificationMode="inter_word"
+            />
 
         <!-- ImageView to display the uploaded ID -->
         <ImageView
@@ -266,20 +270,27 @@
             android:layout_height="wrap_content"
             android:text="Upload"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/button_sign_in"
             android:textColor="@android:color/white" />
 
-        <Button
-            android:id="@+id/savebtnVID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/button_sign_in"
-            android:textColor="@android:color/white"
-            android:visibility="gone"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/savebtnVID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button_sign_in"
+                android:textColor="@android:color/white"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
     <Button

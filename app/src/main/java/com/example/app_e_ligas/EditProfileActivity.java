@@ -82,6 +82,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 saveProfile();
             }
         });
+
+        // Load user data
+        loadUserData();
     }
 
     private void setUpDatePicker() {
@@ -115,6 +118,43 @@ public class EditProfileActivity extends AppCompatActivity {
                         calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+    }
+
+    private void loadUserData() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            mDatabase.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        User user = dataSnapshot.getValue(User.class);
+                        if (user != null) {
+                            firstNameEditText.setText(user.getUserFirstName());
+                            middleNameEditText.setText(user.getUserMiddleName());
+                            lastNameEditText.setText(user.getUserLastName());
+                            birthdayTextView.setText(user.getBirthday());
+                            ageEditText.setText(user.getAge());
+                            birthPlaceEditText.setText(user.getBirthPlace());
+                            contactNumberEditText.setText(user.getUserPhoneNumber());
+                            locationEditText.setText(user.getAddress());
+
+                            // Set the spinner selection
+                            ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) civilStatusSpinner.getAdapter();
+                            if (user.getCivilStatus() != null) {
+                                int spinnerPosition = adapter.getPosition(user.getCivilStatus());
+                                civilStatusSpinner.setSelection(spinnerPosition);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(EditProfileActivity.this, "Failed to load user data", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void saveProfile() {
@@ -201,5 +241,4 @@ public class EditProfileActivity extends AppCompatActivity {
             Toast.makeText(EditProfileActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
     }
-
 }
