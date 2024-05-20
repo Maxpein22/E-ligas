@@ -59,8 +59,8 @@
 
                 <ImageView
                     android:id="@+id/image1"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_fire" />
             </RelativeLayout>
@@ -88,8 +88,8 @@
 
                 <ImageView
                     android:id="@+id/image2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_earth" />
             </RelativeLayout>
@@ -128,8 +128,8 @@
 
                 <ImageView
                     android:id="@+id/image3"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_typhoon" />
 
@@ -163,8 +163,8 @@
 
                 <ImageView
                     android:id="@+id/image4"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_rubbery" />
 
@@ -209,8 +209,8 @@
                 <ImageView
 
                     android:id="@+id/image5"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_medical" />
 
@@ -242,8 +242,8 @@
 
                 <ImageView
                     android:id="@+id/image6"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_others" />
             </RelativeLayout>

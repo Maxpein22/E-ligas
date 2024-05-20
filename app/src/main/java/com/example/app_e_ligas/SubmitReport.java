@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
@@ -84,17 +85,21 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
     RelativeLayout photoBtn;
     RelativeLayout videoBtn;
     RelativeLayout voiceBtn;
+    RelativeLayout messageBtn;
     Uri uri;
     Authentication auth;
     StorageReference storageReference;
     VideoView viewVideo;
     String reportLocation = "CX7J+4G5, Sampaguita, Bacoor, Cavite";
+    EditText locationEmergencyEditText;
     String reportingType = "image";
     String fcmToken = "";
     RelativeLayout voicePlayContainer;
     Button play_button;
     SeekBar seek_bar;
     MediaPlayer mediaPlayer;
+    FlexboxLayout messageEmergencyContainer;
+    EditText messageEmergencyEditText;
     private Handler handler = new Handler();
 
     ActivityResultLauncher<Uri> photoGetContent = registerForActivityResult(
@@ -190,29 +195,41 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         photoBtn = findViewById(R.id.photoBtn);
         videoBtn = findViewById(R.id.videoBtn);
         voiceBtn = findViewById(R.id.voiceBtn);
+        messageBtn = findViewById(R.id.messageBtn);
         viewVideo = findViewById(R.id.viewVideo);
         voicePlayContainer = findViewById(R.id.voicePlayContainer);
         play_button = findViewById(R.id.play_button);
         seek_bar = findViewById(R.id.seek_bar);
 
+        messageEmergencyEditText = findViewById(R.id.messageEmergencyEditText);
+        messageEmergencyContainer = findViewById(R.id.messageEmergencyContainer);
+        locationEmergencyEditText = findViewById(R.id.locationEmergencyEditText);
+
         photoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCurrentLocation(photoGetContent, false);
+                getCurrentLocation(photoGetContent, false, false);
             }
         });
 
         videoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCurrentLocation(videoGetContent, false);
+                getCurrentLocation(videoGetContent, false, false);
             }
         });
 
         voiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCurrentLocation(voiceGetContent, true);
+                getCurrentLocation(voiceGetContent, true, false);
+            }
+        });
+
+        messageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCurrentLocation(voiceGetContent, false, true);
             }
         });
 
@@ -313,7 +330,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         handler.postDelayed(updateSeekBarTask, 0);
     }
 
-    private void getCurrentLocation(ActivityResultLauncher mGetContent, Boolean isVoice) {
+    private void getCurrentLocation(ActivityResultLauncher mGetContent, Boolean isVoice, Boolean isMessage) {
         try {
             fusedLocationClient.getLastLocation()
                     .addOnCompleteListener(this, new OnCompleteListener<Location>() {
@@ -325,6 +342,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
                                 double longitude = lastLocation.getLongitude();
 
                                 String locationName = getLocationName(latitude, longitude);
+                                String locationNameWithoutLat = getLocationNameWithoutLat(latitude, longitude);
                                 // Permission already granted, start getting the location
                                 if(ContextCompat.checkSelfPermission(SubmitReport.this,
                                         Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
@@ -333,12 +351,34 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
                                 }
                                 dialog =  ProgressDialog.show(SubmitReport.this, "Emergency Report",
                                         "Please wait...", true);
+                                locationEmergencyEditText.setText(locationNameWithoutLat);
                                 if(isVoice){
                                     dialog.dismiss();
                                     // Launch the audio recorder
                                     Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
                                     voiceRecorderLauncher.launch(intent);
-                                }else{
+                                }
+                                else if (isMessage){
+                                    dialog.dismiss();
+                                    selectModeContainer.setVisibility(View.GONE);
+                                    submitReportContainer.setVisibility(View.VISIBLE);
+                                    messageEmergencyContainer.setVisibility(View.VISIBLE);
+                                    reportingType = "message";
+                                    submitReportBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            String messageText = String.valueOf(messageEmergencyEditText.getText());
+                                            if(messageText.isEmpty()){
+                                                Toast.makeText(SubmitReport.this, "Message is Required", Toast.LENGTH_LONG);
+                                                return;
+                                            }
+                                            String toSubmitLocation = String.valueOf(locationEmergencyEditText.getText()) + " | Latitude: " + latitude + " | Longitude :" + longitude;
+                                            saveReportToDatabase(messageText, toSubmitLocation);
+                                        }
+                                    });
+                                    return;
+                                }
+                                else{
                                     // Display the location in a TextView
                                     File file = new File(getFilesDir(), "images");
                                     uri = FileProvider.getUriForFile(SubmitReport.this, getApplicationContext().getPackageName() + ".provider", file);
@@ -357,7 +397,8 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
                                 submitReportBtn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        submitReport(locationName);
+                                        String toSubmitLocation = String.valueOf(locationEmergencyEditText.getText()) + " | Latitude: " + latitude + " | Longitude :" + longitude;
+                                        submitReport(toSubmitLocation);
                                     }
                                 });
                             } else {
@@ -386,6 +427,21 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         return reportLocation + " | Latitude: " + latitude + " | Longitude :" + longitude;
     }
 
+    private String getLocationNameWithoutLat(double latitude, double longitude) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (((List<?>) addresses).size() > 0) {
+                Address address = addresses.get(0);
+                // Construct the location name from address components
+                return address.getAddressLine(0);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return reportLocation;
+    }
+
     private void submitReport(String locationName) {
         dialog.show();
         String randomString = generateRandomString(10);
@@ -408,7 +464,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
-                    saveReportToDatabase(downloadUri, locationName);
+                    saveReportToDatabase(downloadUri.toString(), locationName);
                 }
             }
         });
@@ -428,7 +484,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         return sb.toString();
     }
 
-    private void saveReportToDatabase(Uri downloadUri, String locationName) {
+    private void saveReportToDatabase(String downloadUri, String locationName) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String key = mDatabase.child("posts").push().getKey();
         String userId =  auth.getUser().getUid();
@@ -436,7 +492,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         // Format the date using the specified formatter
         String formattedDate = generateFormattedDateTime();
 
-        ReportModel report = new ReportModel(emergencyType,userId, downloadUri.toString(), getNeededHelp(emergencyType), "pending", formattedDate, locationName, reportingType, fcmToken);
+        ReportModel report = new ReportModel(emergencyType,userId, downloadUri, getNeededHelp(emergencyType), "pending", formattedDate, locationName, reportingType, fcmToken);
         mDatabase.child("reports").child(userId).setValue(report)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

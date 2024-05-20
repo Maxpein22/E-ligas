@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
+        android:visibility="visible"
       >
 
         <TextView
@@ -45,7 +46,7 @@
             <ImageView
                 android:id="@+id/image1"
                 android:layout_width="100dp"
-                android:layout_height="150dp"
+                android:layout_height="100dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_photo" />
         </RelativeLayout>
@@ -71,7 +72,7 @@
             <ImageView
                 android:id="@+id/image2"
                 android:layout_width="100dp"
-                android:layout_height="150dp"
+                android:layout_height="100dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_video" />
         </RelativeLayout>
@@ -97,9 +98,35 @@
             <ImageView
                 android:id="@+id/image3"
                 android:layout_width="100dp"
-                android:layout_height="150dp"
+                android:layout_height="100dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_voice" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/messageBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Message"
+                android:textSize="14sp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:gravity="center|bottom"
+                android:paddingBottom="10dp"
+                android:layout_below="@id/image4" />
+
+            <ImageView
+                android:id="@+id/image4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_message2" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -112,6 +139,25 @@
        app:flexDirection="column"
         android:visibility="gone"
        >
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flexDirection="column"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set Emergency Location:"
+                android:textSize="20sp"
+                ></TextView>
+            <EditText
+                android:id="@+id/locationEmergencyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ></EditText>
+        </com.google.android.flexbox.FlexboxLayout>
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/voicePlayContainer"
@@ -119,7 +165,7 @@
             android:layout_height="match_parent"
             android:padding="16dp"
             android:layout_marginBottom="100dp"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="30dp"
             tools:context=".MainActivity"
             android:visibility="gone"
             >
@@ -147,7 +193,7 @@
 
         </RelativeLayout>
        <VideoView
-           android:layout_marginTop="160dp"
+           android:layout_marginTop="30dp"
            android:layout_width="800dp"
            android:layout_height="350dp"
            android:id="@+id/viewVideo"
@@ -156,7 +202,7 @@
            android:visibility="gone"
            />
        <ImageView
-           android:layout_marginTop="160dp"
+           android:layout_marginTop="30dp"
            android:layout_width="600dp"
            android:layout_height="350dp"
            android:id="@+id/viewImageId"
@@ -201,6 +247,29 @@
                android:layout_height="wrap_content"
                android:text="Fire truck"/>
        </com.google.android.flexbox.FlexboxLayout>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flexDirection="column"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:id="@+id/messageEmergencyContainer"
+            android:visibility="gone"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Let us know about the Emergency:"
+                android:textSize="20sp"
+                ></TextView>
+            <EditText
+                android:id="@+id/messageEmergencyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ></EditText>
+        </com.google.android.flexbox.FlexboxLayout>
+
 
 
        <Button
