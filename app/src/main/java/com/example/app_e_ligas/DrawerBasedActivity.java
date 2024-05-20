@@ -92,6 +92,11 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
 
         } else if (itemId == R.id.nav_logout) {
             Toast.makeText(this, "Logout Successfully!", Toast.LENGTH_SHORT).show();
+
+            // Clear user data
+            FirebaseAuth.getInstance().signOut();
+            User.clearUserData(); // You need to implement this method in your User class
+
             Intent intent = new Intent(this, SignInActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

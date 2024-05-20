@@ -117,7 +117,6 @@ public class SignInActivity extends AppCompatActivity {
                 // Within the mAuth.signInWithEmailAndPassword() method
 // When authentication completes, check whether the sign-in was successful
                 if (task.isSuccessful()) {
-                    // Sign-in was successful
                     String uid = mAuth.getCurrentUser().getUid();
                     FirebaseDatabase.getInstance().getReference("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -125,6 +124,9 @@ public class SignInActivity extends AppCompatActivity {
                             // Retrieve the user object from the database
                             User user = snapshot.getValue(User.class);
                             if (user != null) {
+                                // Save the user data for later use
+                                User currentUser = user;
+
                                 // Pass the validation status as an extra to the next activity
                                 boolean isValidated = user.isValidated();
                                 Intent intent = new Intent(SignInActivity.this, DashboardActivity.class);
@@ -156,6 +158,7 @@ public class SignInActivity extends AppCompatActivity {
                     // Show a generic error message
                     Toast.makeText(SignInActivity.this, "Login Failed. Please check your credentials and try again.", Toast.LENGTH_SHORT).show();
                 }
+
 
             }
         });

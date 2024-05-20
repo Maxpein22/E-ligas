@@ -85,7 +85,15 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.YourView
             SimpleDateFormat outputDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
 
             // Format the date to "April 21, 2024"
-            String formattedDate = " \nNote: Next request of this service will be available at " + outputDateFormat.format(dateAfter6Months);
+            String formattedDate = "";
+            if (!item.getStatus().equals("rejected")) {
+                formattedDate = "\nNote: You can claim your request within 1-2 days.";
+            }
+
+            if (item.getType().equals("Barangay ID")) {
+                formattedDate = "\nNote: Next request of this service will be available at " + outputDateFormat.format(dateAfter6Months) + " and you can claim your request within 1-2 days.";
+            }
+
             if(item.getStatus().equals("rejected")){
                 formattedDate = "";
             }

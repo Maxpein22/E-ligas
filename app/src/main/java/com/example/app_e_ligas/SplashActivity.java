@@ -1,7 +1,10 @@
 package com.example.app_e_ligas;
 
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -10,8 +13,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.namespace.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,21 +50,24 @@ public class SplashActivity extends AppCompatActivity {
         popInAnimation1.setFillAfter(true);
         textView1.startAnimation(popInAnimation1);
 
-        Thread thread = new Thread() {
-            public void run() {
-                try {
-                    sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-//                    Intent intent = new Intent(SplashActivity.this, barangay_emergencyActivity.class);
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser != null) {
+                    // User is signed in
+                    Intent intent = new Intent(SplashActivity.this, DashboardActivity.class);
+                    startActivity(intent);
+                } else {
+                    // User is not signed in
                     Intent intent = new Intent(SplashActivity.this, WecolmeAcvtivity.class);
                     startActivity(intent);
-                    finish();
                 }
+                finish();
             }
-        };
-        thread.start();
+        }, 1000); // Delay for 1 second before checking authentication status
     }
 }

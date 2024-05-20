@@ -1,27 +1,27 @@
 package com.example.app_e_ligas;
 
 public class User {
-    public String userLastName;
-    public String userMiddleName;
-    public String userFirstName;
-    public String userPhoneNumber;
-    public String userEmail;
-    public String userPassword;
-    public String civilStatus;
-    public String age;
-    public String birthday;
-    public String birthPlace;
-    public String emergencyContactPerson;
-    public String emergencyContactPersonNo;
-    public String address;
-    public String validIDUrl; // Added field for valid ID URL
-    public String userProfileImage; // Added field for user profile image
+    public static String userLastName;
+    public static String userMiddleName;
+    public static String userFirstName;
+    public static String userPhoneNumber;
+    public static String userEmail;
+    public static String userPassword;
+    public static String civilStatus;
+    public static String age;
+    public static String birthday;
+    public static String birthPlace;
+    public static String emergencyContactPerson;
+    public static String emergencyContactPersonNo;
+    public static String address;
+    public static String validIDUrl; // Added field for valid ID URL
+    public static String userProfileImage; // Added field for user profile image
 
     public User() {
 
     }
 
-    public boolean validated; // Add a new field for validation status
+    public static boolean validated; // Add a new field for validation status
 
 
     public String getAddress() {
@@ -51,6 +51,26 @@ public class User {
         this.validated = validated; // Initialize the validated field
     }
 
+    public static void clearUserData() {
+        // Set all fields to default values or null
+        userLastName = null;
+        userMiddleName = null;
+        userFirstName = null;
+        userPhoneNumber = null;
+        userEmail = null;
+        userPassword = null;
+        civilStatus = null;
+        age = null;
+        birthday = null;
+        birthPlace = null;
+        emergencyContactPerson = null;
+        emergencyContactPersonNo = null;
+        address = null;
+        validIDUrl = null;
+        userProfileImage = null;
+        validated = false;
+    }
+
 
     // Add getter and setter methods for the validated field
     public boolean isValidated() {
@@ -71,6 +91,8 @@ public class User {
     public void setBirthPlace(String birthPlace) {
         this.birthPlace = birthPlace;
     }
+
+
 
     // Corrected constructor to include the 'role' parameter
     public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword) {
