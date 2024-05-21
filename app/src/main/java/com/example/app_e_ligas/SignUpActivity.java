@@ -242,8 +242,8 @@ public class SignUpActivity extends AppCompatActivity {
                     cursor.close();
 
                     double fileSizeInMB = (double) fileSize / (1024 * 1024);
-                    if (fileSizeInMB > 5) {
-                        // File size exceeds 5 MB, show toast message
+                    if (fileSizeInMB > 15) {
+                        // File size exceeds 15 MB, show toast message
                         Toast.makeText(getApplicationContext(), "File size exceeds 5 MB. Please select a smaller image.", Toast.LENGTH_SHORT).show();
                         imageViewValidID.setImageResource(0); // Clear the image view
                     } else {
