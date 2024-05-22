@@ -6,30 +6,28 @@
     android:layout_height="match_parent"
     tools:context="com.example.app_e_ligas.PendingReport"
     app:flexDirection="column"
-    app:alignContent="center"
-
-    >
+    app:alignContent="center">
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/pendingStatus"
         android:padding="16dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:alignContent="center"
         app:flexDirection="column"
-        android:background="@color/md_orange_800"
-        >
+        android:background="@color/md_orange_800">
+
         <TextView
             android:layout_marginTop="120dp"
             android:layout_marginBottom="60dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="We Received your Report"
+            android:text="We Received Your Report"
             android:textSize="34sp"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white"/>
+
         <ProgressBar
             android:id="@+id/loading_spinner"
             android:layout_width="match_parent"
@@ -37,18 +35,20 @@
             app:layout_alignSelf="center"
             android:indeterminateTintMode="src_atop"
             android:indeterminateTint="@color/white"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"/>
+
         <TextView
             android:layout_marginTop="60dp"
             android:layout_marginBottom="60dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Please just wait for the admin to evaluate your report."
+            android:text="Please wait for the admin to evaluate your report."
             android:textSize="18sp"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white"/>
+
     </com.google.android.flexbox.FlexboxLayout>
+
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/otwStatus"
         android:visibility="gone"
@@ -57,8 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:alignContent="center"
-        app:flexDirection="column"
-        >
+        app:flexDirection="column">
+
         <TextView
             android:layout_marginTop="120dp"
             android:layout_marginBottom="60dp"
@@ -67,32 +67,97 @@
             android:text="Help is on the Way"
             android:textSize="34sp"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white"/>
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:src="@drawable/ic_check_white"
-            />
+            android:src="@drawable/ic_check_white"/>
+
         <TextView
             android:layout_marginTop="60dp"
             android:layout_marginBottom="60dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The assistance was on their way please wait."
+            android:text="Assistance is on its way. Please wait."
             android:textSize="18sp"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white"/>
+
         <Button
-            android:id="@+id/helpRecieved"
+            android:id="@+id/helpReceived"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_alignSelf="center"
             android:backgroundTint="@color/white"
             android:textColor="@color/md_green_800"
-            android:text="Help Received"
-            />
+            android:text="Help Received"/>
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/rejectedStatus"
+        android:padding="16dp"
+        android:background="@color/md_red_800"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:alignContent="center"
+        app:flexDirection="column">
+
+        <TextView
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Report Was Rejected"
+            android:textSize="34sp"
+            android:textAlignment="center"
+            android:textColor="@color/white"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/baseline_warning_amber_24"/>
+
+        <TextView
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unfortunately, your report was rejected. It could be a reason."
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reason(s):"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/rejectReason"
+            android:layout_marginBottom="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/acknowledgeRejection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            app:layout_alignSelf="center"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/md_red_800"/>
+
+
+
     </com.google.android.flexbox.FlexboxLayout>
 
 </com.google.android.flexbox.FlexboxLayout>
