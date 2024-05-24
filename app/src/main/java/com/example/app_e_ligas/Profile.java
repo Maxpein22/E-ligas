@@ -420,11 +420,15 @@ public class Profile extends DrawerBasedActivity {
                         // Retrieve the valid ID image URL from the user's data
                         String validIDImageUrl = dataSnapshot.child("validIDUrl").getValue(String.class);
 
+
                         // Show the upload valid ID layout if validationStatus is "rejected" and validIDUrl is not present
                         if ("rejected".equals(validationStatus) || validIDImageUrl == null) {
                             activityProfileBinding.uploadValidIdLayout.setVisibility(View.VISIBLE);
-                        } else {
+                        }
+                        else {
                             activityProfileBinding.uploadValidIdLayout.setVisibility(View.GONE);
+                            activityProfileBinding.unverifiedTextView.setVisibility(View.VISIBLE);
+
                         }
                     } else {
                         Log.d(TAG, "User data not found");

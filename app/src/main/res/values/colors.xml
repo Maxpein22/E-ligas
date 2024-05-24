@@ -20,11 +20,13 @@
         <color name="teal_700">#FF018786</color>
         <color name="black">#FF000000</color>
         <color name="white">#FFFFFFFF</color>
+    <color name="red">#FFFF1100</color>
 
 
 
 
-        <color name="colorClicked">#808080</color> <!-- Green color for clicked -->
+
+    <color name="colorClicked">#808080</color> <!-- Green color for clicked -->
         <color name="colorNotClicked">#4597cb</color> <!-- White color for not clicked -->
 
 

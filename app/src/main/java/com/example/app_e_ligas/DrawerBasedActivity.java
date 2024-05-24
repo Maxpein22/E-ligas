@@ -27,12 +27,16 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
+
     @Override
     public void setContentView(View view) {
         drawerLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.activity_drawer_based, null);
         FrameLayout container = drawerLayout.findViewById(R.id.activityContainer);
         container.addView(view);
         super.setContentView(drawerLayout);
+
+
+
 
         Toolbar toolbar = drawerLayout.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -122,22 +126,32 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
                 User user = snapshot.getValue(User.class);
                 if (user != null) {
                     boolean isValidated = user.isValidated();
+                    String userLocation = user.getLocation();
 
                     // Access the navigation view's menu
                     Menu menu = navigationView.getMenu();
 
                     // Show all menu items if the user is validated
-                    if (isValidated) {
+                    if (isValidated && userLocation.equals("Ligas 1")) {
                         // Make all menu items visible
                         for (int i = 0; i < menu.size(); i++) {
                             menu.getItem(i).setVisible(true);
                         }
-                    } else {
+                    } else if (!isValidated && userLocation.equals("Ligas 1")){
                         // Hide specific menu items for non-validated users
                         menu.findItem(R.id.nav_officials).setVisible(false);
                         menu.findItem(R.id.nav_services).setVisible(false);
+                        menu.findItem(R.id.nav_events).setVisible(false);
+                        menu.findItem(R.id.nav_dam).setVisible(true);
 
-                        // Hide other menu items as needed
+                    }
+                    else if (!isValidated && userLocation.equals("Ligas 2")) {
+                        menu.findItem(R.id.nav_dam).setVisible(true);
+                        menu.findItem(R.id.nav_officials).setVisible(false);
+                        menu.findItem(R.id.nav_services).setVisible(false);
+                        menu.findItem(R.id.nav_events).setVisible(false);
+                        menu.findItem(R.id.nav_dashboard).setVisible(false);
+                        menu.findItem(R.id.nav_emergency).setVisible(false);
                     }
                 } else {
                     // Handle the case where the user data could not be retrieved

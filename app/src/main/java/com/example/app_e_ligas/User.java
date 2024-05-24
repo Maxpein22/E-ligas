@@ -8,14 +8,22 @@ public class User {
     public static String userEmail;
     public static String userPassword;
     public static String civilStatus;
-    public static String age;
     public static String birthday;
     public static String birthPlace;
     public static String emergencyContactPerson;
     public static String emergencyContactPersonNo;
-    public static String address;
     public static String validIDUrl; // Added field for valid ID URL
-    public static String userProfileImage; // Added field for user profile image
+    public static String userProfileImage; // Added field for user profile
+    public static String location; // Added field for user location
+    public static String block; // Added field for user block
+    public static String lot; // Added field for user lot
+    public static String address;
+    public static String Age; // Added field for age
+    public static String gender;
+
+
+
+
 
     public User() {
 
@@ -23,16 +31,7 @@ public class User {
 
     public static boolean validated; // Add a new field for validation status
 
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String address, String validIDUrl, boolean validated) {
+    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String validIDUrl, boolean validated, String location, String block, String lot, String address,String Age,String gender) {
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
         this.userFirstName = userFirstName;
@@ -40,15 +39,23 @@ public class User {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.civilStatus = civilStatus;
-        this.age = age;
         this.birthday = birthday;
         this.emergencyContactPerson = emergencyContactPerson;
         this.emergencyContactPersonNo = emergencyContactPersonNo;
         this.birthPlace = birthPlace;
-        this.address = address;
         this.validIDUrl = validIDUrl;
         this.userProfileImage = userProfileImage;
         this.validated = validated; // Initialize the validated field
+        this.location = location;
+        this.block = block;
+        this.lot = lot;
+        this.address = address;
+        this.Age = Age;
+        this.gender = gender;
+
+
+
+
     }
 
     public static void clearUserData() {
@@ -60,17 +67,14 @@ public class User {
         userEmail = null;
         userPassword = null;
         civilStatus = null;
-        age = null;
         birthday = null;
         birthPlace = null;
         emergencyContactPerson = null;
         emergencyContactPersonNo = null;
-        address = null;
         validIDUrl = null;
         userProfileImage = null;
         validated = false;
     }
-
 
     // Add getter and setter methods for the validated field
     public boolean isValidated() {
@@ -80,6 +84,7 @@ public class User {
     public void setValidated(boolean validated) {
         this.validated = validated;
     }
+
     public String getFullName(){
         return userFirstName + " " + userMiddleName + " " + userLastName;
     }
@@ -91,8 +96,6 @@ public class User {
     public void setBirthPlace(String birthPlace) {
         this.birthPlace = birthPlace;
     }
-
-
 
     // Corrected constructor to include the 'role' parameter
     public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword) {
@@ -160,13 +163,6 @@ public class User {
         this.civilStatus = civilStatus;
     }
 
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
 
     public String getBirthday() {
         return birthday;
@@ -179,14 +175,15 @@ public class User {
     public String getEmergencyContactPerson() {
         return emergencyContactPerson;
     }
+
     public String getEmergencyContactPersonNo() {
         return emergencyContactPersonNo;
     }
 
-
     public void setEmergencyContactPerson(String emergencyContactPerson) {
         this.emergencyContactPerson = emergencyContactPerson;
     }
+
     public void setEmergencyContactPersonNo(String emergencyContactPersonNo) {
         this.emergencyContactPersonNo = emergencyContactPersonNo;
     }
@@ -206,4 +203,54 @@ public class User {
     public void setUserProfileImage(String userProfileImage) {
         this.userProfileImage = userProfileImage;
     }
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getBlock() {
+        return block;
+    }
+
+    public void setBlock(String block) {
+        this.block = block;
+    }
+
+    public String getLot() {
+        return lot;
+    }
+
+    public void setLot(String lot) {
+        this.lot = lot;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public String getAge() {
+        return Age;
+    }
+
+    public void setAge(String age) {
+        this.Age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+
 }

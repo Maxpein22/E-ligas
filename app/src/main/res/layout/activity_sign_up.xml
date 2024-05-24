@@ -154,30 +154,28 @@
             android:layout_marginEnd="15dp"
             android:entries="@array/civil_status_choices_with_hint" />
 
-
         <TextView
-            android:id="@+id/textAg"
+            android:id="@+id/gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Age*"
-            android:textColor="@android:color/black"
-            android:ems="10"
-            android:textStyle="bold"
-            android:layout_marginStart="20dp"
-            />
-        <EditText
-            android:id="@+id/editTextAge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:ems="10"
-            android:inputType="number"
-            android:hint=""
+            android:text="Gender*"
+            android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
+        <Spinner
+            android:id="@+id/spinnerGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:entries="@array/sex_choices" />
+
+
+
 
         <TextView
             android:id="@+id/textBd"
@@ -248,17 +246,43 @@
             android:layout_marginStart="20dp"
             />
 
-        <EditText
-            android:id="@+id/editTextAddress"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:ems="10"
-            android:inputType="textCapWords"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black"
-            android:textSize="15sp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <Spinner
+                android:id="@+id/spinnerLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:entries="@array/ligas_array" />
+
+            <EditText
+                android:id="@+id/editTextBlock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Blk"
+                android:inputType="textCapCharacters"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/editTextLot"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Lot"
+                android:inputType="number"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textECP"
@@ -523,5 +547,3 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </ScrollView>
-
-
