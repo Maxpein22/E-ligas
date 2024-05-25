@@ -1,5 +1,7 @@
 package com.example.app_e_ligas;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.Patterns;
@@ -40,6 +43,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -75,12 +79,25 @@ public class SignUpActivity extends AppCompatActivity {
 
     private TextView textFileSize;
 
+    String fcmToken;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
+            if (!TextUtils.isEmpty(token)) {
+                Log.d(TAG, "retrieve token successful : " + token);
+            } else{
+                Log.w(TAG, "token should not be null...");
+            }
+        }).addOnFailureListener(e -> {
+            //handle e
+        }).addOnCanceledListener(() -> {
+            //handle cancel
+        }).addOnCompleteListener((task) -> fcmToken = task.getResult());
 
 
         editTextLastName = findViewById(R.id.editTextLastName);
@@ -460,7 +477,7 @@ public class SignUpActivity extends AppCompatActivity {
         Log.d("SaveUserData", "Validated value: " + validated);
 
         // Create a User object with all the fields, including the validated flag
-        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, emergencyContact, emergencyContactNo, birthplace, address, validIDUrl, validated);
+        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, age, birthday, emergencyContact, emergencyContactNo, birthplace, address, validIDUrl, validated, fcmToken);
 
         // Get a reference to the Firebase Database and save the User object
         FirebaseDatabase.getInstance().getReference("users")

@@ -17,6 +17,9 @@ public class User {
     public static String validIDUrl; // Added field for valid ID URL
     public static String userProfileImage; // Added field for user profile image
 
+    String fcmToken;
+
+
     public User() {
 
     }
@@ -32,7 +35,7 @@ public class User {
         this.address = address;
     }
 
-    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String address, String validIDUrl, boolean validated) {
+    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String address, String validIDUrl, boolean validated, String fcmToken) {
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
         this.userFirstName = userFirstName;
@@ -49,6 +52,7 @@ public class User {
         this.validIDUrl = validIDUrl;
         this.userProfileImage = userProfileImage;
         this.validated = validated; // Initialize the validated field
+        this.fcmToken = fcmToken;
     }
 
     public static void clearUserData() {
@@ -71,6 +75,14 @@ public class User {
         validated = false;
     }
 
+
+    public String getFcmToken(){
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken){
+        this.fcmToken = fcmToken;
+    }
 
     // Add getter and setter methods for the validated field
     public boolean isValidated() {
