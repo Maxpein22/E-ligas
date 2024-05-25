@@ -501,6 +501,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                                                 String dateAfter6MonthsString = dateFormat.format(dateAfter6Months);
 
                                                 selectedServices.clear();
+                                                recreate(); // Call recreate() here
                                                 Toast.makeText(barangay_servicesActivity.this, "Successfully Requested", Toast.LENGTH_SHORT).show();
                                             } else {
                                                 Toast.makeText(barangay_servicesActivity.this, "Not able to make request, please try again later", Toast.LENGTH_SHORT).show();

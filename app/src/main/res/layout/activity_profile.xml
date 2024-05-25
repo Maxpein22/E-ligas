@@ -1,3 +1,4 @@
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,6 +24,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:layout_gravity="center_horizontal"
@@ -57,6 +59,23 @@
                 android:text="Full Name"
                 android:textColor="#fff"
                 android:textSize="23dp" />
+
+            <TextView
+                android:id="@+id/unverifiedTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="Unverified Account"
+                android:textColor="@color/white"
+                android:background="@color/red"
+                android:visibility="gone"
+                android:textSize="23dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </LinearLayout>
 
     </RelativeLayout>
@@ -213,7 +232,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp">
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="50dp">
 
         <ImageView
             android:layout_width="30dp"

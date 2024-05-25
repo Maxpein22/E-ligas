@@ -106,17 +106,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/ageEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Age"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutBirthday"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"/>
+
 
     <EditText
         android:id="@+id/birthPlaceEditText"
@@ -126,7 +116,7 @@
         android:inputType="textCapWords"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ageEditText"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutBirthday"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"/>
@@ -143,18 +133,48 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"/>
 
-    <EditText
-        android:id="@+id/locationEditText"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/location"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Location"
-        android:inputType="textCapWords"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contactNumberEditText" />
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/contactNumberEditText"
+        >
+
+        <Spinner
+            android:id="@+id/spinnerLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="10dp"
+            android:entries="@array/ligas_array" />
+
+        <EditText
+            android:id="@+id/editTextBlock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Blk"
+            android:inputType="textCapCharacters"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/editTextLot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Lot"
+            android:inputType="number"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/button8"
@@ -165,6 +185,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

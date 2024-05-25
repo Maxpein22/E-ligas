@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -37,6 +38,10 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView birthdayTextView; // Changed from EditText to TextView
     private Spinner civilStatusSpinner;
     private Button saveButton;
+
+    private Spinner locationSpinner; // Added for location
+    private EditText blockEditText; // Added for block
+    private EditText lotEditText; // Added for lot
 
     // Firebase variables
     private FirebaseAuth mAuth;
@@ -60,11 +65,12 @@ public class EditProfileActivity extends AppCompatActivity {
         middleNameEditText = findViewById(R.id.middleNameEditText);
         lastNameEditText = findViewById(R.id.lastNameEditText);
         birthdayTextView = findViewById(R.id.birthdayEditText); // Updated ID
-        ageEditText = findViewById(R.id.ageEditText);
         birthPlaceEditText = findViewById(R.id.birthPlaceEditText);
         contactNumberEditText = findViewById(R.id.contactNumberEditText);
-        locationEditText = findViewById(R.id.locationEditText);
         civilStatusSpinner = findViewById(R.id.spinnerCivilStatus);
+        locationSpinner = findViewById(R.id.spinnerLocation); // Added for location
+        blockEditText = findViewById(R.id.editTextBlock); // Added for block
+        lotEditText = findViewById(R.id.editTextLot); // Added for lot
         saveButton = findViewById(R.id.button8);
 
         // Populate civil status spinner
@@ -134,10 +140,9 @@ public class EditProfileActivity extends AppCompatActivity {
                             middleNameEditText.setText(user.getUserMiddleName());
                             lastNameEditText.setText(user.getUserLastName());
                             birthdayTextView.setText(user.getBirthday());
-                            ageEditText.setText(user.getAge());
+
                             birthPlaceEditText.setText(user.getBirthPlace());
                             contactNumberEditText.setText(user.getUserPhoneNumber());
-                            locationEditText.setText(user.getAddress());
 
                             // Set the spinner selection
                             ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) civilStatusSpinner.getAdapter();
@@ -145,6 +150,18 @@ public class EditProfileActivity extends AppCompatActivity {
                                 int spinnerPosition = adapter.getPosition(user.getCivilStatus());
                                 civilStatusSpinner.setSelection(spinnerPosition);
                             }
+
+
+                            // Set the location spinner selection
+                            ArrayAdapter<CharSequence> locationAdapter = (ArrayAdapter<CharSequence>) locationSpinner.getAdapter();
+                            if (user.getLocation() != null) {
+                                int spinnerPosition = locationAdapter.getPosition(user.getLocation());
+                                locationSpinner.setSelection(spinnerPosition);
+                            }
+
+                            // Set block and lot
+                            blockEditText.setText(user.getBlock());
+                            lotEditText.setText(user.getLot());
                         }
                     }
                 }
@@ -164,16 +181,26 @@ public class EditProfileActivity extends AppCompatActivity {
         String lastName = lastNameEditText.getText().toString();
         String civilStatus = civilStatusSpinner.getSelectedItem().toString();
         String birthday = birthdayTextView.getText().toString(); // Use TextView instead of EditText
-        String age = ageEditText.getText().toString();
         String birthPlace = birthPlaceEditText.getText().toString();
         String contactNumber = contactNumberEditText.getText().toString();
-        String location = locationEditText.getText().toString();
+        String location = locationSpinner.getSelectedItem().toString(); // Retrieve selected location from spinner
+        String block = blockEditText.getText().toString(); // Retrieve block
+        String lot = lotEditText.getText().toString(); // Retrieve lot
+
+        String address = location + " blk " + block + " lot " + lot;
+
+        String age = String.valueOf(calculateAge(birthday));
+
+
+
 
         // Get current user
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             // Retrieve user ID
             String userId = currentUser.getUid();
+
+
 
             // Retrieve the current user data from the database
             mDatabase.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -199,9 +226,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         if (!birthday.isEmpty()) {
                             user.setBirthday(birthday);
                         }
-                        if (!age.isEmpty()) {
-                            user.setAge(age);
-                        }
+
                         if (!birthPlace.isEmpty()) {
                             user.setBirthPlace(birthPlace);
                         }
@@ -209,8 +234,20 @@ public class EditProfileActivity extends AppCompatActivity {
                             user.setUserPhoneNumber(contactNumber);
                         }
                         if (!location.isEmpty()) {
-                            user.setAddress(location);
+                            user.setLocation(location);
                         }
+                        if (!block.isEmpty()) {
+                            user.setBlock(block);
+                        }
+                        if (!lot.isEmpty()) {
+                            user.setLot(lot);
+                        }
+
+                        user.setAddress(address);
+
+                        user.setAge(age);
+
+
 
                         // Update the user data in the database
                         mDatabase.child(userId).setValue(user)
@@ -240,5 +277,28 @@ public class EditProfileActivity extends AppCompatActivity {
         } else {
             Toast.makeText(EditProfileActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private int calculateAge(String birthday) {
+        // Parse the birthday string to get the year, month, and day
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
+        Calendar birthDate = Calendar.getInstance();
+        try {
+            birthDate.setTime(sdf.parse(birthday));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // Get current date
+        Calendar currentDate = Calendar.getInstance();
+
+        // Calculate age
+        int age = currentDate.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
+        if (currentDate.get(Calendar.MONTH) < birthDate.get(Calendar.MONTH)
+                || (currentDate.get(Calendar.MONTH) == birthDate.get(Calendar.MONTH)
+                && currentDate.get(Calendar.DAY_OF_MONTH) < birthDate.get(Calendar.DAY_OF_MONTH))) {
+            age--;
+        }
+        return age;
     }
 }

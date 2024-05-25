@@ -12,6 +12,9 @@ public class ReportModel {
     String reportingType;
     String fcmToken;
 
+    String rejectReason;
+
+
     public String getFcmToken() {
         return fcmToken;
     }
@@ -98,5 +101,13 @@ public class ReportModel {
 
     public void setNeededHelp(String neededHelp) {
         this.neededHelp = neededHelp;
+    }
+
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
     }
 }
