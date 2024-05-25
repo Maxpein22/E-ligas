@@ -21,6 +21,15 @@ public class User {
     public static String Age; // Added field for age
     public static String gender;
 
+    public static String street;
+    public static String alias;
+
+    public static String voters;
+    public static String occupation;
+
+    public static String resident_status;
+
+
 
 
 
@@ -35,7 +44,9 @@ public class User {
     public static boolean validated; // Add a new field for validation status
 
 
-    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String validIDUrl, boolean validated, String location, String block, String lot, String address,String Age,String gender, String fcmToken) {
+    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber,
+                String userEmail, String userPassword, String civilStatus, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String validIDUrl, boolean validated, String location, String block, String lot, String address,String Age,String gender,
+                String fcmToken, String street, String alias, String voters, String occupation, String resident_status) {
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
         this.userFirstName = userFirstName;
@@ -57,6 +68,11 @@ public class User {
         this.address = address;
         this.Age = Age;
         this.gender = gender;
+        this.street = street;
+        this.alias = alias;
+        this.voters = voters;
+        this.occupation = occupation;
+        this.resident_status = resident_status;
     }
 
     public static void clearUserData() {
@@ -261,6 +277,49 @@ public class User {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setVoters(String voters) {
+        this.voters = voters;
+    }
+
+    public String getVoters() {
+        return voters;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setResident_status(String resident_status) {
+        this.resident_status = resident_status;
+    }
+
+    public String getResident_status() {
+        return resident_status;
+    }
+
 
 
 }

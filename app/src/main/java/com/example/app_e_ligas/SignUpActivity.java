@@ -80,6 +80,15 @@ public class SignUpActivity extends AppCompatActivity {
     Spinner spinnerLocation;
     EditText editTextBlock;
     EditText editTextLot;
+
+    EditText editTextStreet;
+
+    EditText editTextAlias;
+
+    Spinner spinnerVoterStauts;
+    Spinner spinnerOccupation;
+
+    Spinner spinnerResidentialStatus;
     private FirebaseAuth mAuth;
 
     private TextView textFileSize;
@@ -130,6 +139,13 @@ public class SignUpActivity extends AppCompatActivity {
         spinnerLocation = findViewById(R.id.spinnerLocation);
         editTextBlock = findViewById(R.id.editTextBlock);
         editTextLot = findViewById(R.id.editTextLot);
+        editTextStreet = findViewById(R.id.editTextStreet);
+        editTextBirthday = findViewById(R.id.editTextBirthday);
+        editTextAlias = findViewById(R.id.editTextAlias);
+        spinnerVoterStauts = findViewById(R.id.spinnerVoterStauts);
+        spinnerOccupation = findViewById(R.id.spinnerOccupation);
+        spinnerResidentialStatus = findViewById(R.id.spinnerResidentialStatus);
+
 
 
         // Password visibility toggling
@@ -157,9 +173,14 @@ public class SignUpActivity extends AppCompatActivity {
         setupTextView(findViewById(R.id.textP), "Phone Number*", "This field is required");
         setupTextView(findViewById(R.id.textCS), "Select Civil Status*", "This field is required");
         setupTextView(findViewById(R.id.gender), "Gender*", "This field is required");
-
+        setupTextView(findViewById(R.id.textAdd), "Address*", "This field is required");
         setupTextView(findViewById(R.id.textBd), "Birthday*", "This field is required");
         setupTextView(findViewById(R.id.textBp), "Birth Place*", "This field is required");
+        setupTextView(findViewById(R.id.textAlias), "Alias*", "This field is required");
+        setupTextView(findViewById(R.id.textVoter), "Voter Status*", "This field is required");
+        setupTextView(findViewById(R.id.textOccupation), "Occupation*", "This field is required");
+        setupTextView(findViewById(R.id.textResidentialStatus), "Residential Status*", "This field is required");
+
         setupTextView(findViewById(R.id.textECP), "Emergency Contact Person*", "This field is required");
         setupTextView(findViewById(R.id.textECN), "Emergency Contact Number*", "This field is required");
         setupTextView(findViewById(R.id.textEL), "Email*", "This field is required");
@@ -169,7 +190,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         // birth date
-        editTextBirthday = findViewById(R.id.editTextBirthday);
+
 
         // Get the current date
         final Calendar calendar = Calendar.getInstance();
@@ -220,6 +241,20 @@ public class SignUpActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> GenderAdapter = ArrayAdapter.createFromResource(this, R.array.sex_choices, android.R.layout.simple_spinner_item);
         GenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGender.setAdapter(GenderAdapter);
+
+        ArrayAdapter<CharSequence> VoterStutsAdapter = ArrayAdapter.createFromResource(this, R.array.voter_status, android.R.layout.simple_spinner_item);
+        VoterStutsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerVoterStauts.setAdapter(VoterStutsAdapter);
+
+        ArrayAdapter<CharSequence> OccupationAdapter = ArrayAdapter.createFromResource(this, R.array.occupation, android.R.layout.simple_spinner_item);
+        OccupationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerOccupation.setAdapter(OccupationAdapter);
+
+        ArrayAdapter<CharSequence> ResidentialStatusAdapter = ArrayAdapter.createFromResource(this, R.array.resident_status, android.R.layout.simple_spinner_item);
+        ResidentialStatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerResidentialStatus.setAdapter(ResidentialStatusAdapter);
+
+
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -304,9 +339,27 @@ public class SignUpActivity extends AppCompatActivity {
         String location = spinnerLocation.getSelectedItem().toString();
         String block = editTextBlock.getText().toString().trim();
         String lot = editTextLot.getText().toString().trim();
+        String street = editTextStreet.getText().toString().trim();
+        String alias = editTextAlias.getText().toString().trim();
+
+        String voters = spinnerVoterStauts.getSelectedItem().toString().trim();
+        String occupation = spinnerOccupation.getSelectedItem().toString().trim();
+        String resident_status = spinnerResidentialStatus.getSelectedItem().toString().trim();
 
 
 
+
+
+        if (alias.isEmpty()) {
+            editTextAlias.setError("Please Enter Your Alias");
+            editTextAlias.requestFocus();
+            return;
+        }
+        if (street.isEmpty()) {
+            editTextStreet.setError("Please Enter Your Street");
+            editTextStreet.requestFocus();
+            return;
+        }
         if (block.isEmpty()) {
             editTextBlock.setError("Please Enter Your Blk");
             editTextBlock.requestFocus();
@@ -499,8 +552,14 @@ public class SignUpActivity extends AppCompatActivity {
         // Retrieve additional data from the EditText fields
         String location = spinnerLocation.getSelectedItem().toString();
         String block = editTextBlock.getText().toString().trim();
+        String street = editTextStreet.getText().toString().trim();
+        String alias = editTextAlias.getText().toString().trim();
+        String voters = spinnerVoterStauts.getSelectedItem().toString();
+        String occupation = spinnerOccupation.getSelectedItem().toString().trim();
+        String resident_status = spinnerResidentialStatus.getSelectedItem().toString().trim();
+
         String lot = editTextLot.getText().toString().trim();
-        String address = location + " blk " + block + " lot " + lot;
+        String address = location + " blk " + block + " lot " + lot + " street " + street;
         String gender = spinnerGender.getSelectedItem().toString();
 
         // Calculate age from the birth date
@@ -522,7 +581,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         // Create a User object with all the fields, including the validated flag and additional data
-        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, birthday, emergencyContact, emergencyContactNo, birthplace, validIDUrl, validated, location, block, lot, address, Age, gender, fcmToken);
+        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, birthday, emergencyContact, emergencyContactNo, birthplace, validIDUrl, validated, location, block, lot, address, Age, gender, fcmToken, street, alias,voters,occupation, resident_status);
 
         // Get a reference to the Firebase Database and save the User object
         FirebaseDatabase.getInstance().getReference("users")

@@ -108,6 +108,31 @@
             android:textColorHint="@android:color/black"
             android:textSize="15sp" />
 
+        <TextView
+            android:id="@+id/textAlias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Alias*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
+
+        <EditText
+            android:id="@+id/editTextAlias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:hint=""
+            android:inputType="textCapWords"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="15sp" />
+
 
         <TextView
             android:id="@+id/textP"
@@ -152,6 +177,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
             android:entries="@array/civil_status_choices_with_hint" />
 
         <TextView
@@ -170,6 +196,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:entries="@array/sex_choices" />
@@ -251,6 +278,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
@@ -258,7 +286,7 @@
                 android:id="@+id/spinnerLocation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:layout_marginEnd="10dp"
                 android:entries="@array/ligas_array" />
 
@@ -282,7 +310,18 @@
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
 
+            <EditText
+                android:id="@+id/editTextStreet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Street"
+                android:inputType="textCapWords"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
         </LinearLayout>
+
 
         <TextView
             android:id="@+id/textECP"
@@ -332,6 +371,81 @@
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textVoter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Voter Status*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
+
+        <Spinner
+            android:id="@+id/spinnerVoterStauts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:entries="@array/voter_status"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textOccupation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Occupation*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
+
+        <Spinner
+            android:id="@+id/spinnerOccupation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:entries="@array/occupation"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textResidentialStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Residential Status*"
+            android:textColor="@android:color/black"
+            android:ems="10"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            />
+
+        <Spinner
+            android:id="@+id/spinnerResidentialStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:entries="@array/resident_status"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="15sp" />
+
 
 
 

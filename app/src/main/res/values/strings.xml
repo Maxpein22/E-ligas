@@ -18,7 +18,33 @@
 
     <string-array name="ligas_array">
         <item>Ligas 1</item>
-        <item>Ligas 2</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="voter_status">
+        <item>Registered</item>
+        <item>Unregister</item>
+    </string-array>
+
+    <string-array name="occupation">
+        <item>Healthcare</item>
+        <item>Engineering</item>
+        <item>Education</item>
+        <item>Technology</item>
+        <item>Business</item>
+        <item>Creative Arts</item>
+        <item>Construction</item>
+        <item>Law</item>
+        <item>Public Services</item>
+        <item>Hospitality</item>
+        <item>Vendor</item>
+        <item>None</item>
+
+    </string-array>
+
+    <string-array name="resident_status">
+        <item>Permanent</item>
+        <item>Temporary</item>
     </string-array>
 
 </resources>

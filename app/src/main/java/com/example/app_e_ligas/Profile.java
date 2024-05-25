@@ -181,6 +181,12 @@ public class Profile extends DrawerBasedActivity {
                         activityProfileBinding.ageTextView.setText(user.getAge());
                         activityProfileBinding.BirthdateTextView.setText(user.getBirthday());
                         activityProfileBinding.BirthPlaceTextView.setText(user.getBirthPlace());
+                        activityProfileBinding.ResidentStatusTextView.setText(user.getResident_status());
+                        activityProfileBinding.VoterStatusTextView.setText(user.getVoters());
+                        activityProfileBinding.GenderTextView.setText(user.getGender());
+                        activityProfileBinding.AliasTextView.setText(user.getAlias());
+
+
 
 
 
