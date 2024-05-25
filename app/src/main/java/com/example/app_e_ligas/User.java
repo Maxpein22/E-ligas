@@ -35,16 +35,7 @@ public class User {
     public static boolean validated; // Add a new field for validation status
 
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String age, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String address, String validIDUrl, boolean validated, String fcmToken) {
-    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String validIDUrl, boolean validated, String location, String block, String lot, String address,String Age,String gender) {
+    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String validIDUrl, boolean validated, String location, String block, String lot, String address,String Age,String gender, String fcmToken) {
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
         this.userFirstName = userFirstName;

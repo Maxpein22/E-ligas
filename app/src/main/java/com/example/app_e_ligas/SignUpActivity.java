@@ -522,7 +522,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         // Create a User object with all the fields, including the validated flag and additional data
-        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, birthday, emergencyContact, emergencyContactNo, birthplace, validIDUrl, validated, location, block, lot, address, Age, gender);
+        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, birthday, emergencyContact, emergencyContactNo, birthplace, validIDUrl, validated, location, block, lot, address, Age, gender, fcmToken);
 
         // Get a reference to the Firebase Database and save the User object
         FirebaseDatabase.getInstance().getReference("users")
