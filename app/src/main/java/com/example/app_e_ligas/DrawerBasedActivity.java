@@ -35,9 +35,6 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
         container.addView(view);
         super.setContentView(drawerLayout);
 
-
-
-
         Toolbar toolbar = drawerLayout.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -88,6 +85,10 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
 
         } else if (itemId == R.id.nav_dashboard) {
             startActivity(new Intent(this, DashboardActivity.class));
+            overridePendingTransition(0, 0);
+
+        }else if (itemId == R.id.nav_census) {
+            startActivity(new Intent(this, barangay_cencus.class));
             overridePendingTransition(0, 0);
 
         } else if (itemId == R.id.nav_Terms_Condition) {

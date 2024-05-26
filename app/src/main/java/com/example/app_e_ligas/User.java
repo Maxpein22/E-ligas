@@ -29,7 +29,7 @@ public class User {
 
     public static String resident_status;
 
-
+    public static String type_employment;
 
 
 
@@ -46,7 +46,7 @@ public class User {
 
     public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber,
                 String userEmail, String userPassword, String civilStatus, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String validIDUrl, boolean validated, String location, String block, String lot, String address,String Age,String gender,
-                String fcmToken, String street, String alias, String voters, String occupation, String resident_status) {
+                String fcmToken, String street, String alias, String voters, String occupation, String resident_status, String type_employment) {
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
         this.userFirstName = userFirstName;
@@ -73,6 +73,8 @@ public class User {
         this.voters = voters;
         this.occupation = occupation;
         this.resident_status = resident_status;
+        this.type_employment = type_employment;
+
     }
 
     public static void clearUserData() {
@@ -320,6 +322,13 @@ public class User {
         return resident_status;
     }
 
+    public void setType_employment(String type_employment) {
+        this.type_employment = type_employment;
+    }
+
+    public String getType_employment() {
+        return type_employment;
+    }
 
 
 }

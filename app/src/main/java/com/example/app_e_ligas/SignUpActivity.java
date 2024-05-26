@@ -344,7 +344,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         String voters = spinnerVoterStauts.getSelectedItem().toString().trim();
         String occupation = spinnerOccupation.getSelectedItem().toString().trim();
-        String resident_status = spinnerResidentialStatus.getSelectedItem().toString().trim();
 
 
 
@@ -561,6 +560,7 @@ public class SignUpActivity extends AppCompatActivity {
         String lot = editTextLot.getText().toString().trim();
         String address = location + " blk " + block + " lot " + lot + " street " + street;
         String gender = spinnerGender.getSelectedItem().toString();
+        String type_employment = occupation.equalsIgnoreCase("Unemployed") ? "unemployed" : "employed";
 
         // Calculate age from the birth date
         SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy", Locale.US);
@@ -581,7 +581,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         // Create a User object with all the fields, including the validated flag and additional data
-        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, birthday, emergencyContact, emergencyContactNo, birthplace, validIDUrl, validated, location, block, lot, address, Age, gender, fcmToken, street, alias,voters,occupation, resident_status);
+        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, birthday, emergencyContact, emergencyContactNo, birthplace, validIDUrl, validated, location, block, lot, address, Age, gender, fcmToken, street, alias,voters,occupation, resident_status, type_employment);
 
         // Get a reference to the Firebase Database and save the User object
         FirebaseDatabase.getInstance().getReference("users")

@@ -26,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App_ELigas"
         tools:targetApi="31">
+        <activity
+            android:name="com.example.app_e_ligas.barangay_cencus"
+            android:exported="false" />
 
         <service
             android:name="com.example.app_e_ligas.MyFirebaseMessagingService"
