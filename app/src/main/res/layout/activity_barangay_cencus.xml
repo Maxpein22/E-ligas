@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+    <!-- Record Title -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RECORD OF BARANGAY INHABITANTS (RBI)"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="16dp"
+        />
+
+
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="50dp"
+        android:visibility="visible">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        >
+
+        <!-- First Name -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Perosnal Information Record"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="20dp"/>
+        <!-- First Name -->
+        <TextView
+            android:id="@+id/firstname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="First Name*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:id="@+id/etFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter First Name"
+            android:textSize="15sp"
+            android:inputType="textPersonName"/>
+
+        <!-- Middle Name -->
+        <TextView
+            android:id="@+id/midtname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Middle Name*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/etMiddleName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Middle Name"
+            android:textSize="15sp"
+            android:inputType="textPersonName"/>
+
+        <!-- Last Name -->
+        <TextView
+            android:id="@+id/lastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last Name*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Last Name"
+            android:textSize="15sp"
+            android:inputType="textPersonName"/>
+
+        <!-- (House/Block/Lot) -->
+        <TextView
+            android:id="@+id/House"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(House/Block/Lot)*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/House_blk_lot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Enter House/Block/Lot"/>
+
+        <!-- (St/Purok/Sitio/Subd) -->
+        <TextView
+            android:id="@+id/St"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(St/Purok/Sitio/Subd)*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/St_Purok_Sitio_Subd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Enter St/Purok/Sitio/Subd"/>
+
+        <!-- Barangay -->
+        <TextView
+            android:id="@+id/bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Barangay*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/barangay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Barangay"/>
+
+        <!-- City/Municipality -->
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City/Municipality*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/City_Municipality"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Enter City/Municipality"/>
+
+        <!-- Province -->
+        <TextView
+            android:id="@+id/prov"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Province*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/province"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Enter Province"/>
+
+        <TextView
+            android:id="@+id/bday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date of Birth*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutBirthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+       >
+
+            <EditText
+                android:id="@+id/editTextBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Set Birthday Here"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textSize="15sp"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:drawableRight="@drawable/baseline_calendar_month_24"
+                android:drawablePadding="8dp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/bdayplace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Place of Birth*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/place_birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Enter Place of Birth"/>
+
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:entries="@array/sex_choices"/>
+
+        <TextView
+            android:id="@+id/civil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Civil Status*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerCivilStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:entries="@array/civil_status_array"/>
+
+        <TextView
+            android:id="@+id/height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Height*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/Height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Enter Height in feet"/>
+
+        <TextView
+            android:id="@+id/weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weight*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/Weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Enter Weight in kg"/>
+
+
+        <TextView
+            android:id="@+id/house_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="House Type*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <Spinner
+            android:id="@+id/House_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:entries="@array/house_ownership_array"/>
+
+        <TextView
+            android:id="@+id/nationality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nationality*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/Nationality"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Enter Nationality"/>
+
+        <TextView
+            android:id="@+id/solo_par"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Solo Parent*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <Spinner
+            android:id="@+id/Solo_Parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:entries="@array/Solo_parent"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true">
+
+            <!-- Next button -->
+            <Button
+                android:id="@+id/btnNext1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:layout_margin="16dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
+
+    <!-- Second layout -->
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:visibility="gone"
+        android:layout_marginTop="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Educational Attainment"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Elementary"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/elem_school_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:hint="Enter Your School Name"/>
+
+            <EditText
+                android:id="@+id/elem_school_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:hint="Enter Your School Address"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Highschool"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/high_school_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:hint="Enter Your School Name"/>
+
+            <EditText
+                android:id="@+id/high_school_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:hint="Enter Your School Address"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vocational Course"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/voc_school_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:hint="Enter Your School Name"/>
+
+            <EditText
+                android:id="@+id/voc_school_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:hint="Enter Your School Address"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="College"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/college_school_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:hint="Enter Your School Name"/>
+
+            <EditText
+                android:id="@+id/college_school_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:hint="Enter Your School Address"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_alignParentBottom="true">
+
+                <!-- Back button -->
+                <Button
+                    android:id="@+id/btnBack1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Back"
+                    android:layout_margin="16dp"/>
+
+                <!-- Next button -->
+                <Button
+                    android:id="@+id/btnNext2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next"
+                    android:layout_margin="16dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="50dp"
+        android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Employment Record"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name of Company"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/company_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Enter Name of Company"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duration of Employment"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+
+        <EditText
+            android:id="@+id/duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Enter Duration of Employment"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address of Company"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/address_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Enter Address of Company"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Health Information Record"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+
+        <TextView
+            android:id="@+id/Vstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vacinne Status*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_vacine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:entries="@array/vacinne_status"/>
+
+        <TextView
+            android:id="@+id/PWd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Person with Disability*"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerPWD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:entries="@array/PWD_type"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true">
+
+            <!-- Back button -->
+            <Button
+                android:id="@+id/btnBack2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:layout_margin="16dp"/>
+
+            <!-- Next button -->
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:layout_margin="16dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
