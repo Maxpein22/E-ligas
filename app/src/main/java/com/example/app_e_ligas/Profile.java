@@ -172,23 +172,23 @@ public class Profile extends DrawerBasedActivity {
                 if (dataSnapshot.exists()) {
                     User user = dataSnapshot.getValue(User.class);
                     if (user != null) {
-                        activityProfileBinding.fullNameTextView.setText(user.getFullName());
-                        activityProfileBinding.phoneNumberTextView.setText(user.getUserPhoneNumber());
-                        activityProfileBinding.emailTextView.setText(user.getUserEmail());
-                        activityProfileBinding.addressTextView.setText(user.getAddress());
-                        // Set new fields
-                        activityProfileBinding.CivilStatusTextView.setText(user.getCivilStatus());
-                        activityProfileBinding.ageTextView.setText(user.getAge());
-                        activityProfileBinding.BirthdateTextView.setText(user.getBirthday());
-                        activityProfileBinding.BirthPlaceTextView.setText(user.getBirthPlace());
-                        activityProfileBinding.ResidentStatusTextView.setText(user.getResident_status());
-                        activityProfileBinding.VoterStatusTextView.setText(user.getVoters());
-                        activityProfileBinding.GenderTextView.setText(user.getGender());
-                        activityProfileBinding.AliasTextView.setText(user.getAlias());
 
+                        String alias = dataSnapshot.child("alias").getValue(String.class);
+                        String firstName = dataSnapshot.child("userFirstName").getValue(String.class);
+                        String middleName = dataSnapshot.child("userMiddleName").getValue(String.class);
+                        String lastName = dataSnapshot.child("userLastName").getValue(String.class);
+                        String fullName = firstName + " " + middleName + " " + lastName;
+                        String civilstatus = dataSnapshot.child("civilStatus").getValue(String.class);
+                        String gender = dataSnapshot.child("gender").getValue(String.class);
 
-
-
+                        String birthday = dataSnapshot.child("birthday").getValue(String.class);
+                        String age = dataSnapshot.child("age").getValue(String.class);
+                        String birthpalce = dataSnapshot.child("birthPlace").getValue(String.class);
+                        String phonenumber = dataSnapshot.child("userPhoneNumber").getValue(String.class);
+                        String email = dataSnapshot.child("userEmail").getValue(String.class);
+                        String address = dataSnapshot.child("address").getValue(String.class);
+                        String voter = dataSnapshot.child("voters").getValue(String.class);
+                        String resident = dataSnapshot.child("resident_status").getValue(String.class);
 
                         // Load profile image from userProfileImage URL
                         if (user.getUserProfileImage() != null) {
@@ -196,6 +196,19 @@ public class Profile extends DrawerBasedActivity {
                                     .load(user.getUserProfileImage())
                                     .into(activityProfileBinding.profileImageView);
                         }
+                        activityProfileBinding.AliasTextView.setText(alias);
+                        activityProfileBinding.fullNameTextView.setText(fullName);
+                        activityProfileBinding.CivilStatusTextView.setText(civilstatus);
+                        activityProfileBinding.BirthdateTextView.setText(birthday);
+                        activityProfileBinding.ageTextView.setText(age);
+                        activityProfileBinding.BirthPlaceTextView.setText(birthpalce);
+                        activityProfileBinding.phoneNumberTextView.setText(phonenumber);
+                        activityProfileBinding.emailTextView.setText(email);
+                        activityProfileBinding.addressTextView.setText(address);
+                        activityProfileBinding.VoterStatusTextView.setText(voter);
+                        activityProfileBinding.ResidentStatusTextView.setText(resident);
+                        activityProfileBinding.GenderTextView.setText(gender);
+
                     }
                 } else {
                     Log.d(TAG, "User data not found");

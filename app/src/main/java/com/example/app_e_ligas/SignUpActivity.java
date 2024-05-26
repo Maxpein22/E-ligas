@@ -2,7 +2,6 @@ package com.example.app_e_ligas;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,16 +19,13 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,10 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -63,12 +56,9 @@ public class SignUpActivity extends AppCompatActivity {
     EditText editTextPassword;
     EditText editTextConfirmPassword;
 
-    EditText editTextBirthday;
-    EditText editTextBirthplace;
     EditText editTextEmergencyContact;
     EditText editTextEmergencyContactNo;
-    Spinner spinnerCivilStatus;
-    Spinner spinnerGender;
+
 
     Button buttonRegister;
 
@@ -77,18 +67,6 @@ public class SignUpActivity extends AppCompatActivity {
     ImageView imageViewValidID;
     Button buttonUploadID;
 
-    Spinner spinnerLocation;
-    EditText editTextBlock;
-    EditText editTextLot;
-
-    EditText editTextStreet;
-
-    EditText editTextAlias;
-
-    Spinner spinnerVoterStauts;
-    Spinner spinnerOccupation;
-
-    Spinner spinnerResidentialStatus;
     private FirebaseAuth mAuth;
 
     private TextView textFileSize;
@@ -121,12 +99,8 @@ public class SignUpActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
 
-        editTextBirthday = findViewById(R.id.editTextBirthday);
-        editTextBirthplace = findViewById(R.id.editTextBirthplace);
         editTextEmergencyContact = findViewById(R.id.editTextEmergencyContact);
         editTextEmergencyContactNo = findViewById(R.id.editTextEmergencyContactNo);
-        spinnerCivilStatus = findViewById(R.id.spinnerCivilStatus);
-        spinnerGender = findViewById(R.id.spinnerGender);
         buttonRegister = findViewById(R.id.button3);
         buttonUploadID = findViewById(R.id.buttonUploadID);
         progressBar = findViewById(R.id.progressBar);
@@ -135,17 +109,6 @@ public class SignUpActivity extends AppCompatActivity {
         imageViewValidID = findViewById(R.id.imageViewValidID);
 
         textFileSize = findViewById(R.id.textFileSize);
-
-        spinnerLocation = findViewById(R.id.spinnerLocation);
-        editTextBlock = findViewById(R.id.editTextBlock);
-        editTextLot = findViewById(R.id.editTextLot);
-        editTextStreet = findViewById(R.id.editTextStreet);
-        editTextBirthday = findViewById(R.id.editTextBirthday);
-        editTextAlias = findViewById(R.id.editTextAlias);
-        spinnerVoterStauts = findViewById(R.id.spinnerVoterStauts);
-        spinnerOccupation = findViewById(R.id.spinnerOccupation);
-        spinnerResidentialStatus = findViewById(R.id.spinnerResidentialStatus);
-
 
 
         // Password visibility toggling
@@ -171,16 +134,6 @@ public class SignUpActivity extends AppCompatActivity {
         setupTextView(findViewById(R.id.textF), "First Name*", "This field is required");
         setupTextView(findViewById(R.id.textL), "Last Name*", "This field is required");
         setupTextView(findViewById(R.id.textP), "Phone Number*", "This field is required");
-        setupTextView(findViewById(R.id.textCS), "Select Civil Status*", "This field is required");
-        setupTextView(findViewById(R.id.gender), "Gender*", "This field is required");
-        setupTextView(findViewById(R.id.textAdd), "Address*", "This field is required");
-        setupTextView(findViewById(R.id.textBd), "Birthday*", "This field is required");
-        setupTextView(findViewById(R.id.textBp), "Birth Place*", "This field is required");
-        setupTextView(findViewById(R.id.textAlias), "Alias*", "This field is required");
-        setupTextView(findViewById(R.id.textVoter), "Voter Status*", "This field is required");
-        setupTextView(findViewById(R.id.textOccupation), "Occupation*", "This field is required");
-        setupTextView(findViewById(R.id.textResidentialStatus), "Residential Status*", "This field is required");
-
         setupTextView(findViewById(R.id.textECP), "Emergency Contact Person*", "This field is required");
         setupTextView(findViewById(R.id.textECN), "Emergency Contact Number*", "This field is required");
         setupTextView(findViewById(R.id.textEL), "Email*", "This field is required");
@@ -194,65 +147,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Get the current date
         final Calendar calendar = Calendar.getInstance();
-
-        // Set up DatePickerDialog
-        final DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        // Update the EditText with the selected date
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.US);
-                        Calendar selectedDate = Calendar.getInstance();
-                        selectedDate.set(year, month, dayOfMonth);
-
-                        // Check if selected date is today or in the future
-                        if (selectedDate.after(Calendar.getInstance())) {
-                            Toast.makeText(SignUpActivity.this, "Please select a valid date", Toast.LENGTH_SHORT).show();
-                        } else {
-                            String formattedDate = dateFormat.format(selectedDate.getTime());
-                            editTextBirthday.setText(formattedDate);
-                        }
-                    }
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-        );
-
-        // Set the maximum date to yesterday
-        final Calendar maxCalendar = Calendar.getInstance();
-        maxCalendar.add(Calendar.DAY_OF_MONTH, -1);
-        datePickerDialog.getDatePicker().setMaxDate(maxCalendar.getTimeInMillis());
-
-        // Show DatePickerDialog when the EditText is clicked
-        editTextBirthday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerDialog.show();
-            }
-        });
-
-        // Set up civil status spinner
-        ArrayAdapter<CharSequence> civilStatusAdapter = ArrayAdapter.createFromResource(this, R.array.civil_status_choices_with_hint, android.R.layout.simple_spinner_item);
-        civilStatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCivilStatus.setAdapter(civilStatusAdapter);
-
-        ArrayAdapter<CharSequence> GenderAdapter = ArrayAdapter.createFromResource(this, R.array.sex_choices, android.R.layout.simple_spinner_item);
-        GenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerGender.setAdapter(GenderAdapter);
-
-        ArrayAdapter<CharSequence> VoterStutsAdapter = ArrayAdapter.createFromResource(this, R.array.voter_status, android.R.layout.simple_spinner_item);
-        VoterStutsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerVoterStauts.setAdapter(VoterStutsAdapter);
-
-        ArrayAdapter<CharSequence> OccupationAdapter = ArrayAdapter.createFromResource(this, R.array.occupation, android.R.layout.simple_spinner_item);
-        OccupationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerOccupation.setAdapter(OccupationAdapter);
-
-        ArrayAdapter<CharSequence> ResidentialStatusAdapter = ArrayAdapter.createFromResource(this, R.array.resident_status, android.R.layout.simple_spinner_item);
-        ResidentialStatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerResidentialStatus.setAdapter(ResidentialStatusAdapter);
 
 
 
@@ -329,46 +223,10 @@ public class SignUpActivity extends AppCompatActivity {
         String txtConfirmPassword = editTextConfirmPassword.getText().toString().trim();
 
         // Additional fields
-        String txtCivilStatus = spinnerCivilStatus.getSelectedItem().toString();
 
-        String txtBirthday = editTextBirthday.getText().toString().trim();
-        String txtBirthplace = editTextBirthplace.getText().toString().trim();
         String txtEmergencyContact = editTextEmergencyContact.getText().toString().trim();
         String txtEmergencyContactNo = editTextEmergencyContactNo.getText().toString().trim();
 
-        String location = spinnerLocation.getSelectedItem().toString();
-        String block = editTextBlock.getText().toString().trim();
-        String lot = editTextLot.getText().toString().trim();
-        String street = editTextStreet.getText().toString().trim();
-        String alias = editTextAlias.getText().toString().trim();
-
-        String voters = spinnerVoterStauts.getSelectedItem().toString().trim();
-        String occupation = spinnerOccupation.getSelectedItem().toString().trim();
-
-
-
-
-
-        if (alias.isEmpty()) {
-            editTextAlias.setError("Please Enter Your Alias");
-            editTextAlias.requestFocus();
-            return;
-        }
-        if (street.isEmpty()) {
-            editTextStreet.setError("Please Enter Your Street");
-            editTextStreet.requestFocus();
-            return;
-        }
-        if (block.isEmpty()) {
-            editTextBlock.setError("Please Enter Your Blk");
-            editTextBlock.requestFocus();
-            return;
-        }
-        if (lot.isEmpty()) {
-            editTextLot.setError("Please Enter Your Blk");
-            editTextLot.requestFocus();
-            return;
-        }
 
         //  validation code...
         if (txtFirstName.isEmpty()) {
@@ -407,11 +265,7 @@ public class SignUpActivity extends AppCompatActivity {
             editTextConfirmPassword.requestFocus();
             return;
         }
-        // Validation for civil status
-        if (txtCivilStatus.isEmpty()) {
-            Toast.makeText(SignUpActivity.this, "Please select your civil status", Toast.LENGTH_SHORT).show();
-            return;
-        }
+
 
         // Validation for email
         if (txtEmail.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(txtEmail).matches()) {
@@ -439,25 +293,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
 
-        // Validate if the selected date is not in the future
-        Calendar selectedDate = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy", Locale.US);
-        try {
-            selectedDate.setTime(sdf.parse(txtBirthday));
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Toast.makeText(SignUpActivity.this, "Please enter a valid birthday", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
-        if (selectedDate.after(today)) {
-            Toast.makeText(SignUpActivity.this, "Please select a valid date", Toast.LENGTH_SHORT).show();
-            return;
-        }
+
 
         // Start the registration process
         progressBar.setVisibility(View.VISIBLE);
@@ -469,7 +305,7 @@ public class SignUpActivity extends AppCompatActivity {
                             Log.d("Firebase", "User created successfully");
 
                             // Upload the valid ID image and save user data
-                            uploadValidIDAndSaveUserData(txtLastName, txtMiddleName, txtFirstName, txtPhoneNumber, txtEmail, txtPassword, txtCivilStatus, txtBirthday, txtBirthplace, txtEmergencyContact, txtEmergencyContactNo);
+                            uploadValidIDAndSaveUserData(txtLastName, txtMiddleName, txtFirstName, txtPhoneNumber, txtEmail, txtPassword, txtEmergencyContact, txtEmergencyContactNo);
                         } else {
                             Log.e("Firebase", "User creation failed", task.getException());
 
@@ -518,7 +354,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    private void uploadValidIDAndSaveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String birthday, String birthplace, String emergencyContact, String emergencyContactNo) {
+    private void uploadValidIDAndSaveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password,  String emergencyContact, String emergencyContactNo) {
         if (validIDUri != null) {
             final StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("valid_ids/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
             storageRef.putFile(validIDUri)
@@ -531,57 +367,25 @@ public class SignUpActivity extends AppCompatActivity {
                                     public void onSuccess(Uri uri) {
                                         String validIDUrl = uri.toString();
                                         // Save user data without setting validated to true
-                                        saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, birthday, birthplace, emergencyContact, emergencyContactNo, validIDUrl, false);
+                                        saveUserData(lastName, middleName, firstName, phoneNumber, email, password, emergencyContact, emergencyContactNo, validIDUrl, false);
                                     }
                                 });
                             } else {
                                 Toast.makeText(SignUpActivity.this, "Failed to upload valid ID image", Toast.LENGTH_SHORT).show();
                                 // If image upload failed, save user data without a valid ID URL
-                                saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, birthday, birthplace, emergencyContact, emergencyContactNo, null, false);
+                                saveUserData(lastName, middleName, firstName, phoneNumber, email, password, emergencyContact, emergencyContactNo, null, false);
                             }
                         }
                     });
         } else {
             // If no valid ID is provided
-            saveUserData(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, birthday, birthplace, emergencyContact, emergencyContactNo, null, false);
+            saveUserData(lastName, middleName, firstName, phoneNumber, email, password, emergencyContact, emergencyContactNo, null, false);
         }
     }
 
-    private void saveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String civilStatus, String birthday, String birthplace, String emergencyContact, String emergencyContactNo, String validIDUrl, boolean validated) {
-        // Retrieve additional data from the EditText fields
-        String location = spinnerLocation.getSelectedItem().toString();
-        String block = editTextBlock.getText().toString().trim();
-        String street = editTextStreet.getText().toString().trim();
-        String alias = editTextAlias.getText().toString().trim();
-        String voters = spinnerVoterStauts.getSelectedItem().toString();
-        String occupation = spinnerOccupation.getSelectedItem().toString().trim();
-        String resident_status = spinnerResidentialStatus.getSelectedItem().toString().trim();
+    private void saveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String emergencyContact, String emergencyContactNo, String validIDUrl, boolean validated) {
 
-        String lot = editTextLot.getText().toString().trim();
-        String address = location + " blk " + block + " lot " + lot + " street " + street;
-        String gender = spinnerGender.getSelectedItem().toString();
-        String type_employment = occupation.equalsIgnoreCase("Unemployed") ? "unemployed" : "employed";
-
-        // Calculate age from the birth date
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy", Locale.US);
-        Calendar dob = Calendar.getInstance();
-        try {
-            dob.setTime(sdf.parse(birthday));
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Toast.makeText(SignUpActivity.this, "Please enter a valid birthday", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Calendar today = Calendar.getInstance();
-        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
-            age--;
-        }
-        String Age = String.valueOf(age);
-
-
-        // Create a User object with all the fields, including the validated flag and additional data
-        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, civilStatus, birthday, emergencyContact, emergencyContactNo, birthplace, validIDUrl, validated, location, block, lot, address, Age, gender, fcmToken, street, alias,voters,occupation, resident_status, type_employment);
+        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, emergencyContact, emergencyContactNo, validIDUrl, validated,fcmToken);
 
         // Get a reference to the Firebase Database and save the User object
         FirebaseDatabase.getInstance().getReference("users")

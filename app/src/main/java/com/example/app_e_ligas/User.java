@@ -12,28 +12,8 @@ public class User {
     public static String birthPlace;
     public static String emergencyContactPerson;
     public static String emergencyContactPersonNo;
-    public static String validIDUrl; // Added field for valid ID URL
-    public static String userProfileImage; // Added field for user profile
-    public static String location; // Added field for user location
-    public static String block; // Added field for user block
-    public static String lot; // Added field for user lot
-    public static String address;
-    public static String Age; // Added field for age
-    public static String gender;
-
-    public static String street;
-    public static String alias;
-
-    public static String voters;
-    public static String occupation;
-
-    public static String resident_status;
-
-    public static String type_employment;
-
-
-
-
+    public static String validIDUrl;
+    public static String userProfileImage;
     String fcmToken;
 
 
@@ -45,36 +25,19 @@ public class User {
 
 
     public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber,
-                String userEmail, String userPassword, String civilStatus, String birthday, String emergencyContactPerson, String emergencyContactPersonNo, String birthPlace, String validIDUrl, boolean validated, String location, String block, String lot, String address,String Age,String gender,
-                String fcmToken, String street, String alias, String voters, String occupation, String resident_status, String type_employment) {
+                String userEmail, String userPassword,String emergencyContactPerson, String emergencyContactPersonNo, String validIDUrl, boolean validated,
+                String fcmToken) {
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
         this.userFirstName = userFirstName;
         this.userPhoneNumber = userPhoneNumber;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
-        this.civilStatus = civilStatus;
-        this.birthday = birthday;
         this.emergencyContactPerson = emergencyContactPerson;
         this.emergencyContactPersonNo = emergencyContactPersonNo;
-        this.birthPlace = birthPlace;
         this.validIDUrl = validIDUrl;
-        this.userProfileImage = userProfileImage;
-        this.validated = validated; // Initialize the validated field
+        this.validated = validated;
         this.fcmToken = fcmToken;
-        this.location = location;
-        this.block = block;
-        this.lot = lot;
-        this.address = address;
-        this.Age = Age;
-        this.gender = gender;
-        this.street = street;
-        this.alias = alias;
-        this.voters = voters;
-        this.occupation = occupation;
-        this.resident_status = resident_status;
-        this.type_employment = type_employment;
-
     }
 
     public static void clearUserData() {
@@ -116,15 +79,6 @@ public class User {
     public String getFullName(){
         return userFirstName + " " + userMiddleName + " " + userLastName;
     }
-
-    public String getBirthPlace() {
-        return birthPlace;
-    }
-
-    public void setBirthPlace(String birthPlace) {
-        this.birthPlace = birthPlace;
-    }
-
     // Corrected constructor to include the 'role' parameter
     public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword) {
         this.userLastName = userLastName;
@@ -183,23 +137,6 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public String getCivilStatus() {
-        return civilStatus;
-    }
-
-    public void setCivilStatus(String civilStatus) {
-        this.civilStatus = civilStatus;
-    }
-
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
     public String getEmergencyContactPerson() {
         return emergencyContactPerson;
     }
@@ -231,104 +168,4 @@ public class User {
     public void setUserProfileImage(String userProfileImage) {
         this.userProfileImage = userProfileImage;
     }
-
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getBlock() {
-        return block;
-    }
-
-    public void setBlock(String block) {
-        this.block = block;
-    }
-
-    public String getLot() {
-        return lot;
-    }
-
-    public void setLot(String lot) {
-        this.lot = lot;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    public String getAge() {
-        return Age;
-    }
-
-    public void setAge(String age) {
-        this.Age = age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setVoters(String voters) {
-        this.voters = voters;
-    }
-
-    public String getVoters() {
-        return voters;
-    }
-
-    public void setOccupation(String occupation) {
-        this.occupation = occupation;
-    }
-
-    public String getOccupation() {
-        return occupation;
-    }
-
-    public void setResident_status(String resident_status) {
-        this.resident_status = resident_status;
-    }
-
-    public String getResident_status() {
-        return resident_status;
-    }
-
-    public void setType_employment(String type_employment) {
-        this.type_employment = type_employment;
-    }
-
-    public String getType_employment() {
-        return type_employment;
-    }
-
-
 }

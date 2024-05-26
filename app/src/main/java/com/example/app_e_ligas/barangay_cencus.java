@@ -26,14 +26,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class barangay_cencus extends DrawerBasedActivity {
     private ActivityBarangayCencusBinding activityBarangayCencusBinding;
     private EditText editTextBirthday, etFirstName, etMiddleName, etLastName, House_blk_lot, St_Purok_Sitio_Subd,
             barangay, City_Municipality, province, place_birth, Height, Weight, Nationality, company_name,
             duration, address_company, elem_school_name, elem_school_address, high_school_name, high_school_address,
-            voc_school_name, voc_school_address, college_school_name, college_school_address;
-    private Spinner spinnerGender, spinnerCivilStatus, spinner_vacine, spinnerPWD, House_type, Solo_Parent;
+            voc_school_name, voc_school_address, college_school_name, college_school_address, etAlias;
+    private Spinner spinnerGender, spinnerCivilStatus, spinner_vacine, spinnerPWD, House_type, Solo_Parent, voter_status_spinner,
+            residential_status_spinner, occup;
     Button btnNext1, btnNext2, btnSubmit, btnBack1,btnBack2;
     private DatabaseReference usersRef;
     private FirebaseAuth mAuth;
@@ -82,8 +84,16 @@ public class barangay_cencus extends DrawerBasedActivity {
         etMiddleName = findViewById(R.id.etMiddleName);
         etFirstName = findViewById(R.id.etFirstName);
         editTextBirthday = findViewById(R.id.editTextBirthday);
+        etAlias = findViewById(R.id.etAlias);
+        voter_status_spinner = findViewById(R.id.voter_status_spinner);
+        residential_status_spinner = findViewById(R.id.residential_status_spinner);
+        occup = findViewById(R.id.occup);
 
 
+
+        setupTextView(findViewById(R.id.occupation), "Occupation*", "This field is required");
+        setupTextView(findViewById(R.id.Residential_status), "Residential Status*", "This field is required");
+        setupTextView(findViewById(R.id.voter_status), "Voter Status*", "This field is required");
         setupTextView(findViewById(R.id.firstname), "First Name*", "This field is required");
         setupTextView(findViewById(R.id.lastname), "Last Name*", "This field is required");
         setupTextView(findViewById(R.id.House), "(House/Block/Lot)*", "This field is required");
@@ -174,24 +184,30 @@ public class barangay_cencus extends DrawerBasedActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(barangay_cencus.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                // Set the selected date to the EditText
-                editTextBirthday.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                // Convert the selected date to the desired format
+                SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+                calendar.set(year, monthOfYear, dayOfMonth);
+                String formattedDate = sdf.format(calendar.getTime());
+
+                // Set the formatted date to the EditText
+                editTextBirthday.setText(formattedDate);
             }
         }, year, month, day);
 
         // Show DatePickerDialog
         datePickerDialog.show();
     }
+
     private void submitData() {
-        String firstName = etFirstName.getText().toString();
-        String middleName = etMiddleName.getText().toString();
-        String lastName = etLastName.getText().toString();
+        String userFirstName = etFirstName.getText().toString();
+        String userMiddleName = etMiddleName.getText().toString();
+        String userLastName = etLastName.getText().toString();
         String houseBlockLot = House_blk_lot.getText().toString();
         String stPurokSitioSubd = St_Purok_Sitio_Subd.getText().toString();
         String barangayValue = barangay.getText().toString();
         String cityMunicipality = City_Municipality.getText().toString();
         String provinceValue = province.getText().toString();
-        String placeOfBirth = place_birth.getText().toString();
+        String birthPlace = place_birth.getText().toString();
         String height = Height.getText().toString();
         String weight = Weight.getText().toString();
         String nationality = Nationality.getText().toString();
@@ -207,6 +223,7 @@ public class barangay_cencus extends DrawerBasedActivity {
         String collegeSchoolName = college_school_name.getText().toString();
         String collegeSchoolAddress = college_school_address.getText().toString();
         String birthday = editTextBirthday.getText().toString();
+        String alias = etAlias.getText().toString();
 
         // Get selected values from Spinners
         String gender = spinnerGender.getSelectedItem().toString();
@@ -215,37 +232,45 @@ public class barangay_cencus extends DrawerBasedActivity {
         String pwdType = spinnerPWD.getSelectedItem().toString();
         String houseType = House_type.getSelectedItem().toString();
         String soloParent = Solo_Parent.getSelectedItem().toString();
+        String voters = voter_status_spinner.getSelectedItem().toString();
+        String resident_status = residential_status_spinner.getSelectedItem().toString();
+        String occupation = occup.getSelectedItem().toString();
+        String type_employment = occupation.equalsIgnoreCase("Unemployed") ? "Unemployed" : "Employed";
 
+
+
+        String address = houseBlockLot + " " + stPurokSitioSubd + " " + barangayValue + " " + cityMunicipality + " " + provinceValue;
         // Validate required fields
-        if (firstName.isEmpty() || lastName.isEmpty() || houseBlockLot.isEmpty() ||
+        if (userFirstName.isEmpty() || userLastName.isEmpty() || houseBlockLot.isEmpty() ||
                 stPurokSitioSubd.isEmpty() || barangayValue.isEmpty() || cityMunicipality.isEmpty() ||
-                provinceValue.isEmpty() || placeOfBirth.isEmpty() || height.isEmpty() || weight.isEmpty() ||
+                provinceValue.isEmpty() || birthPlace.isEmpty() || height.isEmpty() || weight.isEmpty() ||
                 nationality.isEmpty() || vaccineStatus.isEmpty() || pwdType.isEmpty() ) {
             // Display error message for missing required fields
             Toast.makeText(barangay_cencus.this, "All fields are required except for Educational Attainment and Employment Record", Toast.LENGTH_SHORT).show();
             return; // Exit method if required fields are missing
         }
 
-        int age = calculateAge(birthday);
+        String age = String.valueOf(calculateAge(birthday)); // Get age as a string
         // Get current user ID
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
 
             // Create a reference to the census data under the current user's ID
-            DatabaseReference userCensusRef = usersRef.child(userId).child("census");
-
+            DatabaseReference userCensusRef = usersRef.child(userId);
             // Create a HashMap to store the census data
             HashMap<String, Object> censusData = new HashMap<>();
-            censusData.put("firstName", firstName);
-            censusData.put("middleName", middleName);
-            censusData.put("lastName", lastName);
+            censusData.put("userFirstName", userFirstName);
+            censusData.put("userMiddleName", userMiddleName);
+            censusData.put("userLastName", userLastName);
+            censusData.put("alias", alias);
+            censusData.put("address", address);
             censusData.put("houseBlockLot", houseBlockLot);
             censusData.put("stPurokSitioSubd", stPurokSitioSubd);
             censusData.put("barangayValue", barangayValue);
             censusData.put("cityMunicipality", cityMunicipality);
             censusData.put("provinceValue", provinceValue);
-            censusData.put("placeOfBirth", placeOfBirth);
+            censusData.put("birthPlace", birthPlace);
             censusData.put("birthday", birthday);
             censusData.put("age", age);
             censusData.put("height", height);
@@ -268,10 +293,13 @@ public class barangay_cencus extends DrawerBasedActivity {
             censusData.put("pwdType", pwdType);
             censusData.put("houseType", houseType);
             censusData.put("soloParent", soloParent);
-            censusData.put("soloParent", soloParent);
+            censusData.put("voters", voters);
+            censusData.put("resident_status", resident_status);
+            censusData.put("occupation", occupation);
+            censusData.put("type_employment", type_employment);
 
             // Save the census data to Firebase
-            userCensusRef.setValue(censusData)
+            userCensusRef.updateChildren(censusData)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             // Census data saved successfully
@@ -286,7 +314,6 @@ public class barangay_cencus extends DrawerBasedActivity {
             Toast.makeText(barangay_cencus.this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
     }
-
     private void setupTextView(TextView textView, String text, String toastMessage) {
         // Create spannable string and color span
         SpannableString spannableString = new SpannableString(text);
@@ -306,7 +333,7 @@ public class barangay_cencus extends DrawerBasedActivity {
 
     // Method to calculate age from birthday
     private int calculateAge(String birthday) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
         try {
             Date birthDate = sdf.parse(birthday);
             Calendar birthCalendar = Calendar.getInstance();
@@ -326,4 +353,5 @@ public class barangay_cencus extends DrawerBasedActivity {
             return 0; // Return 0 if parsing fails
         }
     }
+
 }

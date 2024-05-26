@@ -139,29 +139,10 @@ public class EditProfileActivity extends AppCompatActivity {
                             firstNameEditText.setText(user.getUserFirstName());
                             middleNameEditText.setText(user.getUserMiddleName());
                             lastNameEditText.setText(user.getUserLastName());
-                            birthdayTextView.setText(user.getBirthday());
 
-                            birthPlaceEditText.setText(user.getBirthPlace());
                             contactNumberEditText.setText(user.getUserPhoneNumber());
-
                             // Set the spinner selection
-                            ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) civilStatusSpinner.getAdapter();
-                            if (user.getCivilStatus() != null) {
-                                int spinnerPosition = adapter.getPosition(user.getCivilStatus());
-                                civilStatusSpinner.setSelection(spinnerPosition);
-                            }
 
-
-                            // Set the location spinner selection
-                            ArrayAdapter<CharSequence> locationAdapter = (ArrayAdapter<CharSequence>) locationSpinner.getAdapter();
-                            if (user.getLocation() != null) {
-                                int spinnerPosition = locationAdapter.getPosition(user.getLocation());
-                                locationSpinner.setSelection(spinnerPosition);
-                            }
-
-                            // Set block and lot
-                            blockEditText.setText(user.getBlock());
-                            lotEditText.setText(user.getLot());
                         }
                     }
                 }
@@ -175,23 +156,6 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void saveProfile() {
-        // Retrieve values from EditText fields
-        String firstName = firstNameEditText.getText().toString();
-        String middleName = middleNameEditText.getText().toString();
-        String lastName = lastNameEditText.getText().toString();
-        String civilStatus = civilStatusSpinner.getSelectedItem().toString();
-        String birthday = birthdayTextView.getText().toString(); // Use TextView instead of EditText
-        String birthPlace = birthPlaceEditText.getText().toString();
-        String contactNumber = contactNumberEditText.getText().toString();
-        String location = locationSpinner.getSelectedItem().toString(); // Retrieve selected location from spinner
-        String block = blockEditText.getText().toString(); // Retrieve block
-        String lot = lotEditText.getText().toString(); // Retrieve lot
-
-        String address = location + " blk " + block + " lot " + lot;
-
-        String age = String.valueOf(calculateAge(birthday));
-
-
 
 
         // Get current user
@@ -209,44 +173,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         // Get the current user object
                         User user = dataSnapshot.getValue(User.class);
-
-                        // Update only the fields that have been modified
-                        if (!firstName.isEmpty()) {
-                            user.setUserFirstName(firstName);
-                        }
-                        if (!middleName.isEmpty()) {
-                            user.setUserMiddleName(middleName);
-                        }
-                        if (!lastName.isEmpty()) {
-                            user.setUserLastName(lastName);
-                        }
-                        if (!civilStatus.isEmpty()) {
-                            user.setCivilStatus(civilStatus);
-                        }
-                        if (!birthday.isEmpty()) {
-                            user.setBirthday(birthday);
-                        }
-
-                        if (!birthPlace.isEmpty()) {
-                            user.setBirthPlace(birthPlace);
-                        }
-                        if (!contactNumber.isEmpty()) {
-                            user.setUserPhoneNumber(contactNumber);
-                        }
-                        if (!location.isEmpty()) {
-                            user.setLocation(location);
-                        }
-                        if (!block.isEmpty()) {
-                            user.setBlock(block);
-                        }
-                        if (!lot.isEmpty()) {
-                            user.setLot(lot);
-                        }
-
-                        user.setAddress(address);
-
-                        user.setAge(age);
-
 
 
                         // Update the user data in the database
