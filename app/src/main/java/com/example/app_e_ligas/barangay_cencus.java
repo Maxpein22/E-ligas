@@ -3,6 +3,7 @@ package com.example.app_e_ligas;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -18,8 +19,11 @@ import com.example.namespace.R;
 import com.example.namespace.databinding.ActivityBarangayCencusBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,6 +31,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class barangay_cencus extends DrawerBasedActivity {
     private ActivityBarangayCencusBinding activityBarangayCencusBinding;
@@ -119,7 +124,7 @@ public class barangay_cencus extends DrawerBasedActivity {
         // Initialize Firebase components
         mAuth = FirebaseAuth.getInstance();
         usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-
+        fetchUserData();
         // Button click listeners
         btnNext1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,7 +201,85 @@ public class barangay_cencus extends DrawerBasedActivity {
 
         // Show DatePickerDialog
         datePickerDialog.show();
+    }    private void fetchUserData() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            usersRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        // Assuming user data is stored in a Map format
+                        Map<String, Object> userData = (Map<String, Object>) snapshot.getValue();
+                        if (userData != null) {
+                            populateFields(userData);
+                        }
+                    } else {
+                        Toast.makeText(barangay_cencus.this, "User data not found", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(barangay_cencus.this, "Failed to fetch user data", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
+
+    private void populateFields(Map<String, Object> userData) {
+        etFirstName.setText(getStringValue(userData, "userFirstName"));
+        etMiddleName.setText(getStringValue(userData, "userMiddleName"));
+        etLastName.setText(getStringValue(userData, "userLastName"));
+        editTextBirthday.setText(getStringValue(userData, "birthday"));
+        etAlias.setText(getStringValue(userData, "alias"));
+        House_blk_lot.setText(getStringValue(userData, "houseBlockLot"));
+        St_Purok_Sitio_Subd.setText(getStringValue(userData, "stPurokSitioSubd"));
+        barangay.setText(getStringValue(userData, "barangayValue"));
+        City_Municipality.setText(getStringValue(userData, "cityMunicipality"));
+        province.setText(getStringValue(userData, "provinceValue"));
+        place_birth.setText(getStringValue(userData, "birthPlace"));
+        Height.setText(getStringValue(userData, "height"));
+        Weight.setText(getStringValue(userData, "weight"));
+        Nationality.setText(getStringValue(userData, "nationality"));
+        company_name.setText(getStringValue(userData, "companyName"));
+        duration.setText(getStringValue(userData, "durationOfEmployment"));
+        address_company.setText(getStringValue(userData, "companyAddress"));
+        elem_school_name.setText(getStringValue(userData, "elemSchoolName"));
+        elem_school_address.setText(getStringValue(userData, "elemSchoolAddress"));
+        high_school_name.setText(getStringValue(userData, "highSchoolName"));
+        high_school_address.setText(getStringValue(userData, "highSchoolAddress"));
+        voc_school_name.setText(getStringValue(userData, "vocSchoolName"));
+        voc_school_address.setText(getStringValue(userData, "vocSchoolAddress"));
+        college_school_name.setText(getStringValue(userData, "collegeSchoolName"));
+        college_school_address.setText(getStringValue(userData, "collegeSchoolAddress"));
+
+        // Set spinner values
+        setSpinnerValue(spinnerGender, getStringValue(userData, "gender"));
+        setSpinnerValue(spinnerCivilStatus, getStringValue(userData, "civilStatus"));
+        setSpinnerValue(spinner_vacine, getStringValue(userData, "vaccineStatus"));
+        setSpinnerValue(spinnerPWD, getStringValue(userData, "pwdType"));
+        setSpinnerValue(House_type, getStringValue(userData, "houseType"));
+        setSpinnerValue(Solo_Parent, getStringValue(userData, "soloParent"));
+        setSpinnerValue(voter_status_spinner, getStringValue(userData, "voters"));
+        setSpinnerValue(residential_status_spinner, getStringValue(userData, "resident_status"));
+        setSpinnerValue(occup, getStringValue(userData, "occupation"));
+    }
+
+    private String getStringValue(Map<String, Object> data, String key) {
+        Object value = data.get(key);
+        return value != null ? value.toString() : "";
+    }
+    private void setSpinnerValue(Spinner spinner, String value) {
+        // Assuming the spinner adapter contains the value
+        for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
+            if (spinner.getAdapter().getItem(i).toString().equals(value)) {
+                spinner.setSelection(i);
+                break;
+            }
+        }
+    }
+
 
     private void submitData() {
         String userFirstName = etFirstName.getText().toString();
@@ -238,7 +321,6 @@ public class barangay_cencus extends DrawerBasedActivity {
         String type_employment = occupation.equalsIgnoreCase("Unemployed") ? "Unemployed" : "Employed";
 
 
-
         String address = houseBlockLot + " " + stPurokSitioSubd + " " + barangayValue + " " + cityMunicipality + " " + provinceValue;
         // Validate required fields
         if (userFirstName.isEmpty() || userLastName.isEmpty() || houseBlockLot.isEmpty() ||
@@ -247,7 +329,7 @@ public class barangay_cencus extends DrawerBasedActivity {
                 nationality.isEmpty() || vaccineStatus.isEmpty() || pwdType.isEmpty() ) {
             // Display error message for missing required fields
             Toast.makeText(barangay_cencus.this, "All fields are required except for Educational Attainment and Employment Record", Toast.LENGTH_SHORT).show();
-            return; // Exit method if required fields are missing
+            return;
         }
 
         String age = String.valueOf(calculateAge(birthday)); // Get age as a string

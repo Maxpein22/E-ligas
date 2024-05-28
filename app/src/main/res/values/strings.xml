@@ -16,11 +16,6 @@
         <item>LGBTQ</item>
     </string-array>
 
-    <string-array name="ligas_array">
-        <item>Ligas 1</item>
-        <item>Others</item>
-    </string-array>
-
     <string-array name="voter_status">
         <item>Registered</item>
         <item>Unregister</item>
@@ -28,15 +23,15 @@
 
     <string-array name="occupation">
         <item>Unemployed</item>
-        <item>Healthcare</item>
-        <item>Engineering</item>
-        <item>Education</item>
-        <item>Technology</item>
-        <item>Business</item>
-        <item>Creative Arts</item>
-        <item>Construction</item>
-        <item>Law</item>
-        <item>Public Services</item>
+        <item>OFW</item>
+        <item>Medical Practitioner</item>
+        <item>Teacher</item>
+        <item>Call Center</item>
+        <item>Fisherman</item>
+        <item>Construction Worker</item>
+        <item>House Helper</item>
+        <item>Farmer</item>
+        <item>Armed Forces</item>
         <item>Hospitality</item>
         <item>Vendor</item>
 
@@ -56,19 +51,19 @@
     </string-array>
 
     <string-array name="house_ownership_array">
-    <item>Owner</item>
-    <item>Board/Renter</item>
-    <item>Informal</item>
+        <item>Owner</item>
+        <item>Board/Renter</item>
+        <item>Informal Settler</item>
     </string-array>
     <string-array name="Solo_parent">
+        <item>Not Parent</item>
         <item>Yes</item>
         <item>No</item>
-        <item>Not Parent</item>
     </string-array>
 
     <string-array name="vacinne_status">
-        <item>Vacicinated</item>
-        <item>Not Vacicinated</item>
+        <item>Vaccinated</item>
+        <item>Not Vaccinated</item>
     </string-array>
     <string-array name="PWD">
         <item>Yes</item>
@@ -87,5 +82,6 @@
         <item>Orthopedic Disability</item>
     </string-array>
 
+    <string name="verify_here"><![CDATA[<u>Verify Here</u>]]></string>
 
 </resources>

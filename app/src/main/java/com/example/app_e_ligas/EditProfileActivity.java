@@ -1,20 +1,17 @@
 package com.example.app_e_ligas;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.namespace.R;
+import com.example.namespace.databinding.ActivityEditProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,34 +22,37 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 
-public class EditProfileActivity extends AppCompatActivity {
-
-    private EditText firstNameEditText, middleNameEditText, lastNameEditText,
-            ageEditText, birthPlaceEditText,
-            contactNumberEditText, emailEditText, locationEditText;
-    private TextView birthdayTextView; // Changed from EditText to TextView
-    private Spinner civilStatusSpinner;
-    private Button saveButton;
-
-    private Spinner locationSpinner; // Added for location
-    private EditText blockEditText; // Added for block
-    private EditText lotEditText; // Added for lot
-
-    // Firebase variables
-    private FirebaseAuth mAuth;
+public class EditProfileActivity extends DrawerBasedActivity {
+    ActivityEditProfileBinding activityEditProfileBinding;
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
-    private DatePickerDialog.OnDateSetListener dateSetListener;
+    private EditText firstNameEditText, birthPlaceEditText, middleNameEditText, lastNameEditText,
+            dateofBirth, phoneNumberEditText, emailEditText;
+
+    private Spinner civilStatusSpinner, genderSpinner;
+    private Button btnSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        activityEditProfileBinding = ActivityEditProfileBinding.inflate(getLayoutInflater());
+        setContentView(activityEditProfileBinding.getRoot());
+        allocateActivityTitle("Profile Update");
+
+        firstNameEditText = findViewById(R.id.etFirstName);
+        middleNameEditText = findViewById(R.id.etMiddleName);
+        lastNameEditText = findViewById(R.id.etLastName);
+        dateofBirth = findViewById(R.id.editTextBirthday);
+        civilStatusSpinner = findViewById(R.id.spinnerCivilStatus);
+        genderSpinner = findViewById(R.id.spinnerGender);
+        birthPlaceEditText = findViewById(R.id.etBirthPlace);
+        phoneNumberEditText = findViewById(R.id.etPhoneNumber);
+        emailEditText = findViewById(R.id.etEmail);
+        btnSave = findViewById(R.id.btnSave);
 
         // Initialize Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -60,68 +60,14 @@ public class EditProfileActivity extends AppCompatActivity {
         // Initialize Firebase Realtime Database
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
 
-        // Bind views
-        firstNameEditText = findViewById(R.id.firstNameEditText);
-        middleNameEditText = findViewById(R.id.middleNameEditText);
-        lastNameEditText = findViewById(R.id.lastNameEditText);
-        birthdayTextView = findViewById(R.id.birthdayEditText); // Updated ID
-        birthPlaceEditText = findViewById(R.id.birthPlaceEditText);
-        contactNumberEditText = findViewById(R.id.contactNumberEditText);
-        civilStatusSpinner = findViewById(R.id.spinnerCivilStatus);
-        locationSpinner = findViewById(R.id.spinnerLocation); // Added for location
-        blockEditText = findViewById(R.id.editTextBlock); // Added for block
-        lotEditText = findViewById(R.id.editTextLot); // Added for lot
-        saveButton = findViewById(R.id.button8);
+        // Load user data
+        loadUserData();
 
-        // Populate civil status spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.civil_status_choices_with_hint, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        civilStatusSpinner.setAdapter(adapter);
-
-        // Set date picker for birthday
-        setUpDatePicker();
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        // Set onClickListener for save button
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveProfile();
-            }
-        });
-
-        // Load user data
-        loadUserData();
-    }
-
-    private void setUpDatePicker() {
-        // Get current date
-        final Calendar calendar = Calendar.getInstance();
-
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar selectedDate = Calendar.getInstance();
-                selectedDate.set(year, month, dayOfMonth);
-
-                // Check if the selected date is today's date
-                if (selectedDate.after(calendar)) {
-                    // If it's a future date, show a message and return
-                    Toast.makeText(EditProfileActivity.this, "Please select a valid date", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
-                birthdayTextView.setText(sdf.format(selectedDate.getTime())); // Update TextView
-            }
-        };
-
-        birthdayTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(EditProfileActivity.this, dateSetListener,
-                        calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
     }
@@ -134,15 +80,20 @@ public class EditProfileActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        User user = dataSnapshot.getValue(User.class);
-                        if (user != null) {
-                            firstNameEditText.setText(user.getUserFirstName());
-                            middleNameEditText.setText(user.getUserMiddleName());
-                            lastNameEditText.setText(user.getUserLastName());
+                        Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
+                        if (userData != null) {
+                            // Populate EditTexts with user data
+                            firstNameEditText.setText((String) userData.get("userFirstName"));
+                            middleNameEditText.setText((String) userData.get("userMiddleName"));
+                            lastNameEditText.setText((String) userData.get("userLastName"));
+                            dateofBirth.setText((String) userData.get("birthday"));
+                            birthPlaceEditText.setText((String) userData.get("birthPlace"));
+                            phoneNumberEditText.setText((String) userData.get("userPhoneNumber"));
+                            emailEditText.setText((String) userData.get("userEmail"));
 
-                            contactNumberEditText.setText(user.getUserPhoneNumber());
-                            // Set the spinner selection
-
+                            // Set spinner selections
+                            setSpinnerSelection(civilStatusSpinner, (String) userData.get("civilStatus"));
+                            setSpinnerSelection(genderSpinner, (String) userData.get("gender"));
                         }
                     }
                 }
@@ -155,76 +106,57 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void saveProfile() {
-
-
-        // Get current user
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            // Retrieve user ID
-            String userId = currentUser.getUid();
-
-
-
-            // Retrieve the current user data from the database
-            mDatabase.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        // Get the current user object
-                        User user = dataSnapshot.getValue(User.class);
-
-
-                        // Update the user data in the database
-                        mDatabase.child(userId).setValue(user)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(EditProfileActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                                            // Set result to indicate profile update success
-                                            setResult(RESULT_OK);
-                                            finish(); // Finish the activity
-                                        } else {
-                                            Toast.makeText(EditProfileActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                    } else {
-                        Toast.makeText(EditProfileActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(EditProfileActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            Toast.makeText(EditProfileActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
+    private void setSpinnerSelection(Spinner spinner, String value) {
+        ArrayAdapter adapter = (ArrayAdapter) spinner.getAdapter();
+        if (adapter != null) {
+            int position = adapter.getPosition(value);
+            if (position != -1) {
+                spinner.setSelection(position);
+            }
         }
     }
 
-    private int calculateAge(String birthday) {
-        // Parse the birthday string to get the year, month, and day
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
-        Calendar birthDate = Calendar.getInstance();
-        try {
-            birthDate.setTime(sdf.parse(birthday));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    private void saveProfile() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
 
-        // Get current date
-        Calendar currentDate = Calendar.getInstance();
+            // Retrieve entered profile information
+            String firstName = firstNameEditText.getText().toString();
+            String middleName = middleNameEditText.getText().toString();
+            String lastName = lastNameEditText.getText().toString();
+            String birthday = dateofBirth.getText().toString();
+            String birthPlace = birthPlaceEditText.getText().toString();
+            String contactNumber = phoneNumberEditText.getText().toString();
+            String civilStatus = civilStatusSpinner.getSelectedItem().toString();
 
-        // Calculate age
-        int age = currentDate.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
-        if (currentDate.get(Calendar.MONTH) < birthDate.get(Calendar.MONTH)
-                || (currentDate.get(Calendar.MONTH) == birthDate.get(Calendar.MONTH)
-                && currentDate.get(Calendar.DAY_OF_MONTH) < birthDate.get(Calendar.DAY_OF_MONTH))) {
-            age--;
+            // Create a Map to store the user data
+            Map<String, Object> userData = new HashMap<>();
+            userData.put("userFirstName", firstName);
+            userData.put("userMiddleName", middleName);
+            userData.put("userLastName", lastName);
+            userData.put("birthday", birthday);
+            userData.put("birthPlace", birthPlace);
+            userData.put("userPhoneNumber", contactNumber);
+            userData.put("civilStatus", civilStatus);
+
+            // Update the user data in the database
+            mDatabase.child(userId).updateChildren(userData)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(EditProfileActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                                // Set result to indicate profile update success
+                                setResult(RESULT_OK);
+                                finish(); // Finish the activity
+                            } else {
+                                Toast.makeText(EditProfileActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        } else {
+            Toast.makeText(EditProfileActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
-        return age;
     }
 }

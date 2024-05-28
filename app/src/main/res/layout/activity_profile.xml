@@ -16,13 +16,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/splash_blue"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            >
 
             <androidx.cardview.widget.CardView
 
@@ -41,14 +44,7 @@
                     app:srcCompat="@drawable/baseline_account_circle_24" />
 
             </androidx.cardview.widget.CardView>
-            <Button
-                android:id="@+id/btnSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:visibility="gone" />
+
 
             <TextView
                 android:id="@+id/fullNameTextView"
@@ -56,26 +52,70 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
                 android:text="Full Name"
                 android:textColor="#fff"
                 android:textSize="23dp" />
 
-            <TextView
-                android:id="@+id/unverifiedTextView"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/verify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center_horizontal"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:text="Unverified Account"
-                android:textColor="@color/white"
-                android:background="@color/red"
-                android:visibility="gone"
-                android:textSize="23dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginBottom="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <ImageView
+                        android:id="@+id/iconImageView"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/cross"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/unverifiedTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unverified"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:paddingStart="8dp" />
+
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/verifyBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Verify Now"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/loginBkColor"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -116,7 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
 
@@ -127,83 +167,26 @@
                 android:layout_height="50dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/rounded_border"
-                >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="20dp"
-                    android:text="Alias: "
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/AliasTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Ken"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
                 android:background="@drawable/rounded_border">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="Age: "
                     android:layout_marginLeft="20dp"
-                    android:text="Gender: "
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/GenderTextView"
+                    android:id="@+id/ageTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Male"
+                    android:text="20"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:background="@drawable/rounded_border">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="20dp"
-                    android:text="Civil Status: "
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/CivilStatusTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Single"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -222,7 +205,7 @@
                     android:layout_marginLeft="20dp"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/BirthdateTextView"
@@ -231,9 +214,8 @@
                     android:layout_weight="1"
                     android:text="January 1, 2000"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -245,78 +227,21 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Age: "
                     android:layout_marginLeft="20dp"
-                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:text="Civil Status: "
                     android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/ageTextView"
+                    android:id="@+id/CivilStatusTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="20"
+                    android:text="Single"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:background="@drawable/rounded_border">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Birthplace: "
-                    android:layout_marginLeft="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/BirthPlaceTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Ligas"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:background="@drawable/rounded_border"
-                >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Phone Number: "
-                    android:layout_marginLeft="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/phoneNumberTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="1234567890"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -335,17 +260,46 @@
                     android:layout_marginLeft="20dp"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/emailTextView"
                     android:layout_width="0dp"
                     android:layout_marginRight="10dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:text="example@gmail.com"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/rounded_border">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:text="Gender: "
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/GenderTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Male"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -360,21 +314,20 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Address: "
-                    android:textStyle="bold"
+                    android:text="Birthplace: "
                     android:layout_marginLeft="20dp"
+                    android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/addressTextView"
+                    android:id="@+id/BirthPlaceTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:text="Ligas"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -384,133 +337,29 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:background="@drawable/rounded_border"
-            >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Voter Status: "
-                    android:layout_marginLeft="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/VoterStatusTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Registered"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
                 android:layout_marginBottom="50dp"
-                android:gravity="center_vertical"
-                android:background="@drawable/rounded_border">
+                >
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="Phone Number: "
                     android:layout_marginLeft="20dp"
-                    android:text="Residential Status: "
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/ResidentStatusTextView"
+                    android:id="@+id/phoneNumberTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Permanent"
+                    android:text="1234567890"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp"
+                    />
             </LinearLayout>
-
         </LinearLayout>
-
-
-        <LinearLayout
-        android:id="@+id/uploadValidIdLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:visibility="gone"
-        >
-
-        <!-- TextView to indicate the upload section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upload Valid ID or Certificate/Document that you are residents of Ligas 1:"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="italic"
-            android:layout_marginBottom="10dp"
-            android:justificationMode="inter_word"
-            />
-
-        <!-- ImageView to display the uploaded ID -->
-        <ImageView
-            android:id="@+id/validIDImage"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:background="@drawable/valid_id"
-            android:contentDescription="ID Image" />
-
-        <!-- Button for uploading an ID -->
-        <Button
-            android:id="@+id/btnUploadValidID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upload"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/button_sign_in"
-            android:textColor="@android:color/white" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/savebtnVID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/button_sign_in"
-                android:textColor="@android:color/white"
-                android:visibility="gone"/>
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="170dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/button_sign_in"
-        android:text="Logout"
-        android:textColor="@android:color/white"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone"
-        />
-
     </LinearLayout>
 </ScrollView>
