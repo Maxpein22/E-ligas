@@ -20,7 +20,6 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.example.namespace.R;
 import com.example.namespace.databinding.ActivityProfileBinding;
-import com.example.uploadValidId;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -96,11 +95,26 @@ public class Profile extends DrawerBasedActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             // Check if dataSnapshot exists and contains user data
                             if (dataSnapshot.exists()) {
+                                try {
+                                    // Retrieve validationStatus and validIDUrl
+                                    String validationStatus = dataSnapshot.child("validationStatus").getValue(String.class);
+                                    String validIDUrl = dataSnapshot.child("validIDUrl").getValue(String.class);
 
-
-                                    Intent intent = new Intent(Profile.this, uploadValidId.class);
-                                    startActivity(intent);
+                                    // Check if validIDUrl and validationStatus are properly retrieved
+                                    if (validIDUrl == null || validIDUrl.isEmpty() || (validationStatus != null && validationStatus.equals("rejected"))) {
+                                        Intent intent = new Intent(Profile.this, uploadValidId.class);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(Profile.this, "Please wait, your verification is in progress", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
+                                    Log.e(TAG, "Error retrieving user data: " + e.getMessage());
+                                    Toast.makeText(Profile.this, "An error occurred", Toast.LENGTH_SHORT).show();
                                 }
+                            } else {
+                                // Handle the case where the user data does not exist in the database
+                                Toast.makeText(Profile.this, "User data not found", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
@@ -184,7 +198,6 @@ public class Profile extends DrawerBasedActivity {
                     User user = dataSnapshot.getValue(User.class);
                     if (user != null) {
 
-                        String alias = dataSnapshot.child("alias").getValue(String.class);
                         String firstName = dataSnapshot.child("userFirstName").getValue(String.class);
                         String middleName = dataSnapshot.child("userMiddleName").getValue(String.class);
                         String lastName = dataSnapshot.child("userLastName").getValue(String.class);
@@ -412,6 +425,4 @@ public class Profile extends DrawerBasedActivity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(content);
     }
-
-
 }

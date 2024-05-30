@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.namespace.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -117,33 +118,68 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
     }
 
     private void updateNavigationMenuBasedOnValidation() {
-        // Retrieve the user's validation status from Firebase
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+        // Retrieve the current user
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                if (user != null) {
-                    boolean isValidated = user.isValidated();
+        if (currentUser != null) {
+            // If user is logged in, retrieve their validation status from Firebase
+            String uid = currentUser.getUid();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
 
-                    // Access the navigation view's menu
-                    Menu menu = navigationView.getMenu();
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User user = snapshot.getValue(User.class);
+                    if (user != null) {
+                        boolean isValidated = user.isValidated();
 
-                } else {
-                    // Handle the case where the user data could not be retrieved
+                        // Access the navigation view's menu
+                        Menu menu = navigationView.getMenu();
+
+                        // Hide specific menu items if the user is not validated
+                        if (!isValidated) {
+                            menu.findItem(R.id.nav_dashboard).setVisible(false);
+                            menu.findItem(R.id.nav_services).setVisible(false);
+                            menu.findItem(R.id.nav_emergency).setVisible(false);
+                            menu.findItem(R.id.nav_events).setVisible(false);
+                            menu.findItem(R.id.nav_census).setVisible(false);
+                            menu.findItem(R.id.nav_about).setVisible(false);
+                            menu.findItem(R.id.nav_Terms_Condition).setVisible(false);
+                            menu.findItem(R.id.nav_officials).setVisible(false);
+                            // Hide other menu items as needed
+                        }
+                    } else {
+                        // Handle the case where the user data could not be retrieved
+                        Toast.makeText(DrawerBasedActivity.this, "Failed to retrieve user data. Please try again.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle database error
                     Toast.makeText(DrawerBasedActivity.this, "Failed to retrieve user data. Please try again.", Toast.LENGTH_SHORT).show();
                 }
-            }
+            });
+        } else {
+            // If user is not logged in, hide all menu items except for the "dam" item
+            Menu menu = navigationView.getMenu();
+            menu.findItem(R.id.nav_dashboard).setVisible(false);
+            menu.findItem(R.id.nav_services).setVisible(false);
+            menu.findItem(R.id.nav_emergency).setVisible(false);
+            menu.findItem(R.id.nav_events).setVisible(false);
+            menu.findItem(R.id.nav_census).setVisible(false);
+            menu.findItem(R.id.nav_about).setVisible(false);
+            menu.findItem(R.id.nav_Terms_Condition).setVisible(false);
+            menu.findItem(R.id.nav_officials).setVisible(false);
+            menu.findItem(R.id.nav_profile).setVisible(false);
+            menu.findItem(R.id.nav_logout).setVisible(false);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle database error
-                Toast.makeText(DrawerBasedActivity.this, "Failed to retrieve user data. Please try again.", Toast.LENGTH_SHORT).show();
-            }
-        });
+
+
+            // Hide other menu items as needed
+        }
     }
+
 
 
 

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.app_e_ligas;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,8 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.app_e_ligas.DrawerBasedActivity;
-import com.example.app_e_ligas.Profile;
 import com.example.namespace.R;
 import com.example.namespace.databinding.ActivityUploadValidIdBinding;
 import com.google.android.gms.tasks.OnFailureListener;

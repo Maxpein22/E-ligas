@@ -27,7 +27,10 @@
         android:theme="@style/Theme.App_ELigas"
         tools:targetApi="31">
         <activity
-            android:name="com.example.uploadValidId"
+            android:name="com.example.not_resident_dam"
+            android:exported="false" />
+        <activity
+            android:name="com.example.app_e_ligas.uploadValidId"
             android:exported="false" />
         <activity
             android:name="com.example.app_e_ligas.barangay_cencus"

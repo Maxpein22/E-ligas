@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,10 +21,10 @@ public class WecolmeAcvtivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wecolme_acvtivity);
-// Write a message to the database
+
+        // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
-
 
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
@@ -41,11 +42,28 @@ public class WecolmeAcvtivity extends AppCompatActivity {
                 Log.w("Emergency App", "Failed to read value.", error.toException());
             }
         });
+
+        // Set up button click listeners
+        Button residentButton = findViewById(R.id.Resident);
+        Button notResidentButton = findViewById(R.id.NotResident);
+
     }
 
-    public void onButtonSignUpClicked(View view){
+    public void onButtonSignUpClicked(View view) {
+        // Check which button triggered the click event
+        int viewId = view.getId();
+
+        if (viewId == R.id.Resident) {
+            // Start SignInActivity if the "Resident" button is clicked
             Intent intent = new Intent(WecolmeAcvtivity.this, SignInActivity.class);
             startActivity(intent);
-            finish();
+
+        } else if (viewId == R.id.NotResident) {
+            // Start dam_monitoringActivity if the "Not Resident" button is clicked
+            Intent intent = new Intent(WecolmeAcvtivity.this, dam_monitoringActivity.class);
+            startActivity(intent);
+
+        }
     }
+
 }
