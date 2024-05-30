@@ -39,7 +39,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Intent to launch when notification is tapped
         Intent intent = new Intent(this, barangay_servicesActivity.class);
 
-        if(title.equals("Water Level Alert")){
+        if(title.equals("Flood Update")){
             intent = new Intent(this, dam_monitoringActivity.class);
         }else if(title.equals("Emergency Report Update")) {
             intent = new Intent(this, barangay_emergencyActivity.class);

@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -14,117 +15,182 @@
         >
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/splash_blue"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            >
+            android:background="#F6F5F5">
 
-            <androidx.cardview.widget.CardView
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
 
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="35dp"
-                android:foregroundGravity="center_horizontal"
-                app:cardCornerRadius="100dp">
-
+                <!-- Cover Image -->
                 <ImageView
-                    android:id="@+id/profileImageView"
+                    android:id="@+id/coverImageView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/baseline_account_circle_24" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/default_profile_image" />
+
+                <!-- Change Cover Icon CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/changeCoverCardView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:cardCornerRadius="20dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/light_grey"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageButton
+                        android:id="@+id/changeCoverIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/baseline_camera_alt_24"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Change cover photo" />
+
+                </androidx.cardview.widget.CardView>
+            </FrameLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="150dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/light_grey"
+                app:cardCornerRadius="80dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- Profile Image View -->
+                    <ImageView
+                        android:id="@+id/profileImageView"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/baseline_account_circle_24"
+                       />
+
+                    <!-- Icon CardView -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="20dp"
+                        android:backgroundTint="@color/light_grey"
+                        app:cardCornerRadius="20dp">
+
+                        <ImageButton
+                            android:id="@+id/profileIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/baseline_camera_alt_24"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Profile Icon" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </FrameLayout>
 
             </androidx.cardview.widget.CardView>
 
+        </RelativeLayout>
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/btnSaveforprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/splash_blue"
+            android:text="Save"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+        <Button
+            android:id="@+id/btnSaveforcoverphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/splash_blue"
+            android:text="Save"
+            android:textColor="@color/white"
+            android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/fullNameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="Full Name"
-                android:textColor="#fff"
-                android:textSize="23dp" />
+        <TextView
+            android:id="@+id/fullNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="Full Name"
+            android:textColor="@color/black"
+            android:textSize="23dp" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/verify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/verify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteY="301dp">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-
-                    <ImageView
-                        android:id="@+id/iconImageView"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/cross"
-                        app:tint="@color/white" />
-
-                    <TextView
-                        android:id="@+id/unverifiedTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unverified"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:paddingStart="8dp" />
-
-                    <TextView
-                        android:visibility="gone"
-                        android:id="@+id/verifyBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Verify Now"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp" />
-
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <Button
-                android:id="@+id/btnSave"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/loginBkColor"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:visibility="gone" />
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/iconImageView"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/cross"
+                    app:tint="@color/black" />
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/unverifiedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:text="Unverified"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/verifyBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="Verify Now"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
 

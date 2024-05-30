@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.namespace.R;
 import com.example.namespace.databinding.ActivityProfileBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,13 +47,19 @@ public class Profile extends DrawerBasedActivity {
 
     // Request code for selecting an image
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int PICK_COVER_IMAGE_REQUEST = 3;
+
     private static final int EDIT_PROFILE_REQUEST = 1001; // Request code for EditProfileActivity
 
     // Uri to store the image selected from gallery
     private Uri imageUri;
+    private Uri coverImageUri;
+
 
     // Key for saving and restoring image URI
     private static final String IMAGE_URI_KEY = "imageUri";
+    private static final String COVER_IMAGE_URI_KEY = "coverImageUri";
+
 
     // Add a request code for selecting an ID image
     private static final int PICK_VALID_ID_REQUEST = 2;
@@ -65,6 +72,20 @@ public class Profile extends DrawerBasedActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if (savedInstanceState != null) {
+            coverImageUri = savedInstanceState.getParcelable(COVER_IMAGE_URI_KEY);
+            if (coverImageUri != null) {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), coverImageUri);
+                    activityProfileBinding.coverImageView.setImageBitmap(bitmap);
+                    // Show the save button after a cover image is selected
+                    activityProfileBinding.btnSaveforcoverphoto.setVisibility(View.VISIBLE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         super.onCreate(savedInstanceState);
         activityProfileBinding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(activityProfileBinding.getRoot());
@@ -149,8 +170,8 @@ public class Profile extends DrawerBasedActivity {
             }
         });
 
-        // Set click listener for profile image view
-        activityProfileBinding.profileImageView.setOnClickListener(new View.OnClickListener() {
+        // Set click listener for profile icon
+        activityProfileBinding.profileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openGallery();
@@ -158,13 +179,28 @@ public class Profile extends DrawerBasedActivity {
         });
 
         // Set click listener for save button
-        activityProfileBinding.btnSave.setOnClickListener(new View.OnClickListener() {
+        activityProfileBinding.btnSaveforprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveImage();
             }
         });
 
+// Set click listener for changeCoverIcon
+        activityProfileBinding.changeCoverIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoverGallery();
+            }
+        });
+
+// Set click listener for btnSaveforcoverphoto
+        activityProfileBinding.btnSaveforcoverphoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveCoverPhoto();
+            }
+        });
 
 
         // Restore image URI if savedInstanceState is not null
@@ -174,7 +210,7 @@ public class Profile extends DrawerBasedActivity {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                     activityProfileBinding.profileImageView.setImageBitmap(bitmap);
-                    activityProfileBinding.btnSave.setVisibility(View.VISIBLE);
+                    activityProfileBinding.btnSaveforprofile.setVisibility(View.VISIBLE);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -197,7 +233,7 @@ public class Profile extends DrawerBasedActivity {
                 if (dataSnapshot.exists()) {
                     User user = dataSnapshot.getValue(User.class);
                     if (user != null) {
-
+                        String coverPhotoUrl = dataSnapshot.child("coverPhotoUrl").getValue(String.class);
                         String firstName = dataSnapshot.child("userFirstName").getValue(String.class);
                         String middleName = dataSnapshot.child("userMiddleName").getValue(String.class);
                         String lastName = dataSnapshot.child("userLastName").getValue(String.class);
@@ -216,8 +252,18 @@ public class Profile extends DrawerBasedActivity {
                         if (user.getUserProfileImage() != null) {
                             Glide.with(Profile.this)
                                     .load(user.getUserProfileImage())
+                                    .transform(new CircleCrop()) // Apply circular transformation
                                     .into(activityProfileBinding.profileImageView);
                         }
+
+
+                        // Load cover image using Glide if coverImageUrl is not null
+                        if (coverPhotoUrl != null && !coverPhotoUrl.isEmpty()) {
+                            Glide.with(Profile.this)
+                                    .load(coverPhotoUrl)
+                                    .into(activityProfileBinding.coverImageView);
+                        }
+
                         activityProfileBinding.fullNameTextView.setText(fullName);
                         activityProfileBinding.CivilStatusTextView.setText(civilstatus);
                         activityProfileBinding.BirthdateTextView.setText(birthday);
@@ -242,6 +288,49 @@ public class Profile extends DrawerBasedActivity {
     }
 
 
+    // Method to open the gallery for selecting a cover photo
+    private void openCoverGallery() {
+        Intent galleryIntent = new Intent();
+        galleryIntent.setType("image/*");
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(galleryIntent, "Select Cover Photo"), PICK_COVER_IMAGE_REQUEST);
+    }
+
+    // Method to save cover photo
+    private void saveCoverPhoto() {
+        if (coverImageUri != null) {
+            StorageReference coverImageRef = mStorage.child("cover_images/" + mAuth.getCurrentUser().getUid() + ".jpg");
+
+            coverImageRef.putFile(coverImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Cover photo uploaded successfully, get the download URL
+                            coverImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    // Cover photo URL retrieved successfully, save it to database
+                                    String coverImageUrl = uri.toString();
+                                    // Update user's cover photo URL in the database
+                                    updateCoverPhotoUrl(coverImageUrl);
+                                    // Hide the save button after successful upload
+                                    activityProfileBinding.btnSaveforcoverphoto.setVisibility(View.GONE);
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Handle failed upload
+                            Toast.makeText(Profile.this, "Failed to upload cover photo", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            // No cover photo selected, show a message to the user
+            Toast.makeText(Profile.this, "Please select a cover photo", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
     private void openGallery() {
@@ -262,15 +351,31 @@ public class Profile extends DrawerBasedActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                 activityProfileBinding.profileImageView.setImageBitmap(bitmap);
                 // Show the save button after an image is selected
-                activityProfileBinding.btnSave.setVisibility(View.VISIBLE);
+                activityProfileBinding.btnSaveforprofile.setVisibility(View.VISIBLE);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (requestCode == EDIT_PROFILE_REQUEST && resultCode == RESULT_OK) {
+        }
+        // Handle cover image selection
+        else if (requestCode == PICK_COVER_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            coverImageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), coverImageUri);
+                activityProfileBinding.coverImageView.setImageBitmap(bitmap);
+                // Show the save button after a cover image is selected
+                activityProfileBinding.btnSaveforcoverphoto.setVisibility(View.VISIBLE);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        // Handle result from EditProfileActivity
+        else if (requestCode == EDIT_PROFILE_REQUEST && resultCode == RESULT_OK) {
             // Refresh the profile page after updating profile data in EditProfileActivity
             retrieveUserData(mAuth.getCurrentUser().getUid());
         }
     }
+
+
 
 
 
@@ -280,7 +385,7 @@ public class Profile extends DrawerBasedActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                 activityProfileBinding.profileImageView.setImageBitmap(bitmap);
                 // Show the save button before uploading the image
-                activityProfileBinding.btnSave.setVisibility(View.VISIBLE);
+                activityProfileBinding.btnSaveforprofile.setVisibility(View.VISIBLE);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -300,7 +405,7 @@ public class Profile extends DrawerBasedActivity {
                                     // Update user's profile image URL in the database
                                     updateUserProfileImageUrl(imageUrl);
                                     // Hide the save button after successful upload
-                                    activityProfileBinding.btnSave.setVisibility(View.GONE);
+                                    activityProfileBinding.btnSaveforprofile.setVisibility(View.GONE);
                                 }
                             });
                         }
@@ -314,7 +419,7 @@ public class Profile extends DrawerBasedActivity {
                     });
         } else {
             // No image selected, hide the save button
-            activityProfileBinding.btnSave.setVisibility(View.GONE);
+            activityProfileBinding.btnSaveforprofile.setVisibility(View.GONE);
             Toast.makeText(Profile.this, "Please select an image", Toast.LENGTH_SHORT).show();
         }
     }
@@ -348,23 +453,24 @@ public class Profile extends DrawerBasedActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(IMAGE_URI_KEY, imageUri);
+        outState.putParcelable(COVER_IMAGE_URI_KEY, coverImageUri); // Save cover image URI
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         imageUri = savedInstanceState.getParcelable(IMAGE_URI_KEY);
-        if (imageUri != null) {
+        coverImageUri = savedInstanceState.getParcelable(COVER_IMAGE_URI_KEY); // Restore cover image URI
+        if (coverImageUri != null) {
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                activityProfileBinding.profileImageView.setImageBitmap(bitmap);
-                activityProfileBinding.btnSave.setVisibility(View.VISIBLE);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), coverImageUri);
+                activityProfileBinding.coverImageView.setImageBitmap(bitmap);
+                activityProfileBinding.btnSaveforcoverphoto.setVisibility(View.VISIBLE);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
 
     private void checkUserValidationStatus() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -425,4 +531,29 @@ public class Profile extends DrawerBasedActivity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(content);
     }
+
+    private void updateCoverPhotoUrl(String coverImageUrl) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            // Store the cover photo URL under the user's node in the database
+            mDatabase.child(userId).child("coverPhotoUrl").setValue(coverImageUrl)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(Profile.this, "Cover photo updated successfully", Toast.LENGTH_SHORT).show();
+                            // Refresh the profile page after updating cover photo
+                            retrieveUserData(userId);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Profile.this, "Failed to update cover photo", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+
 }
