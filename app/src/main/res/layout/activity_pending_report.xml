@@ -97,6 +97,7 @@
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/rejectedStatus"
+        android:visibility="gone"
         android:padding="16dp"
         android:background="@color/md_red_800"
         android:layout_width="match_parent"
