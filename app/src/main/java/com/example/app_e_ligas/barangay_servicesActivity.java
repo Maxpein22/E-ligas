@@ -69,13 +69,13 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
     private CardView btnBrgyIndegency;
     private CardView btnBrgyID;
     private CardView btnBusinessClearance;
-    private CardView btnCedula;
+
 
     private TextView brgycertnotavailable;
     private TextView brgyindigencynotavailable;
     private TextView brgyidnotavailable;
     private TextView clearancenotavailable;
-    private TextView cedullanotavailable;
+
 
 
 
@@ -151,21 +151,18 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
         btnBrgyCertification = findViewById(R.id.btn_brgy_certification);
         btnBrgyID = findViewById(R.id.btn_brgy_id);
         btnBusinessClearance = findViewById(R.id.btn_business_clearance);
-        btnCedula = findViewById(R.id.btn_cedula);
         btnBrgyIndegency = findViewById(R.id.btn_brgy_indigency);
 
         // Set click listeners for buttons
         btnBrgyCertification.setOnClickListener(this);
         btnBrgyID.setOnClickListener(this);
         btnBusinessClearance.setOnClickListener(this);
-        btnCedula.setOnClickListener(this);
         btnBrgyIndegency.setOnClickListener(this);
 
         brgycertnotavailable = findViewById(R.id.brgycertnotavailable);
         brgyindigencynotavailable = findViewById(R.id.brgyindigencynotavailable);
         brgyidnotavailable = findViewById(R.id.brgyidnotavailable);
         clearancenotavailable = findViewById(R.id.clearancenotavailable);
-        cedullanotavailable = findViewById(R.id.cedullanotavailable);
 
         brgyidnotavailable.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,10 +237,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                                         case "Business Clearance":
                                             toDisableTextView = clearancenotavailable;
                                             toDisbaleCard = btnBusinessClearance;
-                                            break;
-                                        case "Cedula":
-                                            toDisableTextView = cedullanotavailable;
-                                            toDisbaleCard = btnCedula;
+
                                     }
                                     if(toDisbaleCard != null && request.getType().equals("Barangay ID")){
                                         if(!request.getStatus().equals("rejected")){
@@ -569,11 +563,6 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
             case R.id.btn_business_clearance:
                 // Handle click for Business Clearance button
                 showBottomSheetDialog("Business Clearance","barangay_cert_for_business_page_0001__1_");
-                break;
-
-            case R.id.btn_cedula:
-                // Handle click for Cedula button
-                showBottomSheetDialog("Cedula","barangay_certificate_page_0001");
                 break;
         }
     }

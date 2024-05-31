@@ -84,4 +84,21 @@
 
     <string name="verify_here"><![CDATA[<u>Verify Here</u>]]></string>
 
+    <string-array name="kindofBusiness">
+        <item>Sari-Sari Store</item>
+        <item>Barber Shops and Salon</item>
+        <item>Local Eateries (Carinderia)</item>
+        <item>Hardware Stores</item>
+        <item>Internet Cafes (Computer Shop)</item>
+        <item>Turp-Turo (Canteens)</item>
+        <item>Laundry Services</item>
+        <item>Tricycle Operator</item>
+        <item>Medical Clinics and Pharmacies</item>
+        <item>Cellphone Repair Shops</item>
+        <item>Tuition Centers or Tutorial Services</item>
+        <item>Printing and Photocopying Shops</item>
+        <item>Local Markets</item>
+        <item>Beauty and Wellness Centers</item>
+        <item>Others</item>
+    </string-array>
 </resources>
