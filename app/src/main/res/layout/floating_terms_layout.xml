@@ -1,27 +1,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   >
+    android:background="#57ccf5"
+    android:backgroundTint="#57ccf5"
+    >
 
-    <ScrollView
-        android:id="@+id/termsScrollView"
+    <WebView
+        android:id="@+id/signUpTermWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-     >
-
-        <include layout="@layout/activity_terms_and_condition" />
-
-    </ScrollView>
+        android:layout_above="@id/closeButton"
+        />
 
     <Button
         android:id="@+id/closeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Close"
+        android:text="Accept"
         android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp" />
 
 </RelativeLayout>
-

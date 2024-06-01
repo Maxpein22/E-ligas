@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 
+import com.example.namespace.R;
 import com.example.namespace.databinding.ActivityAboutUsBinding;
 
 public class about_usActivity extends DrawerBasedActivity {
@@ -13,9 +15,17 @@ public class about_usActivity extends DrawerBasedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         activityAboutUsBinding = ActivityAboutUsBinding.inflate(getLayoutInflater());
         setContentView(activityAboutUsBinding.getRoot());
         allocateActivityTitle("About Us");
+
+        WebView dashboardWebView = findViewById(R.id.aboutusWebview);
+        dashboardWebView.getSettings().setJavaScriptEnabled(true); // Enable JavaScript if needed
+        dashboardWebView.loadUrl("https://e-ligas.netlify.app/documenttemplate/verifier?templateID=-NzIuLERcVGE7iAPc-Cu"); // Lo
+
+
 
         // Set click listeners for social media icons
         activityAboutUsBinding.imageFacebook.setOnClickListener(new View.OnClickListener() {
