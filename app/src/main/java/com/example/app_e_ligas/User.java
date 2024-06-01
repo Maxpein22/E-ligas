@@ -168,4 +168,6 @@ public class User {
     public void setUserProfileImage(String userProfileImage) {
         this.userProfileImage = userProfileImage;
     }
+
+
 }

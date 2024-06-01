@@ -50,6 +50,22 @@
         <item>Widowed</item>
     </string-array>
 
+    <string-array name="religion_type">
+        <item>Roman Catholic</item>
+        <item>Christians</item>
+        <item>Islam</item>
+        <item>Iglesia ni Cristo</item>
+        <item>Protestants</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="learning_System">
+        <item>Private School</item>
+        <item>Public School</item>
+        <item>ALS/Learning System</item>
+        <item>Daycare Center</item>
+    </string-array>
+
     <string-array name="house_ownership_array">
         <item>Owner</item>
         <item>Board/Renter</item>
