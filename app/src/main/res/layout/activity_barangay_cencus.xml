@@ -21,453 +21,513 @@
         />
 
 
-
+    <!-- Second layout -->
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
         android:layout_marginTop="50dp"
+        android:fillViewport="true"
         android:visibility="visible">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        >
-
-        <!-- First Name -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Personal Information Record"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="20dp"/>
-        <!-- First Name -->
-        <TextView
-            android:id="@+id/firstname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="First Name*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="20dp"/>
-
-        <EditText
-            android:id="@+id/etFirstName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter First Name"
-            android:textSize="15sp"
-            android:inputType="textPersonName"/>
-
-        <!-- Middle Name -->
-        <TextView
-            android:id="@+id/midtname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Middle Name"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/etMiddleName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Middle Name (Optional)"
-            android:textSize="15sp"
-            android:inputType="textPersonName"/>
-
-        <!-- Last Name -->
-        <TextView
-            android:id="@+id/lastname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Last Name*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/etLastName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Last Name"
-            android:textSize="15sp"
-            android:inputType="textPersonName"/>
-
-        <!-- Last Name -->
-        <TextView
-            android:id="@+id/alias"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alias"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/etAlias"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Your Alias"
-            android:textSize="15sp"
-            android:inputType="textPersonName"/>
-
-        <!-- (House/Block/Lot) -->
-        <TextView
-            android:id="@+id/House"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="(House/Block/Lot)*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/House_blk_lot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:hint="Enter House/Block/Lot"/>
-
-        <!-- (St/Purok/Sitio/Subd) -->
-        <TextView
-            android:id="@+id/St"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="(St/Purok/Sitio/Subd)*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/St_Purok_Sitio_Subd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:hint="Enter St/Purok/Sitio/Subd"/>
-
-        <!-- Barangay -->
-        <TextView
-            android:id="@+id/bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Barangay*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/barangay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:hint="Enter Barangay"/>
-
-        <!-- City/Municipality -->
-        <TextView
-            android:id="@+id/city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="City/Municipality*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/City_Municipality"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:hint="Enter City/Municipality"/>
-
-        <!-- Province -->
-        <TextView
-            android:id="@+id/prov"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Province*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/province"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:hint="Enter Province"/>
-
-        <TextView
-            android:id="@+id/bday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date of Birth*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutBirthday"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-       >
-
-            <EditText
-                android:id="@+id/editTextBirthday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Set Birthday Here"
-                android:textSize="15sp"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"
-                android:inputType="none"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:drawableRight="@drawable/baseline_calendar_month_24"
-                android:drawablePadding="8dp"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/bdayplace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Place of Birth*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/place_birth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:hint="Enter Place of Birth"/>
-
-        <TextView
-            android:id="@+id/gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gender*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <Spinner
-            android:id="@+id/spinnerGender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginTop="5dp"
-            android:textSize="15sp"
-            android:entries="@array/sex_choices"/>
-
-        <TextView
-            android:id="@+id/civil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Civil Status*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <Spinner
-            android:id="@+id/spinnerCivilStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginTop="5dp"
-            android:textSize="15sp"
-            android:entries="@array/civil_status_array"/>
-
-        <TextView
-            android:id="@+id/religion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Religion*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <Spinner
-            android:id="@+id/spinnerReligion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginTop="5dp"
-            android:textSize="15sp"
-            android:entries="@array/religion_type"/>
-
-        <TextView
-            android:id="@+id/height"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Height* (Ex. 5'3)"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/Height"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:hint="Enter Height"/>
-
-        <TextView
-            android:id="@+id/weight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Weight* (Ex. 50 kg)"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/Weight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:hint="Enter Weight"/>
-
-
-        <TextView
-            android:id="@+id/voter_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Voter Status*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <Spinner
-            android:id="@+id/voter_status_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            android:entries="@array/voter_status"
-            android:backgroundTint="@android:color/black"/>
-
-
-        <TextView
-            android:id="@+id/Residential_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Residential Status*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <Spinner
-            android:id="@+id/residential_status_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            android:entries="@array/resident_status"
-            android:backgroundTint="@android:color/black"/>
-
-
-        <TextView
-            android:id="@+id/occupation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Occupation*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <Spinner
-            android:id="@+id/occup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            android:entries="@array/occupation"
-            android:backgroundTint="@android:color/black"/>
-
-
-        <TextView
-            android:id="@+id/house_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="House Type*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <Spinner
-            android:id="@+id/House_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            android:entries="@array/house_ownership_array"/>
-
-        <TextView
-            android:id="@+id/nationality"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nationality*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/Nationality"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:hint="Enter Nationality"/>
-
-        <TextView
-            android:id="@+id/solo_par"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Solo Parent*"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"/>
-
-        <Spinner
-            android:id="@+id/Solo_Parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            android:entries="@array/Solo_parent"/>
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:layout_alignParentBottom="true">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
 
-            <!-- Next button -->
-            <Button
-                android:id="@+id/btnNext1"
+            <!-- First Name -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Personal Information Record"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+            <!-- First Name -->
+            <TextView
+                android:id="@+id/firstname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Next"
-                android:layout_margin="16dp"/>
-        </LinearLayout>
+                android:layout_marginTop="20dp"
+                android:text="First Name*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/etFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:hint="Enter First Name"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="15sp" />
+
+            <!-- Middle Name -->
+            <TextView
+                android:id="@+id/midtname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Middle Name"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/etMiddleName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:hint="Enter Middle Name (Optional)"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="15sp" />
+
+            <!-- Last Name -->
+            <TextView
+                android:id="@+id/lastname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Last Name*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/etLastName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:hint="Enter Last Name"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="15sp" />
+
+            <!-- Last Name -->
+            <TextView
+                android:id="@+id/alias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Alias"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/etAlias"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:hint="Enter Your Alias"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="15sp" />
+
+            <!-- (House/Block/Lot) -->
+            <TextView
+                android:id="@+id/House"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="(House/Block/Lot)*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/House_blk_lot"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:hint="Enter House/Block/Lot"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="15sp" />
+
+            <!-- (St/Purok/Sitio/Subd) -->
+            <TextView
+                android:id="@+id/St"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="(St/Purok/Sitio/Subd)*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/St_Purok_Sitio_Subd"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:hint="Enter St/Purok/Sitio/Subd"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="15sp" />
+
+            <!-- Barangay -->
+            <TextView
+                android:id="@+id/bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Barangay*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/barangay"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:hint="Enter Barangay"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="15sp" />
+
+            <!-- City/Municipality -->
+            <TextView
+                android:id="@+id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="City/Municipality*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/City_Municipality"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:hint="Enter City/Municipality"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="15sp" />
+
+            <!-- Province -->
+            <TextView
+                android:id="@+id/prov"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Province*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/province"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:hint="Enter Province"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/bday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Date of Birth*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <EditText
+                        android:id="@+id/editTextBirthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/rounded_border"
+                        android:hint="Set Birthday Here"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="40dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+                    <ImageButton
+                        android:id="@+id/calendarIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/baseline_calendar_month_24"
+                        android:background="@android:color/transparent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"/>
+
+                </RelativeLayout>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/bdayplace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Place of Birth*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/place_birth"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:hint="Enter Place of Birth"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Gender*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/spinnerGender"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:layout_marginTop="5dp"
+                android:entries="@array/sex_choices"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/civil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Civil Status*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/spinnerCivilStatus"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:layout_marginTop="5dp"
+                android:entries="@array/civil_status_array"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/religion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Religion*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/spinnerReligion"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:layout_marginTop="5dp"
+                android:entries="@array/religion_type"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Height* (Ex. 5'3)"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/Height"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:hint="Enter Height"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Weight* (Ex. 50 kg)"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/Weight"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:hint="Enter Weight"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/voter_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Voter Status*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/voter_status_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:entries="@array/voter_status"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/Residential_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Residential Status*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/residential_status_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:entries="@array/resident_status"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/occupation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Occupation*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/occup"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:entries="@array/occupation"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/house_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="House Type*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/House_type"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:layout_marginTop="5dp"
+                android:entries="@array/house_ownership_array"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/nationality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Nationality*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/Nationality"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:hint="Enter Nationality"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/solo_par"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Solo Parent*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/Solo_Parent"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:layout_marginTop="5dp"
+                android:entries="@array/Solo_parent"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <!-- Next button -->
+                <Button
+                    android:id="@+id/btnNext1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:textAllCaps="false"
+                    android:text="Next" />
+            </LinearLayout>
+
+        </LinearLayout>
     </ScrollView>
 
-    <!-- Second layout -->
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -505,7 +565,8 @@
             <Spinner
                 android:id="@+id/spinnerLearningSystem"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
                 android:textAlignment="center"
                 android:layout_marginTop="5dp"
                 android:textSize="15sp"
@@ -523,14 +584,21 @@
             <EditText
                 android:id="@+id/elem_school_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:textSize="15sp"
                 android:hint="Enter Your School Name"/>
 
             <EditText
                 android:id="@+id/elem_school_address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textSize="15sp"
                 android:hint="Enter Your School Address"/>
 
@@ -546,14 +614,21 @@
             <EditText
                 android:id="@+id/high_school_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:textSize="15sp"
                 android:hint="Enter Your School Name"/>
 
             <EditText
                 android:id="@+id/high_school_address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textSize="15sp"
                 android:hint="Enter Your School Address"/>
 
@@ -568,14 +643,21 @@
             <EditText
                 android:id="@+id/voc_school_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingRight="10dp"
                 android:textSize="15sp"
                 android:hint="Enter Your School Name"/>
 
             <EditText
                 android:id="@+id/voc_school_address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textSize="15sp"
                 android:hint="Enter Your School Address"/>
 
@@ -590,14 +672,21 @@
             <EditText
                 android:id="@+id/college_school_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textSize="15sp"
                 android:hint="Enter Your School Name"/>
 
             <EditText
                 android:id="@+id/college_school_address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textSize="15sp"
                 android:hint="Enter Your School Address"/>
 
@@ -613,6 +702,7 @@
                     android:id="@+id/btnBack1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="false"
                     android:text="Back"
                     android:layout_margin="16dp"/>
 
@@ -665,7 +755,10 @@
         <EditText
             android:id="@+id/company_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_border"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:textSize="15sp"
             android:hint="Enter Name of Company"/>
 
@@ -681,7 +774,10 @@
         <EditText
             android:id="@+id/duration"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_border"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:textSize="15sp"
             android:hint="Enter Duration of Employment"/>
 
@@ -695,7 +791,10 @@
         <EditText
             android:id="@+id/address_company"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_border"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:textSize="15sp"
             android:hint="Enter Address of Company"/>
 
@@ -723,7 +822,8 @@
         <Spinner
             android:id="@+id/spinner_vacine"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_border"
             android:layout_marginTop="5dp"
             android:textAlignment="center"
             android:textSize="15sp"
@@ -741,7 +841,8 @@
         <Spinner
             android:id="@+id/spinnerPWD"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_border"
             android:layout_marginTop="5dp"
             android:textAlignment="center"
             android:textSize="15sp"
@@ -760,6 +861,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Back"
+                android:selectAllOnFocus="false"
                 android:layout_margin="16dp"/>
 
             <!-- Next button -->
@@ -768,6 +870,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Submit"
+                android:textAllCaps="false"
                 android:layout_margin="16dp"/>
         </LinearLayout>
     </LinearLayout>

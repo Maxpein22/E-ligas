@@ -65,7 +65,7 @@ public class Profile extends DrawerBasedActivity {
     private static final int PICK_VALID_ID_REQUEST = 2;
 
 
-    private TextView verifyBtn, unverifiedTextView;
+    private TextView verifyBtn, unverifiedTextView, editText;
     private ImageView iconImageView;
 
 
@@ -170,6 +170,14 @@ public class Profile extends DrawerBasedActivity {
             }
         });
 
+        activityProfileBinding.editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the EditProfileActivity when the editButton is clicked
+                Intent intent = new Intent(Profile.this, EditProfileActivity.class);
+                startActivityForResult(intent, EDIT_PROFILE_REQUEST); // Start activity for result
+            }
+        });
         // Set click listener for profile icon
         activityProfileBinding.profileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -490,7 +498,7 @@ public class Profile extends DrawerBasedActivity {
 
                         if (validationStatus == null || validationStatus.equals("rejected")) {
                             // Show the unverified icon and text
-                            iconImageView.setImageResource(R.drawable.cross);
+                            iconImageView.setImageResource(R.drawable.checkes);
                             unverifiedTextView.setText("Unverified");
 
                             // Hide the verify button if validIdUrl exists
@@ -501,7 +509,7 @@ public class Profile extends DrawerBasedActivity {
                             }
                         } else if (validationStatus.equals("approved")) {
                             // Show the approved icon and text
-                            iconImageView.setImageResource(R.drawable.checked);
+                            iconImageView.setImageResource(R.drawable.check);
                             unverifiedTextView.setText("Verified");
                             verifyBtn.setVisibility(View.GONE);
                         }
