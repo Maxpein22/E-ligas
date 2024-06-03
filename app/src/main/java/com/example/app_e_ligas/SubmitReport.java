@@ -21,9 +21,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -39,6 +42,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.example.namespace.R;
+import com.example.namespace.databinding.ActivityBarangayEmergencyBinding;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -63,9 +67,10 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import com.example.namespace.databinding.ActivitySubmitReportBinding;
 
 
-public class SubmitReport extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
+public class SubmitReport extends DrawerBasedActivity implements CompoundButton.OnCheckedChangeListener {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
     private FusedLocationProviderClient fusedLocationClient;
     String emergencyType = "others";
@@ -100,6 +105,8 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
     MediaPlayer mediaPlayer;
     FlexboxLayout messageEmergencyContainer;
     EditText messageEmergencyEditText;
+
+    ActivitySubmitReportBinding activityBarangayEmergencyBinding;
     private Handler handler = new Handler();
 
     ActivityResultLauncher<Uri> photoGetContent = registerForActivityResult(
@@ -110,7 +117,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
                     dialog.dismiss();
                     viewImageCaptured.setImageURI(uri);
                     viewImageCaptured.setVisibility(View.VISIBLE);
-                    selectModeContainer.setVisibility(View.GONE);
+//                    selectModeContainer.setVisibility(View.GONE);
                     submitReportContainer.setVisibility(View.VISIBLE);
                     reportingType = "image";
                 }
@@ -123,7 +130,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
                     // Handle the selected audio file URI
                     if (uri != null) {
                         dialog.dismiss();
-                        selectModeContainer.setVisibility(View.GONE);
+//                        selectModeContainer.setVisibility(View.GONE);
                         submitReportContainer.setVisibility(View.VISIBLE);
                         reportingType = "voice";
                     }
@@ -145,7 +152,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
 
                     // Set MediaController to the VideoView
                     viewVideo.setMediaController(mediaController);
-                    selectModeContainer.setVisibility(View.GONE);
+//                    selectModeContainer.setVisibility(View.GONE);
                     submitReportContainer.setVisibility(View.VISIBLE);
                     //mediaController.show();
                     reportingType = "video";
@@ -166,11 +173,42 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
     private ActivityResultLauncher<Intent> voiceRecorderLauncher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_submit_report);
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_submit_report);
+        activityBarangayEmergencyBinding = ActivitySubmitReportBinding.inflate(getLayoutInflater());
+        setContentView(activityBarangayEmergencyBinding.getRoot());
+        allocateActivityTitle("Barangay Emergency");
+
+        // check if there is existing report
+        boolean hasReport = PendingReport.isNotificationActive(this, 666);
+        if(hasReport){
+            Intent i = new Intent(this, PendingReport.class);
+            startActivity(i);
+        }
+
 //        getSupportActionBar().setTitle("Submit Emergency Report");
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+
+
+        RadioGroup radioGroupDisasters = findViewById(R.id.radioGroupDisasters);
+        radioGroupDisasters.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton selectedRadioButton = findViewById(checkedId);
+                emergencyType = selectedRadioButton.getText().toString().toLowerCase();
+                if(emergencyType.equals("others")){
+                    helpSelection.setVisibility(View.VISIBLE);
+                }else{
+                    helpSelection.setVisibility(View.GONE);
+                }
+                //Toast.makeText(SubmitReport.this, "Selected: " + selectedRadioButton.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         // Check for location permissions
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -246,10 +284,6 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
         policeBox.setOnCheckedChangeListener(this);
         fireTruckBox.setOnCheckedChangeListener(this);
 
-        if(emergencyType.equals("others")){
-            helpSelection.setVisibility(View.VISIBLE);
-        }
-
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
             if (!TextUtils.isEmpty(token)) {
                 Log.d(TAG, "retrieve token successful : " + token);
@@ -273,7 +307,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
                             // Get the URI of the recorded audio file
                             Uri recordedAudioUri = data.getData();
                             // Handle the URI as needed (e.g., save it, play it, etc.)
-                            selectModeContainer.setVisibility(View.GONE);
+//                            selectModeContainer.setVisibility(View.GONE);
                             submitReportContainer.setVisibility(View.VISIBLE);
                             voicePlayContainer.setVisibility(View.VISIBLE);
                             mediaPlayer =  MediaPlayer.create(this, recordedAudioUri); // Load audio file
@@ -360,7 +394,7 @@ public class SubmitReport extends AppCompatActivity implements CompoundButton.On
                                 }
                                 else if (isMessage){
                                     dialog.dismiss();
-                                    selectModeContainer.setVisibility(View.GONE);
+//                                    selectModeContainer.setVisibility(View.GONE);
                                     submitReportContainer.setVisibility(View.VISIBLE);
                                     messageEmergencyContainer.setVisibility(View.VISIBLE);
                                     reportingType = "message";

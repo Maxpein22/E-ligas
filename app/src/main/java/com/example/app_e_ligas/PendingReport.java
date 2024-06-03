@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,7 @@ public class PendingReport extends AppCompatActivity {
     FlexboxLayout otwStatus;
     FlexboxLayout rejectedStatus;
     Button helpReceived;
+    Button back;
     TextView rejectReason;
     Button acknowledgeRejection; // Declare the button
     Notification pendingNotif = null;
@@ -61,6 +63,7 @@ public class PendingReport extends AppCompatActivity {
         otwStatus = findViewById(R.id.otwStatus);
         rejectedStatus = findViewById(R.id.rejectedStatus);
         helpReceived = findViewById(R.id.helpReceived);
+        back = findViewById(R.id.back);
         rejectReason = findViewById(R.id.rejectReason);
         acknowledgeRejection = findViewById(R.id.acknowledgeRejection); // Initialize the button
 
@@ -74,6 +77,14 @@ public class PendingReport extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setHelpReceived();
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PendingReport.this,DashboardActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -106,7 +117,6 @@ public class PendingReport extends AppCompatActivity {
                 .setColorized(true)
                 .setOngoing(true)
                 .setContentIntent(pendingIntent)
-
                 .build();
 
         // OTW Notif
@@ -131,6 +141,21 @@ public class PendingReport extends AppCompatActivity {
 
 
         listenToReportChange(notificationLayoutreject, notificationLayoutExpandedreject, this,pendingIntent);
+    }
+
+    public static boolean isNotificationActive(Context context, int notificationId) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            for (StatusBarNotification notification : notificationManager.getActiveNotifications()) {
+                if (notification.getId() == notificationId) {
+                    return true;
+                }
+            }
+        } else {
+            // For devices below API 23, use alternative method if available
+        }
+        return false;
     }
 
     public void setHelpReceived() {

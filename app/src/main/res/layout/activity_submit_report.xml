@@ -1,172 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.app_e_ligas.SubmitReport"
-    app:flexDirection="column"
-    android:padding="10dp"
+    android:background="@color/white"
     >
 
-    <LinearLayout
-        android:id="@+id/selectModeContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:visibility="visible"
-      >
+    <com.google.android.flexbox.FlexboxLayout
 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.app_e_ligas.SubmitReport"
+        app:flexDirection="column"
+        android:padding="24dp"
+        android:background="@color/white"
+        >
         <TextView
             android:layout_width="match_parent"
-            android:textAlignment="center"
+            android:textSize="20sp"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
             android:text="Select mode of reporting" />
 
-        <RelativeLayout
-            android:id="@+id/photoBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
 
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Photo"
-                android:textSize="14sp"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
-                android:gravity="center|bottom"
-                android:paddingBottom="10dp"
-                android:layout_below="@id/image1" />
-
-            <ImageView
-                android:id="@+id/image1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_photo" />
-        </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/videoBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Video"
-                android:textSize="14sp"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
-                android:gravity="center|bottom"
-                android:paddingBottom="10dp"
-                android:layout_below="@id/image2" />
-
-            <ImageView
-                android:id="@+id/image2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_video" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/voiceBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Voice"
-                android:textSize="14sp"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
-                android:gravity="center|bottom"
-                android:paddingBottom="10dp"
-                android:layout_below="@id/image3" />
-
-            <ImageView
-                android:id="@+id/image3"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_voice" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/messageBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
-
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Message"
-                android:textSize="14sp"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
-                android:gravity="center|bottom"
-                android:paddingBottom="10dp"
-                android:layout_below="@id/image4" />
-
-            <ImageView
-                android:id="@+id/image4"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_message2" />
-        </RelativeLayout>
-
-    </LinearLayout>
-
-
-    <com.google.android.flexbox.FlexboxLayout
-       android:id="@+id/submitReportContainer"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       app:flexDirection="column"
-        android:visibility="gone"
-       >
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:flexDirection="column"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Set Emergency Location:"
-                android:textSize="20sp"
-                ></TextView>
-            <EditText
-                android:id="@+id/locationEmergencyEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                ></EditText>
-        </com.google.android.flexbox.FlexboxLayout>
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/voicePlayContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp"
-            android:layout_marginBottom="100dp"
-            android:layout_marginTop="30dp"
-            tools:context=".MainActivity"
+            android:layout_marginTop="10dp"
             android:visibility="gone"
             >
 
@@ -177,7 +42,7 @@
                 android:layout_marginTop="16dp"
                 android:max="100"
                 android:progress="0"
-                 />
+                />
 
             <Button
                 android:id="@+id/play_button"
@@ -192,68 +57,160 @@
                 android:background="@drawable/button_background_round" />
 
         </RelativeLayout>
-       <VideoView
-           android:layout_marginTop="30dp"
-           android:layout_width="800dp"
-           android:layout_height="350dp"
-           android:id="@+id/viewVideo"
-           app:layout_alignSelf="center"
-           android:layout_marginBottom="50dp"
-           android:visibility="gone"
-           />
-       <ImageView
-           android:layout_marginTop="30dp"
-           android:layout_width="600dp"
-           android:layout_height="350dp"
-           android:id="@+id/viewImageId"
-           app:layout_alignSelf="center"
-           android:layout_marginBottom="50dp"
-           android:visibility="gone"
-           />
+        <VideoView
+            android:layout_marginTop="30dp"
+            android:layout_width="800dp"
+            android:layout_height="350dp"
+            android:id="@+id/viewVideo"
+            app:layout_alignSelf="center"
+            android:visibility="gone"
+            />
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_width="600dp"
+            android:layout_height="350dp"
+            android:id="@+id/viewImageId"
+            app:layout_alignSelf="center"
+            android:visibility="gone"
+            />
 
-       <com.google.android.flexbox.FlexboxLayout
-           android:id="@+id/helpSelection"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           app:flexDirection="column"
-           android:visibility="gone"
-           >
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textSize="18sp"
-               android:text="What Assistance do you need?"
-               />
-           <CheckBox
-               android:id="@+id/ambulanceBox"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Ambulance"/>
-           <CheckBox
-               android:id="@+id/barangayTanodBox"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Barangay Tanod"/>
 
-           <CheckBox
-               android:id="@+id/policeBox"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Police"/>
 
-           <CheckBox
-               android:id="@+id/fireTruckBox"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Fire truck"/>
-       </com.google.android.flexbox.FlexboxLayout>
+        <LinearLayout
+            android:id="@+id/selectModeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            >
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:id="@+id/photoBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <Button
+                    android:enabled="false"
+                    android:id="@+id/button1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Photo"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="14sp"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:gravity="center|bottom"
+                    android:paddingBottom="10dp"
+                    android:layout_below="@id/image1" />
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_photo" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:id="@+id/videoBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <Button
+                    android:enabled="false"
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Video"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="14sp"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:gravity="center|bottom"
+                    android:paddingBottom="10dp"
+                    android:layout_below="@id/image2" />
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_video" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_weight="1"
+                android:id="@+id/voiceBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <Button
+                    android:enabled="false"
+
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Voice"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="14sp"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:gravity="center|bottom"
+                    android:paddingBottom="10dp"
+                    android:layout_below="@id/image3" />
+
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_voice" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:id="@+id/messageBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <Button
+                    android:enabled="false"
+                    android:id="@+id/button4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Message"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="14sp"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:gravity="center|bottom"
+                    android:paddingBottom="10dp"
+                    android:layout_below="@id/image4" />
+
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_message2" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:flexDirection="column"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/messageEmergencyContainer"
             android:visibility="gone"
             >
@@ -261,7 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Let us know about the Emergency:"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 ></TextView>
             <EditText
                 android:id="@+id/messageEmergencyEditText"
@@ -270,18 +227,161 @@
                 ></EditText>
         </com.google.android.flexbox.FlexboxLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:textSize="20sp"
+            android:layout_marginTop="24dp"
+            android:layout_height="wrap_content"
+            android:text="Select mode of reporting" />
 
 
-       <Button
-           android:id="@+id/submitReportBtn"
-           android:layout_width="140dp"
-           android:layout_height="50dp"
-           app:layout_alignSelf="center"
-           android:text="Submit Report"
-           android:background="@drawable/button_sign_up"
-           app:backgroundTint="@null"
-           android:textAllCaps="false"
-           />
-   </com.google.android.flexbox.FlexboxLayout>
+        <RadioGroup
+            android:id="@+id/radioGroupDisasters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
 
-</com.google.android.flexbox.FlexboxLayout>
+            <RadioButton
+                android:id="@+id/radioButtonFire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fire"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_margin="8dp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonEarthquake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Earthquake"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginLeft="16dp"
+
+                />
+
+            <RadioButton
+                android:id="@+id/radioButtonTyphoon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Typhoon"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginLeft="16dp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonRobbery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Robbery"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_margin="8dp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonInjuries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Injuries"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginLeft="16dp"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonOthers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Others"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginLeft="16dp"/>
+
+        </RadioGroup>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/helpSelection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flexDirection="column"
+            android:visibility="gone"
+            android:layout_marginTop="24dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="What Assistance do you need?"
+                />
+            <CheckBox
+                android:id="@+id/ambulanceBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ambulance"/>
+            <CheckBox
+                android:id="@+id/barangayTanodBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Barangay Tanod"/>
+
+            <CheckBox
+                android:id="@+id/policeBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Police"/>
+
+            <CheckBox
+                android:id="@+id/fireTruckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fire truck"/>
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/submitReportContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flexDirection="column"
+            android:layout_marginTop="24dp"
+
+            >
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flexDirection="column"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Set Emergency Location:"
+                    android:textSize="20sp"
+                    ></TextView>
+                <EditText
+                    android:id="@+id/locationEmergencyEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    ></EditText>
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <Button
+                android:id="@+id/submitReportBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_alignSelf="center"
+                android:text="Submit Report"
+                android:background="@drawable/button_sign_up"
+                app:backgroundTint="@null"
+                android:textAllCaps="false"
+                />
+        </com.google.android.flexbox.FlexboxLayout>
+
+    </com.google.android.flexbox.FlexboxLayout>
+</ScrollView>

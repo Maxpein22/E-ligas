@@ -73,7 +73,7 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
             overridePendingTransition(0, 0);
 
         } else if (itemId == R.id.nav_emergency) {
-            startActivity(new Intent(this, barangay_emergencyActivity.class));
+            startActivity(new Intent(this, SubmitReport.class));
             overridePendingTransition(0, 0);
 
         } else if (itemId == R.id.nav_dam) {

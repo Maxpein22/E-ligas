@@ -47,6 +47,15 @@
             android:textAlignment="center"
             android:textColor="@color/white"/>
 
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_alignSelf="center"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:text="Back"/>
+
     </com.google.android.flexbox.FlexboxLayout>
 
     <com.google.android.flexbox.FlexboxLayout

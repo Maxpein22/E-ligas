@@ -25,6 +25,15 @@ public class barangay_emergencyActivity extends DrawerBasedActivity {
         super.onCreate(savedInstanceState);
         activityBarangayEmergencyBinding = ActivityBarangayEmergencyBinding.inflate(getLayoutInflater());
         setContentView(activityBarangayEmergencyBinding.getRoot());
+
+        String type = "fire";
+        Intent intent = new Intent(getBaseContext(), SubmitReport.class);
+        Bundle b = new Bundle();
+        System.out.println(type);
+        b.putString("emergencyType", type); //Your id
+        intent.putExtras(b); //Put your id to your next Intent
+        startActivity(intent);
+
         allocateActivityTitle("Barangay Emergency");
         fireBtn = findViewById(R.id.fireBtn);
         earthquakeBtn = findViewById(R.id.earthquakeBtn);
