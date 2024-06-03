@@ -15,9 +15,11 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,6 +94,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
     ProgressDialog dialog;
+    public static String kindOfBusinessText = "Sari-Sari Store";
 
 
 
@@ -153,11 +156,13 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
         btnBusinessClearance = findViewById(R.id.btn_business_clearance);
         btnBrgyIndegency = findViewById(R.id.btn_brgy_indigency);
 
+
         // Set click listeners for buttons
         btnBrgyCertification.setOnClickListener(this);
         btnBrgyID.setOnClickListener(this);
         btnBusinessClearance.setOnClickListener(this);
         btnBrgyIndegency.setOnClickListener(this);
+
 
         brgycertnotavailable = findViewById(R.id.brgycertnotavailable);
         brgyindigencynotavailable = findViewById(R.id.brgyindigencynotavailable);
@@ -331,6 +336,31 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                     final EditText kindOfBusiness = bottomSheetDialog.findViewById(R.id.kindOfBusiness);
                     final EditText addressOfBusiness = bottomSheetDialog.findViewById(R.id.addressOfBusiness);
 
+                    final EditText businessOwner = bottomSheetDialog.findViewById(R.id.businessOwner);
+                    final Spinner spinnerCategories = bottomSheetDialog.findViewById(R.id.spinnerCategories);
+
+                    spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                            // Perform action based on the selected item
+                            String selectedItem = parentView.getItemAtPosition(position).toString();
+                            // Do something with the selected item
+                            // For example, show a Toast message
+                            if(selectedItem.equals("Others")){
+                                kindOfBusinessText = "";
+                                kindOfBusiness.setVisibility(View.VISIBLE);
+                            }else {
+                                kindOfBusinessText = selectedItem;
+                                kindOfBusiness.setVisibility(View.GONE);
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parentView) {
+                            // Do nothing, or perform default action
+                        }
+                    });
+
                     uploadPhotoContainer = bottomSheetDialog.findViewById(R.id.uploadPhotoContainer);
                     upload1x1Photo = bottomSheetDialog.findViewById(R.id.upload1x1Photo);
                     upload1x1ImageView = bottomSheetDialog.findViewById(R.id.upload1x1ImageView);
@@ -360,6 +390,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                     boolean hidePurposeContainer = false;
 
                     if(type.equals("Business Clearance")){
+                        businessOwner.setText(currentUser.getFullName());
                         hidePurposeContainer = true;
                         businessDetailsContainer.setVisibility(View.VISIBLE);
                         selectedServices.clear();
@@ -433,11 +464,15 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                         // Convert the date to a string
                         String dateString = dateFormat.format(currentDate);
 
+
                         // services list
 
                         @Override
                         public void onClick(View view) {
 
+                            if(kindOfBusinessText.isEmpty()){
+                                kindOfBusinessText = kindOfBusiness.getText().toString();
+                            }
                             if(selectedServices.isEmpty()){
                                 Toast.makeText(barangay_servicesActivity.this, "Select at least one Purpose", Toast.LENGTH_LONG).show();
                                 return;
@@ -471,7 +506,7 @@ public class barangay_servicesActivity extends DrawerBasedActivity implements Vi
                             String newRequestID = databaseReference.push().getKey();
                             String controlNo = "000" + Integer.toString(totalRequests);
 
-                            Request request = new Request(currentUser,purpose ,type, "on-going",dateString, "Request is under review", kindOfBusiness.getText().toString(), addressOfBusiness.getText().toString(), controlNo, photo1x1URL, fcmToken);
+                            Request request = new Request(currentUser,purpose ,type, "on-going",dateString, "Request is under review", kindOfBusinessText, addressOfBusiness.getText().toString(), controlNo, photo1x1URL, fcmToken, businessOwner.getText().toString());
                             FirebaseDatabase.getInstance().getReference("servicesRequests")  // Change to your desired database node
                                     .child(userID)
                                     .child(newRequestID)

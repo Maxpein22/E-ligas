@@ -133,6 +133,8 @@
             <item>Printing and Photocopying Shops</item>
             <item>Local Markets</item>
             <item>Beauty and Wellness Centers</item>
+            <item>Others</item>
+
         </string-array>
 
 </resources>

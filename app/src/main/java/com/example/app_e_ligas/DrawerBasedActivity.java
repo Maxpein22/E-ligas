@@ -107,8 +107,7 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
             overridePendingTransition(0, 0);
 
         } else if (itemId == R.id.nav_emergency) {
-            startActivity(new Intent(this, SubmitReport.class));
-            overridePendingTransition(0, 0);
+
             // Retrieve the current user
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             if (currentUser != null) {
@@ -124,7 +123,7 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
                             Toast.makeText(DrawerBasedActivity.this, "Not available, please fill up census first", Toast.LENGTH_SHORT).show();
                         } else {
                             // If data is submitted, go to "Services" activity
-                            startActivity(new Intent(DrawerBasedActivity.this, barangay_emergencyActivity.class));
+                            startActivity(new Intent(DrawerBasedActivity.this, SubmitReport.class));
                             overridePendingTransition(0, 0);
                         }
                     }

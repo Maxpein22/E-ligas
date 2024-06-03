@@ -103,19 +103,20 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.YourView
             String resultString = status.replace("-", " ");
             statusBtn.setText(resultString);
             statusBtn.setEnabled(false);
-            statusBtn.setTextColor(ContextCompat.getColorStateList(context, R.color.black));
+            statusBtn.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.white));
             switch (item.getStatus()) {
                 case "on-going":
-                    statusBtn.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.onGoingColor));
+                    statusBtn.setTextColor(ContextCompat.getColorStateList(context, R.color.md_yellow_800));
                     break;
                 case "ready-to-claim":
-                    statusBtn.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.readyToClaimColor));
+                    statusBtn.setTextColor(ContextCompat.getColorStateList(context, R.color.md_green_800));
                     break;
                 case "claimed":
-                    statusBtn.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.claimedColor));
+                    statusBtn.setTextColor(ContextCompat.getColorStateList(context, R.color.md_blue_800));
                     break;
                 default:
                     // Handle other cases or set a default color
+                    statusBtn.setTextColor(ContextCompat.getColorStateList(context, R.color.black));
                     break;
             }
         }

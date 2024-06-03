@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Request For"
             android:textSize="20sp"
-            android:textColor="#4496ca"
+            android:textColor="@color/splash_blue"
             android:textStyle="bold"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="20dp"
@@ -35,11 +35,11 @@
         <!-- infoUser -->
         <TextView
             android:id="@+id/infoUser"
-            android:backgroundTint="@color/md_blue_100"
+            android:backgroundTint="@color/md_blue_50"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="@color/md_blue_800"
+            android:textColor="@color/splash_blue"
             android:background="@color/md_blue_50"
             android:padding="5sp"
             android:layout_marginBottom="5dp"
@@ -74,6 +74,8 @@
                 />
 
             <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Business Type" />
@@ -88,13 +90,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Kind of Business"
+                android:visibility="gone"
                 />
 
             <EditText
+                android:layout_marginTop="10dp"
                 android:id="@+id/addressOfBusiness"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Business Adress"
+                android:hint="Business Address"
                 />
         </com.google.android.flexbox.FlexboxLayout>
 
@@ -180,7 +184,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="90dp"
-            android:backgroundTint="#4496ca"
+            android:backgroundTint="@color/splash_blue"
             android:text="Request"/>
 
     </LinearLayout>

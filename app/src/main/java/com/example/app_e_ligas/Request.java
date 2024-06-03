@@ -14,6 +14,15 @@ public class Request {
     String controlNo;
     String photo1x1URL;
     String fcmToken;
+    String businessOwner;
+
+    public String getBusinessOwner() {
+        return businessOwner;
+    }
+
+    public void setBusinessOwner(String businessOwner) {
+        this.businessOwner = businessOwner;
+    }
 
     public String getFcmToken() {
         return fcmToken;
@@ -60,7 +69,7 @@ public class Request {
     }
 
 
-    public Request(User user, String purpose, String type, String status, String createdAt, String description, String kindOfBusiness, String addressOfBusiness, String controlNo, String photo1x1URL, String fcmToken) {
+    public Request(User user, String purpose, String type, String status, String createdAt, String description, String kindOfBusiness, String addressOfBusiness, String controlNo, String photo1x1URL, String fcmToken, String businessOwner) {
         this.user = user;
         this.purpose = purpose;
         this.type = type;
@@ -72,6 +81,7 @@ public class Request {
         this.controlNo = controlNo;
         this.photo1x1URL = photo1x1URL;
         this.fcmToken = fcmToken;
+        this.businessOwner = businessOwner;
     }
 
     public String getRequestID() {
