@@ -10,36 +10,37 @@
                 android:icon="@drawable/baseline_account_circle_24"
                 android:iconTint="@color/splash_blue"
                 android:title="Profile"/>
+
+            <item android:id="@+id/nav_census"
+                android:iconTint="@color/splash_blue"
+                android:icon="@drawable/census"
+                android:title="Census"/>
+
             <item android:id="@+id/nav_officials"
                 android:icon="@drawable/officials"
                 android:iconTint="@color/splash_blue"
-                android:title="Barangay Officials"/>
+                android:title="Officials"/>
             <item android:id="@+id/nav_events"
 
                 android:iconTint="@color/splash_blue"
                 android:icon="@drawable/barangay_events"
-                android:title="Barangay Events"/>
+                android:title="Events"/>
             <item android:id="@+id/nav_services"
 
                 android:iconTint="@color/splash_blue"
                 android:icon="@drawable/services"
-                android:title="Barangay Services"/>
+                android:title="Services"/>
             <item android:id="@+id/nav_emergency"
 
                 android:iconTint="@color/splash_blue"
                 android:icon="@drawable/emergency"
-                android:title="Barangay Emergency"/>
+                android:title="Emergency"/>
             <item android:id="@+id/nav_dam"
 
                 android:iconTint="@color/splash_blue"
                 android:icon="@drawable/dam_monitoring"
                 android:title="Dam Monitoring"/>
 
-
-            <item android:id="@+id/nav_census"
-                android:iconTint="@color/splash_blue"
-                android:icon="@drawable/census"
-                android:title="Census"/>
 
             <item android:id="@+id/nav_about"
 

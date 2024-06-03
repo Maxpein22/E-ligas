@@ -1,6 +1,10 @@
 package com.example.app_e_ligas;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,7 +49,8 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.menu_drawer_open, R.string.menu_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
+        toggle.getDrawerArrowDrawable().setColor(Color.parseColor("#FFFFFF")); // Set to your desired color
+        toggle.syncState();
         // Retrieve user's validation status and update the navigation menu
         updateNavigationMenuBasedOnValidation();
     }
@@ -65,8 +70,37 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
             overridePendingTransition(0, 0);
 
         } else if (itemId == R.id.nav_services) {
-            startActivity(new Intent(this, barangay_servicesActivity.class));
-            overridePendingTransition(0, 0);
+            // Retrieve the current user
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                // If user is logged in, retrieve their validation status from Firebase
+                String uid = currentUser.getUid();
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Boolean isDataSubmitted = snapshot.child("dataSubmitted").getValue(Boolean.class);
+                        if (isDataSubmitted == null || !isDataSubmitted) {
+                            // If data is not submitted, show toast message
+                            Toast.makeText(DrawerBasedActivity.this, "Not available, please fill up census first", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // If data is submitted, go to "Services" activity
+                            startActivity(new Intent(DrawerBasedActivity.this, barangay_servicesActivity.class));
+                            overridePendingTransition(0, 0);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // Handle database error
+                        Toast.makeText(DrawerBasedActivity.this, "Failed to retrieve user data. Please try again.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                // Handle the case where the user is not logged in
+                // This should not happen if the "Services" tab is only available for logged-in users
+                Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            }
 
         } else if (itemId == R.id.nav_profile) {
             startActivity(new Intent(this, Profile.class));
@@ -75,6 +109,37 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
         } else if (itemId == R.id.nav_emergency) {
             startActivity(new Intent(this, SubmitReport.class));
             overridePendingTransition(0, 0);
+            // Retrieve the current user
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                // If user is logged in, retrieve their validation status from Firebase
+                String uid = currentUser.getUid();
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Boolean isDataSubmitted = snapshot.child("dataSubmitted").getValue(Boolean.class);
+                        if (isDataSubmitted == null || !isDataSubmitted) {
+                            // If data is not submitted, show toast message
+                            Toast.makeText(DrawerBasedActivity.this, "Not available, please fill up census first", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // If data is submitted, go to "Services" activity
+                            startActivity(new Intent(DrawerBasedActivity.this, barangay_emergencyActivity.class));
+                            overridePendingTransition(0, 0);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // Handle database error
+                        Toast.makeText(DrawerBasedActivity.this, "Failed to retrieve user data. Please try again.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                // Handle the case where the user is not logged in
+                // This should not happen if the "Services" tab is only available for logged-in users
+                Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            }
 
         } else if (itemId == R.id.nav_dam) {
             startActivity(new Intent(this, dam_monitoringActivity.class));
@@ -132,6 +197,7 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
                     User user = snapshot.getValue(User.class);
                     if (user != null) {
                         boolean isValidated = user.isValidated();
+                        Boolean isDataSubmitted = snapshot.child("dataSubmitted").getValue(Boolean.class);
 
                         // Access the navigation view's menu
                         Menu menu = navigationView.getMenu();
@@ -147,6 +213,20 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
                             menu.findItem(R.id.nav_Terms_Condition).setVisible(false);
                             menu.findItem(R.id.nav_officials).setVisible(false);
                             // Hide other menu items as needed
+                        } else {
+                            // Show or hide "Services" based on data submission status
+                            MenuItem emergencyItem = menu.findItem(R.id.nav_emergency);
+                            MenuItem servicesItem = menu.findItem(R.id.nav_services);
+                            if (isDataSubmitted == null || !isDataSubmitted) {
+                                // If data is not submitted, show "Services" with "Not Available" text in red color
+                                SpannableString spannable = new SpannableString("Services (Not Available)");
+                                spannable.setSpan(new ForegroundColorSpan(Color.RED), 9, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                servicesItem.setTitle(spannable);
+
+                                SpannableString spannables = new SpannableString("Emergency (Not Available)");
+                                spannables.setSpan(new ForegroundColorSpan(Color.RED), 10, spannables.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                emergencyItem.setTitle(spannables);
+                            }
                         }
                     } else {
                         // Handle the case where the user data could not be retrieved
@@ -173,15 +253,8 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
             menu.findItem(R.id.nav_officials).setVisible(false);
             menu.findItem(R.id.nav_profile).setVisible(false);
             menu.findItem(R.id.nav_logout).setVisible(false);
-
-
-
             // Hide other menu items as needed
         }
     }
-
-
-
-
 
 }

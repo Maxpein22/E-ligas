@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e0e0e0"
+    android:background="@color/splash_blue"
     >
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.22"
-        app:srcCompat="@drawable/ligas_uno" />
+        app:srcCompat="@drawable/logo_ligas1" />
 
     <TextView
         android:id="@+id/textView"
@@ -25,7 +25,7 @@
         android:letterSpacing=".1"
         android:text="Bringing Your Barangay"
         android:textAlignment="center"
-        android:textColor="#daa520"
+        android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +41,7 @@
         android:letterSpacing=".1"
         android:text="Closer: Access Services, Build Community!"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
         android:letterSpacing=".1"
         android:text="Resident"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:backgroundTint="@null"
         android:onClick="onButtonSignUpClicked"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -85,7 +85,7 @@
         android:letterSpacing=".1"
         android:text="Not Resident"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:backgroundTint="@null"
         android:onClick="onButtonSignUpClicked"
         app:layout_constraintBottom_toBottomOf="parent"
