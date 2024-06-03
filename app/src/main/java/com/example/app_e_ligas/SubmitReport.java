@@ -17,6 +17,8 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -29,6 +31,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -73,7 +76,7 @@ import com.example.namespace.databinding.ActivitySubmitReportBinding;
 public class SubmitReport extends DrawerBasedActivity implements CompoundButton.OnCheckedChangeListener {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
     private FusedLocationProviderClient fusedLocationClient;
-    String emergencyType = "others";
+    String emergencyType = "fire";
     String othersHelp = "";
 
     CheckBox ambulanceBox;
@@ -193,22 +196,45 @@ public class SubmitReport extends DrawerBasedActivity implements CompoundButton.
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
 
+        Spinner spinnerDisasters = findViewById(R.id.spinnerDisasters);
 
-        RadioGroup radioGroupDisasters = findViewById(R.id.radioGroupDisasters);
-        radioGroupDisasters.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        // Define the array of disaster options
+        String[] disasterOptions = {
+                "Fire",
+                "Earthquake",
+                "Typhoon",
+                "Robbery",
+                "Injuries",
+                "Others"
+        };
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, disasterOptions);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinnerDisasters.setAdapter(adapter);
+
+        // Set a listener for spinner item selection
+        spinnerDisasters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton selectedRadioButton = findViewById(checkedId);
-                emergencyType = selectedRadioButton.getText().toString().toLowerCase();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                emergencyType = selectedItem.toLowerCase();
                 if(emergencyType.equals("others")){
                     helpSelection.setVisibility(View.VISIBLE);
                 }else{
                     helpSelection.setVisibility(View.GONE);
                 }
-                //Toast.makeText(SubmitReport.this, "Selected: " + selectedRadioButton.getText(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing, but must be implemented
             }
         });
-
 
         // Check for location permissions
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -243,31 +269,35 @@ public class SubmitReport extends DrawerBasedActivity implements CompoundButton.
         messageEmergencyContainer = findViewById(R.id.messageEmergencyContainer);
         locationEmergencyEditText = findViewById(R.id.locationEmergencyEditText);
 
+        // for getting the location only
+        getCurrentLocation(photoGetContent, false, false, true);
+
+
         photoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCurrentLocation(photoGetContent, false, false);
+                getCurrentLocation(photoGetContent, false, false, false);
             }
         });
 
         videoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCurrentLocation(videoGetContent, false, false);
+                getCurrentLocation(videoGetContent, false, false, false);
             }
         });
 
         voiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCurrentLocation(voiceGetContent, true, false);
+                getCurrentLocation(voiceGetContent, true, false, false);
             }
         });
 
         messageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCurrentLocation(voiceGetContent, false, true);
+                getCurrentLocation(voiceGetContent, false, true, false);
             }
         });
 
@@ -364,7 +394,7 @@ public class SubmitReport extends DrawerBasedActivity implements CompoundButton.
         handler.postDelayed(updateSeekBarTask, 0);
     }
 
-    private void getCurrentLocation(ActivityResultLauncher mGetContent, Boolean isVoice, Boolean isMessage) {
+    private void getCurrentLocation(ActivityResultLauncher mGetContent, Boolean isVoice, Boolean isMessage, Boolean noLaunch) {
         try {
             fusedLocationClient.getLastLocation()
                     .addOnCompleteListener(this, new OnCompleteListener<Location>() {
@@ -377,6 +407,18 @@ public class SubmitReport extends DrawerBasedActivity implements CompoundButton.
 
                                 String locationName = getLocationName(latitude, longitude);
                                 String locationNameWithoutLat = getLocationNameWithoutLat(latitude, longitude);
+
+
+                                locationEmergencyEditText.setText(locationNameWithoutLat);
+                                if(noLaunch){
+                                    submitReportBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Toast.makeText(SubmitReport.this, "Please select a reporting mode", Toast.LENGTH_SHORT);
+                                        }
+                                    });
+                                    return;
+                                }
                                 // Permission already granted, start getting the location
                                 if(ContextCompat.checkSelfPermission(SubmitReport.this,
                                         Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
@@ -385,7 +427,6 @@ public class SubmitReport extends DrawerBasedActivity implements CompoundButton.
                                 }
                                 dialog =  ProgressDialog.show(SubmitReport.this, "Emergency Report",
                                         "Please wait...", true);
-                                locationEmergencyEditText.setText(locationNameWithoutLat);
                                 if(isVoice){
                                     dialog.dismiss();
                                     // Launch the audio recorder

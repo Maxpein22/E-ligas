@@ -232,77 +232,16 @@
             android:textSize="20sp"
             android:layout_marginTop="24dp"
             android:layout_height="wrap_content"
-            android:text="Select mode of reporting" />
+            android:text="Select type of Emergency" />
 
 
-        <RadioGroup
-            android:id="@+id/radioGroupDisasters"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:layout_marginTop="15dp"
+            android:id="@+id/spinnerDisasters"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerInParent="true">
-
-            <RadioButton
-                android:id="@+id/radioButtonFire"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fire"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_margin="8dp" />
-
-            <RadioButton
-                android:id="@+id/radioButtonEarthquake"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Earthquake"
-                android:layout_row="0"
-                android:layout_column="1"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginLeft="16dp"
-
-                />
-
-            <RadioButton
-                android:id="@+id/radioButtonTyphoon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Typhoon"
-                android:layout_row="0"
-                android:layout_column="2"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginLeft="16dp" />
-
-            <RadioButton
-                android:id="@+id/radioButtonRobbery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Robbery"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:layout_margin="8dp" />
-
-            <RadioButton
-                android:id="@+id/radioButtonInjuries"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Injuries"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginLeft="16dp"/>
-
-            <RadioButton
-                android:id="@+id/radioButtonOthers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Others"
-                android:layout_row="1"
-                android:layout_column="2"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginLeft="16dp"/>
-
-        </RadioGroup>
+            android:padding="5dp"
+            android:layout_centerInParent="true" />
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/helpSelection"
@@ -376,7 +315,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_alignSelf="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Submit Report"
+                android:backgroundTint="@color/splash_blue"
                 android:background="@drawable/button_sign_up"
                 app:backgroundTint="@null"
                 android:textAllCaps="false"

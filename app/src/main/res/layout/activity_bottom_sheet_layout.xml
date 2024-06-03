@@ -67,6 +67,23 @@
                 ></TextView>
 
             <EditText
+                android:id="@+id/businessOwner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Business Owner's Name"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Business Type" />
+            <Spinner
+                android:id="@+id/spinnerCategories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/categories" />
+
+            <EditText
                 android:id="@+id/kindOfBusiness"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
