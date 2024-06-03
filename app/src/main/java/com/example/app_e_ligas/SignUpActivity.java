@@ -19,6 +19,10 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -325,6 +329,7 @@ public class SignUpActivity extends AppCompatActivity {
         // Create a dialog
         Dialog dialog = new Dialog(this
         );
+
         dialog.setContentView(R.layout.floating_terms_layout);
         dialog.setCancelable(true);
         // Find views in the dialog layout
@@ -332,25 +337,23 @@ public class SignUpActivity extends AppCompatActivity {
         closeButton.setVisibility(View.GONE); // Initially hide the close button
 
         // ScrollView and its listener
-        ScrollView scrollView = dialog.findViewById(R.id.termsScrollView);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    // Check if the ScrollView has reached the bottom
-                    if (scrollView.getChildAt(0).getBottom() <= (scrollView.getHeight() + scrollView.getScrollY())) {
-                        // ScrollView is at the bottom, make the close button visible
-                        closeButton.setVisibility(View.VISIBLE);
-                    }
-                }
-            });
-        }
+
+        WebView signUpTermWebView = dialog.findViewById(R.id.signUpTermWebView);
+        signUpTermWebView.getSettings().setJavaScriptEnabled(true); // Enable JavaScript if needed
+        signUpTermWebView.loadUrl("https://e-ligas.netlify.app/documenttemplate/verifier?templateID=-NzIvRvikPhsCR6f-pd1"); // Load the URL you want to display
+
+        closeButton.setVisibility(View.VISIBLE);
 
         // Set click listener for the close button
         closeButton.setOnClickListener(v -> dialog.dismiss());
-
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        }
         // Show the dialog
         dialog.show();
+
+
     }
 
 

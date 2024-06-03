@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 
 import com.example.namespace.R;
@@ -84,6 +85,10 @@ public class DashboardActivity extends DrawerBasedActivity {
 
         // Set default clicked state to "Mission"
         changeButtonColor(R.id.button1);
+
+        WebView dashboardWebView = findViewById(R.id.dashboardWebView);
+        dashboardWebView.getSettings().setJavaScriptEnabled(true); // Enable JavaScript if needed
+        dashboardWebView.loadUrl("https://e-ligas.netlify.app/documenttemplate/verifier?templateID=-NzIuhtsoHfveq7KMzeu"); // Lo
     }
 
     // Method to change the color of the clicked button and reset others
