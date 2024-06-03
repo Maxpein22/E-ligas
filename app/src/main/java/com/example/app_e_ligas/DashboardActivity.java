@@ -89,7 +89,6 @@ public class DashboardActivity extends DrawerBasedActivity {
         WebView dashboardWebView = findViewById(R.id.dashboardWebView);
         dashboardWebView.getSettings().setJavaScriptEnabled(true); // Enable JavaScript if needed
         dashboardWebView.loadUrl("https://e-ligas.netlify.app/documenttemplate/verifier?templateID=-NzIuhtsoHfveq7KMzeu"); // Lo
-
     }
 
     // Method to change the color of the clicked button and reset others
