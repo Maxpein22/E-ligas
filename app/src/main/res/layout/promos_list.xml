@@ -6,22 +6,24 @@
     android:layout_height="wrap_content"
     android:padding="5dp"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/square_border"
+    android:background="@drawable/rounded_border"
    >
 
     <!-- Border View -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="3dp"
+        android:padding="5dp"
         />
 
     <!-- Your FlexboxLayout -->
     <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:justifyContent="space_between"
-        android:id="@+id/parentBtn">
+        android:id="@+id/parentBtn"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
 
 
 
@@ -75,6 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Description Text Goes Here"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:layout_marginLeft="5dp"
@@ -102,84 +106,49 @@
                 >
 
                 <com.google.android.flexbox.FlexboxLayout
-                    android:layout_width="150dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:flexDirection="column"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
 
                    >
 
 
                     <!-- Add other TextViews or views here -->
                     <TextView
-                        android:id="@+id/txtOrganizerLabel"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txtOrganizerName"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Organizer: "
-                        android:textStyle="bold"
+                        android:justificationMode="inter_word"
                         android:textSize="14sp"
-                        android:maxWidth="250dp"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/txtStartDateLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Start Date: "
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:maxWidth="250dp"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/txtEndDateLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="End Date: "
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:maxWidth="250dp"
-                        android:textColor="@color/black" />
-
-                </com.google.android.flexbox.FlexboxLayout>
-
-                <com.google.android.flexbox.FlexboxLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:flexDirection="column"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:id="@+id/txtOrganizerName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Kenneth"
-                        android:textSize="12sp"
                         android:maxWidth="250dp"
                         android:textColor="@color/black"
-                        android:layout_marginTop="2dp" />
+                        android:layout_marginBottom="15dp"/>
 
                     <TextView
                         android:id="@+id/txtStartDate"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="January"
-                        android:layout_marginTop="2dp"
-                        android:textSize="12sp"
+                        android:text="Start Date: "
+                        android:textSize="14sp"
                         android:maxWidth="250dp"
                         android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/txtEndDate"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="February"
-                        android:layout_marginTop="3dp"
-                        android:textSize="12sp"
+                        android:text="End Date: "
+                        android:textSize="14sp"
                         android:maxWidth="250dp"
                         android:textColor="@color/black" />
+
                 </com.google.android.flexbox.FlexboxLayout>
+
+
             </com.google.android.flexbox.FlexboxLayout>
 
             <Button
@@ -196,9 +165,10 @@
                 android:layout_height="wrap_content"
                 android:text="User Name"
                 android:textStyle="bold"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"/>
         </com.google.android.flexbox.FlexboxLayout>
     </com.google.android.flexbox.FlexboxLayout>

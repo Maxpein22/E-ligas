@@ -35,12 +35,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:flexDirection="column"
+                android:justificationMode="inter_word"
                 >
                 <TextView
                     android:id="@+id/txtTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="User Name"
+                    android:justificationMode="inter_word"
                     android:textSize="16sp"
                     />
                 <TextView
@@ -48,6 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="email"
+                    android:justificationMode="inter_word"
                     android:textSize="14sp"
                     android:maxWidth="250dp"
                     />

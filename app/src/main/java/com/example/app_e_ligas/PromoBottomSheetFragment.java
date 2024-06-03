@@ -53,9 +53,9 @@ public class PromoBottomSheetFragment extends BottomSheetDialogFragment {
         txtUsername.setText(promo.getEventTitle());
         txtUsername.setText(promo.getEventTitle());
         txtEmail.setText(promo.getDescription());
-        txtOrganizerName.setText(promo.getOrganizerName());
-        txtStartDate.setText(firebaseDateFormat(promo.getStartDate()));
-        txtEndDate.setText(firebaseDateFormat(promo.getEndDate()));
+        txtOrganizerName.setText("Organizer: " + promo.getOrganizerName());
+        txtStartDate.setText(firebaseDateFormat("Start Date: " + promo.getStartDate()));
+        txtEndDate.setText(firebaseDateFormat("End Date: " + promo.getEndDate()));
         Glide.with(this).load(promo.getEventBanner()).into(viewImageId);
         parentBtn.setPadding(40,60,40,500);
         txtFacebookLink.setVisibility(View.VISIBLE);

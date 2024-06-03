@@ -239,8 +239,9 @@
             android:layout_marginTop="15dp"
             android:id="@+id/spinnerDisasters"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:padding="5dp"
+            android:background="@drawable/rounded_border"
             android:layout_centerInParent="true" />
 
         <com.google.android.flexbox.FlexboxLayout
@@ -295,28 +296,34 @@
                 android:layout_height="wrap_content"
                 app:flexDirection="column"
                 android:layout_marginTop="10dp"
-                android:padding="10dp"
                 >
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Set Emergency Location:"
                     android:textSize="20sp"
+                    android:layout_marginBottom="15dp"
                     ></TextView>
                 <EditText
                     android:id="@+id/locationEmergencyEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:background="@drawable/rounded_border"
                     ></EditText>
             </com.google.android.flexbox.FlexboxLayout>
 
             <Button
                 android:id="@+id/submitReportBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
                 app:layout_alignSelf="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="50dp"
                 android:text="Submit Report"
                 android:backgroundTint="@color/splash_blue"
                 android:background="@drawable/button_sign_up"
