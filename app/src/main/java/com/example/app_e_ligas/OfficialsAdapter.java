@@ -100,17 +100,17 @@ public class OfficialsAdapter extends RecyclerView.Adapter<OfficialsAdapter.Offi
 
 
             // Set details for the selected official
-            addressTextView.setText("Address: " + official.getAddress());
-            civilStatusTextView.setText("Civil Status: " + official.getCivilStatus());
-            emailTextView.setText("Email: " + official.getEmail());
-            firstNameTextView.setText("First Name: " + official.getFirstName());
-            genderTextView.setText("Gender: " + official.getGender());
-            lastNameTextView.setText("Last Name: " + official.getLastName());
-            middleNameTextView.setText("Middle Name: " + official.getMiddleName());
-            phoneNumberTextView.setText("Phone Number: " + official.getPhoneNumber());
-            positionTextView.setText("Position: " + official.getPosition());
-            StartYear.setText("Start Year of Term: " + official.getStartYear());
-            EndYear.setText("End Year of Term: " + official.getEndYear());
+            addressTextView.setText(official.getAddress());
+            civilStatusTextView.setText(official.getCivilStatus());
+            emailTextView.setText(official.getEmail());
+            firstNameTextView.setText(official.getFirstName());
+            genderTextView.setText(official.getGender());
+            lastNameTextView.setText(official.getLastName());
+            middleNameTextView.setText(official.getMiddleName());
+            phoneNumberTextView.setText(official.getPhoneNumber());
+            positionTextView.setText(official.getPosition());
+            StartYear.setText(official.getStartYear());
+            EndYear.setText(official.getEndYear());
 
 
 

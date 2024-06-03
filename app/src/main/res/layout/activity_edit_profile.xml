@@ -47,12 +47,15 @@
             <EditText
                 android:id="@+id/etFirstName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:hint="Enter First Name"
                 android:textSize="16sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/black"
                 android:inputType="textPersonName"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_border"/>
 
             <!-- Middle Name -->
             <TextView
@@ -67,9 +70,12 @@
             <EditText
                 android:id="@+id/etMiddleName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:hint="Enter Middle Name"
                 android:textSize="16sp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/black"
                 android:inputType="textPersonName"
                 android:layout_marginBottom="16dp" />
@@ -87,8 +93,11 @@
             <EditText
                 android:id="@+id/etLastName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:hint="Enter Last Name"
+                android:paddingLeft="10dp"
+                android:background="@drawable/rounded_border"
+                android:paddingRight="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:inputType="textPersonName"
@@ -100,6 +109,7 @@
                 android:layout_height="wrap_content"
                 android:text="Date of Birth*"
                 android:textSize="15sp"
+                android:layout_marginBottom="8dp"
                 android:textColor="@android:color/black"
                 />
 
@@ -107,24 +117,43 @@
                 android:id="@+id/textInputLayoutBirthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:layout_marginBottom="16dp">
 
-                <EditText
-                    android:id="@+id/editTextBirthday"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Set Birthday Here"
-                    android:textSize="15sp"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black"
-                    android:inputType="none"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:drawableRight="@drawable/baseline_calendar_month_24"
-                    android:drawablePadding="8dp"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/editTextBirthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="Set Birthday Here"
+                        android:textSize="15sp"
+                        android:background="@drawable/rounded_border"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@android:color/black"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_centerVertical="true"/>
+
+                    <ImageButton
+                        android:id="@+id/calendarIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/baseline_calendar_month_24"
+                        android:background="@android:color/transparent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"/>
+
+                </RelativeLayout>
 
             </com.google.android.material.textfield.TextInputLayout>
+
+
 
             <TextView
                 android:id="@+id/civil"
@@ -138,9 +167,10 @@
             <Spinner
                 android:id="@+id/spinnerCivilStatus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:textAlignment="center"
                 android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_border"
                 android:textSize="15sp"
                 android:entries="@array/civil_status_array"
                 android:layout_marginBottom="16dp"/>
@@ -157,8 +187,11 @@
             <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:hint="Enter Email"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:inputType="textPersonName"
@@ -176,8 +209,9 @@
             <Spinner
                 android:id="@+id/spinnerGender"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:textAlignment="center"
+                android:background="@drawable/rounded_border"
                 android:layout_marginTop="5dp"
                 android:textSize="15sp"
                 android:entries="@array/sex_choices"
@@ -195,8 +229,11 @@
             <EditText
                 android:id="@+id/etBirthPlace"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:hint="Enter Birthplace"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:inputType="textPersonName"
@@ -215,9 +252,12 @@
             <EditText
                 android:id="@+id/etPhoneNumber"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:hint="Enter Phone Number"
                 android:textSize="16sp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/black"
                 android:inputType="textPersonName"
                 android:layout_marginBottom="16dp" />
@@ -226,10 +266,11 @@
             <!-- Save Button -->
             <Button
                 android:id="@+id/btnSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
+                android:textAllCaps="false"
                 android:text="Save" />
 
         </LinearLayout>

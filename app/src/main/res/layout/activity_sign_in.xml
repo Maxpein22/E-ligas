@@ -7,10 +7,11 @@
     android:background="#e0e0e0"
     tools:context="com.example.app_e_ligas.SignInActivity">
 
+
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Login Here"
-        android:textColor="@color/gold"
+        android:textColor="@color/splash_blue"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,15 +47,17 @@
     <EditText
         android:id="@+id/editTextSignInUserName"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/rounded_border"
+        android:hint="Enter your email"
         android:ems="10"
         android:inputType="text"
-        android:letterSpacing=".1"
         android:textColor="@color/black"
-        android:textColorHint="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -65,7 +68,7 @@
         android:id="@+id/passw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Password"
         android:textColor="@color/black"
         android:ems="10"
@@ -79,40 +82,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/passw"
-      >
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutPassword"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:paddingLeft="10dp"
+                android:hint="Enter password"
                 android:inputType="textPassword"
-                android:textColorHint="@android:color/black"
+                android:background="@drawable/rounded_border"
                 android:textColor="@android:color/black"
-                android:textSize="15sp"
-                />
+                android:textSize="15sp"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <ImageButton
+                android:id="@+id/imageButtonShowPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/baseline_remove_red_eye_24"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Show Password" />
 
-        <ImageButton
-            android:id="@+id/imageButtonShowPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/baseline_remove_red_eye_24"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Show Password"/>
-
+        </FrameLayout>
 
     </RelativeLayout>
+
+
 
 
     <TextView

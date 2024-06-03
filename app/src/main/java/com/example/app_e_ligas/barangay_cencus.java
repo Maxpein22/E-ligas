@@ -40,10 +40,12 @@ public class barangay_cencus extends DrawerBasedActivity {
             duration, address_company, elem_school_name, elem_school_address, high_school_name, high_school_address,
             voc_school_name, voc_school_address, college_school_name, college_school_address, etAlias;
     private Spinner spinnerGender, spinnerCivilStatus, spinner_vacine, spinnerPWD, House_type, Solo_Parent, voter_status_spinner,
-            residential_status_spinner, occup;
-    Button btnNext1, btnNext2, btnSubmit, btnBack1,btnBack2;
+            residential_status_spinner, occup, spinnerReligion, spinnerLearningSystem;
+    private Button btnNext1, btnNext2, btnSubmit, btnBack1, btnBack2, btnEdit, btnAddResponse;
     private DatabaseReference usersRef;
     private FirebaseAuth mAuth;
+    private boolean isDataSubmitted = false;
+    private Map<String, Object> userData; // Store user data
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +54,32 @@ public class barangay_cencus extends DrawerBasedActivity {
         setContentView(activityBarangayCencusBinding.getRoot());
         allocateActivityTitle("Barangay Census");
 
+        // Initialize Firebase components
+        mAuth = FirebaseAuth.getInstance();
+        usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+        fetchUserData();
+
+        // Initialize views
+        initView();
+
+        // Button click listeners
+        initButtonClickListeners();
+
+        // Set click listener for birthday EditText
+        editTextBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+    }
+
+    private void initView() {
         btnNext1 = findViewById(R.id.btnNext1);
         btnNext2 = findViewById(R.id.btnNext2);
         btnSubmit = findViewById(R.id.btnSubmit);
         btnBack1 = findViewById(R.id.btnBack1);
         btnBack2 = findViewById(R.id.btnBack2);
-
 
         spinnerGender = findViewById(R.id.spinnerGender);
         spinnerCivilStatus = findViewById(R.id.spinnerCivilStatus);
@@ -94,8 +116,12 @@ public class barangay_cencus extends DrawerBasedActivity {
         residential_status_spinner = findViewById(R.id.residential_status_spinner);
         occup = findViewById(R.id.occup);
 
+        spinnerReligion = findViewById(R.id.spinnerReligion);
+        spinnerLearningSystem = findViewById(R.id.spinnerLearningSystem);
+        btnEdit = findViewById(R.id.btnEdit);
+        btnAddResponse = findViewById(R.id.btnAddResponse);
 
-
+        setupTextView(findViewById(R.id.religion), "Religion*", "This field is required");
         setupTextView(findViewById(R.id.occupation), "Occupation*", "This field is required");
         setupTextView(findViewById(R.id.Residential_status), "Residential Status*", "This field is required");
         setupTextView(findViewById(R.id.voter_status), "Voter Status*", "This field is required");
@@ -118,14 +144,11 @@ public class barangay_cencus extends DrawerBasedActivity {
         setupTextView(findViewById(R.id.Vstatus), "Vacinne Status*", "This field is required");
         setupTextView(findViewById(R.id.PWd), "Person with Disability*", "This field is required");
 
+        // Set the edit button visibility
+        btnEdit.setVisibility(View.VISIBLE);
+    }
 
-
-
-        // Initialize Firebase components
-        mAuth = FirebaseAuth.getInstance();
-        usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-        fetchUserData();
-        // Button click listeners
+    private void initButtonClickListeners() {
         btnNext1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,6 +156,14 @@ public class barangay_cencus extends DrawerBasedActivity {
                 findViewById(R.id.scrollView1).setVisibility(View.GONE);
                 findViewById(R.id.scrollView2).setVisibility(View.VISIBLE);
             }
+        });
+
+        btnEdit.setOnClickListener(v -> {
+            // Show the first ScrollView
+            findViewById(R.id.scrollView1).setVisibility(View.VISIBLE);
+            findViewById(R.id.scrollView4).setVisibility(View.GONE);
+            // Populate fields with user data
+            populateFields(userData);
         });
 
         btnBack1.setOnClickListener(new View.OnClickListener() {
@@ -170,14 +201,23 @@ public class barangay_cencus extends DrawerBasedActivity {
             }
         });
 
-        // Set click listener for birthday EditText
-        editTextBirthday.setOnClickListener(new View.OnClickListener() {
+        btnAddResponse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog();
+                // Show the first ScrollView and hide others
+                findViewById(R.id.scrollView1).setVisibility(View.VISIBLE);
+                findViewById(R.id.scrollView2).setVisibility(View.GONE);
+                findViewById(R.id.scrollView3).setVisibility(View.GONE);
+                findViewById(R.id.scrollView4).setVisibility(View.GONE);
+
+                // Clear all fields
+                clearAllFields();
             }
         });
+
     }
+
+
 
     // Method to show DatePickerDialog
     private void showDatePickerDialog() {
@@ -201,7 +241,9 @@ public class barangay_cencus extends DrawerBasedActivity {
 
         // Show DatePickerDialog
         datePickerDialog.show();
-    }    private void fetchUserData() {
+    }
+
+    private void fetchUserData() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -209,13 +251,27 @@ public class barangay_cencus extends DrawerBasedActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        // Assuming user data is stored in a Map format
-                        Map<String, Object> userData = (Map<String, Object>) snapshot.getValue();
-                        if (userData != null) {
-                            populateFields(userData);
+                        String fullName = snapshot.child("userFirstName").getValue(String.class) + " " +
+                                snapshot.child("userMiddleName").getValue(String.class) + " " +
+                                snapshot.child("userLastName").getValue(String.class);
+                        // Assuming you have a TextView with ID nameOfUser
+                        TextView nameOfUser = findViewById(R.id.nameOfUser);
+                        nameOfUser.setText(fullName);
+                        Boolean dataSubmitted = snapshot.child("dataSubmitted").getValue(Boolean.class);
+                        if (dataSubmitted != null && dataSubmitted) {
+                            // If data is submitted, show the fourth ScrollView
+                            findViewById(R.id.scrollView4).setVisibility(View.VISIBLE);
+                            findViewById(R.id.scrollView1).setVisibility(View.GONE);
+                        } else {
+                            // If data is not submitted or null, show the first ScrollView
+                            findViewById(R.id.scrollView1).setVisibility(View.VISIBLE);
                         }
+                        // Store user data for later use
+                        userData = (Map<String, Object>) snapshot.getValue();
                     } else {
-                        Toast.makeText(barangay_cencus.this, "User data not found", Toast.LENGTH_SHORT).show();
+                        // User data doesn't exist
+                        // Show the first ScrollView
+                        findViewById(R.id.scrollView1).setVisibility(View.VISIBLE);
                     }
                 }
 
@@ -264,12 +320,15 @@ public class barangay_cencus extends DrawerBasedActivity {
         setSpinnerValue(voter_status_spinner, getStringValue(userData, "voters"));
         setSpinnerValue(residential_status_spinner, getStringValue(userData, "resident_status"));
         setSpinnerValue(occup, getStringValue(userData, "occupation"));
+        setSpinnerValue(spinnerReligion, getStringValue(userData, "religion"));
+        setSpinnerValue(spinnerLearningSystem, getStringValue(userData, "learning_system"));
     }
 
     private String getStringValue(Map<String, Object> data, String key) {
         Object value = data.get(key);
         return value != null ? value.toString() : "";
     }
+
     private void setSpinnerValue(Spinner spinner, String value) {
         // Assuming the spinner adapter contains the value
         for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
@@ -280,8 +339,31 @@ public class barangay_cencus extends DrawerBasedActivity {
         }
     }
 
+    // Method to calculate age from birthday
+    private int calculateAge(String birthday) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+        try {
+            Date birthDate = sdf.parse(birthday);
+            Calendar birthCalendar = Calendar.getInstance();
+            birthCalendar.setTime(birthDate);
+
+            Calendar today = Calendar.getInstance();
+
+            int age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
+
+            if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
+                age--;
+            }
+
+            return age;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0; // Return 0 if parsing fails
+        }
+    }
 
     private void submitData() {
+        // Get all data from the fields
         String userFirstName = etFirstName.getText().toString();
         String userMiddleName = etMiddleName.getText().toString();
         String userLastName = etLastName.getText().toString();
@@ -318,84 +400,185 @@ public class barangay_cencus extends DrawerBasedActivity {
         String voters = voter_status_spinner.getSelectedItem().toString();
         String resident_status = residential_status_spinner.getSelectedItem().toString();
         String occupation = occup.getSelectedItem().toString();
+        String religion = spinnerReligion.getSelectedItem().toString();
+        String learning_system = spinnerLearningSystem.getSelectedItem().toString();
+
         String type_employment = occupation.equalsIgnoreCase("Unemployed") ? "Unemployed" : "Employed";
 
-
-        String address = houseBlockLot + " " + stPurokSitioSubd + " " + barangayValue + " " + cityMunicipality + " " + provinceValue;
         // Validate required fields
         if (userFirstName.isEmpty() || userLastName.isEmpty() || houseBlockLot.isEmpty() ||
                 stPurokSitioSubd.isEmpty() || barangayValue.isEmpty() || cityMunicipality.isEmpty() ||
                 provinceValue.isEmpty() || birthPlace.isEmpty() || height.isEmpty() || weight.isEmpty() ||
-                nationality.isEmpty() || vaccineStatus.isEmpty() || pwdType.isEmpty() ) {
+                nationality.isEmpty() || vaccineStatus.isEmpty() || pwdType.isEmpty() || religion.isEmpty()) {
             // Display error message for missing required fields
             Toast.makeText(barangay_cencus.this, "All fields are required except for Educational Attainment and Employment Record", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String age = String.valueOf(calculateAge(birthday)); // Get age as a string
-        // Get current user ID
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
+            usersRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        Boolean dataSubmitted = snapshot.child("dataSubmitted").getValue(Boolean.class);
+                        if (dataSubmitted != null) {
+                            if (dataSubmitted) {
 
-            // Create a reference to the census data under the current user's ID
-            DatabaseReference userCensusRef = usersRef.child(userId);
-            // Create a HashMap to store the census data
-            HashMap<String, Object> censusData = new HashMap<>();
-            censusData.put("userFirstName", userFirstName);
-            censusData.put("userMiddleName", userMiddleName);
-            censusData.put("userLastName", userLastName);
-            censusData.put("alias", alias);
-            censusData.put("address", address);
-            censusData.put("houseBlockLot", houseBlockLot);
-            censusData.put("stPurokSitioSubd", stPurokSitioSubd);
-            censusData.put("barangayValue", barangayValue);
-            censusData.put("cityMunicipality", cityMunicipality);
-            censusData.put("provinceValue", provinceValue);
-            censusData.put("birthPlace", birthPlace);
-            censusData.put("birthday", birthday);
-            censusData.put("age", age);
-            censusData.put("height", height);
-            censusData.put("weight", weight);
-            censusData.put("nationality", nationality);
-            censusData.put("companyName", companyName);
-            censusData.put("durationOfEmployment", durationOfEmployment);
-            censusData.put("companyAddress", companyAddress);
-            censusData.put("elemSchoolName", elemSchoolName);
-            censusData.put("elemSchoolAddress", elemSchoolAddress);
-            censusData.put("highSchoolName", highSchoolName);
-            censusData.put("highSchoolAddress", highSchoolAddress);
-            censusData.put("vocSchoolName", vocSchoolName);
-            censusData.put("vocSchoolAddress", vocSchoolAddress);
-            censusData.put("collegeSchoolName", collegeSchoolName);
-            censusData.put("collegeSchoolAddress", collegeSchoolAddress);
-            censusData.put("gender", gender);
-            censusData.put("civilStatus", civilStatus);
-            censusData.put("vaccineStatus", vaccineStatus);
-            censusData.put("pwdType", pwdType);
-            censusData.put("houseType", houseType);
-            censusData.put("soloParent", soloParent);
-            censusData.put("voters", voters);
-            censusData.put("resident_status", resident_status);
-            censusData.put("occupation", occupation);
-            censusData.put("type_employment", type_employment);
+                                Map<String, Object> censusData = new HashMap<>();
+                                censusData.put("userFirstName", userFirstName);
+                                censusData.put("userMiddleName", userMiddleName);
+                                censusData.put("userLastName", userLastName);
+                                censusData.put("houseBlockLot", houseBlockLot);
+                                censusData.put("stPurokSitioSubd", stPurokSitioSubd);
+                                censusData.put("barangay", barangayValue);
+                                censusData.put("cityMunicipality", cityMunicipality);
+                                censusData.put("province", provinceValue);
+                                censusData.put("birthPlace", birthPlace);
+                                censusData.put("height", height);
+                                censusData.put("weight", weight);
+                                censusData.put("nationality", nationality);
+                                censusData.put("companyName", companyName);
+                                censusData.put("durationOfEmployment", durationOfEmployment);
+                                censusData.put("companyAddress", companyAddress);
+                                censusData.put("elemSchoolName", elemSchoolName);
+                                censusData.put("elemSchoolAddress", elemSchoolAddress);
+                                censusData.put("highSchoolName", highSchoolName);
+                                censusData.put("highSchoolAddress", highSchoolAddress);
+                                censusData.put("vocSchoolName", vocSchoolName);
+                                censusData.put("vocSchoolAddress", vocSchoolAddress);
+                                censusData.put("collegeSchoolName", collegeSchoolName);
+                                censusData.put("collegeSchoolAddress", collegeSchoolAddress);
+                                censusData.put("birthday", birthday);
+                                censusData.put("alias", alias);
+                                censusData.put("gender", gender);
+                                censusData.put("civilStatus", civilStatus);
+                                censusData.put("vaccineStatus", vaccineStatus);
+                                censusData.put("pwdType", pwdType);
+                                censusData.put("houseType", houseType);
+                                censusData.put("soloParent", soloParent);
+                                censusData.put("voters", voters);
+                                censusData.put("resident_status", resident_status);
+                                censusData.put("occupation", occupation);
+                                censusData.put("religion", religion);
+                                censusData.put("learning_system", learning_system);
+                                censusData.put("type_employment", type_employment);
+                                censusData.put("dataSubmitted", true);
 
-            // Save the census data to Firebase
-            userCensusRef.updateChildren(censusData)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            // Census data saved successfully
-                            Toast.makeText(barangay_cencus.this, "Census data submitted successfully", Toast.LENGTH_SHORT).show();
+
+                                DatabaseReference newUserRef = usersRef.push(); // Generate a new unique ID
+                                newUserRef.setValue(censusData) // Set the value of the new user's node to the census data
+                                        .addOnCompleteListener(task -> {
+                                            if (task.isSuccessful()) {
+
+                                                Toast.makeText(barangay_cencus.this, "New user created successfully", Toast.LENGTH_SHORT).show();
+
+                                                // Hide all ScrollView elements
+                                                findViewById(R.id.scrollView1).setVisibility(View.GONE);
+                                                findViewById(R.id.scrollView2).setVisibility(View.GONE);
+                                                findViewById(R.id.scrollView3).setVisibility(View.GONE);
+
+                                                // Show the fourth ScrollView
+                                                findViewById(R.id.scrollView4).setVisibility(View.VISIBLE);
+
+                                                // Set dataSubmitted to true for the current user
+                                                usersRef.child(userId).child("dataSubmitted").setValue(true);
+
+
+                                            } else {
+                                                // Failed to create new user
+                                                Toast.makeText(barangay_cencus.this, "Failed to create new user", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            } else {
+                                // Save the data to the current user
+                                DatabaseReference currentUserRef = usersRef.child(userId);
+                                currentUserRef.child("userLastName").setValue(userLastName);
+                                currentUserRef.child("userMiddleName").setValue(userMiddleName);
+                                currentUserRef.child("userFirstName").setValue(userFirstName);
+                                // Save other fields similarly
+                                currentUserRef.child("houseBlockLot").setValue(houseBlockLot);
+                                currentUserRef.child("stPurokSitioSubd").setValue(stPurokSitioSubd);
+                                currentUserRef.child("barangayValue").setValue(barangayValue);
+                                currentUserRef.child("cityMunicipality").setValue(cityMunicipality);
+                                currentUserRef.child("provinceValue").setValue(provinceValue);
+                                currentUserRef.child("birthPlace").setValue(birthPlace);
+                                currentUserRef.child("height").setValue(height);
+                                currentUserRef.child("weight").setValue(weight);
+                                currentUserRef.child("nationality").setValue(nationality);
+                                currentUserRef.child("companyName").setValue(companyName);
+                                currentUserRef.child("durationOfEmployment").setValue(durationOfEmployment);
+                                currentUserRef.child("companyAddress").setValue(companyAddress);
+                                currentUserRef.child("elemSchoolName").setValue(elemSchoolName);
+                                currentUserRef.child("elemSchoolAddress").setValue(elemSchoolAddress);
+                                currentUserRef.child("highSchoolName").setValue(highSchoolName);
+                                currentUserRef.child("highSchoolAddress").setValue(highSchoolAddress);
+                                currentUserRef.child("vocSchoolName").setValue(vocSchoolName);
+                                currentUserRef.child("vocSchoolAddress").setValue(vocSchoolAddress);
+                                currentUserRef.child("collegeSchoolName").setValue(collegeSchoolName);
+                                currentUserRef.child("collegeSchoolAddress").setValue(collegeSchoolAddress);
+                                currentUserRef.child("birthday").setValue(birthday);
+                                currentUserRef.child("alias").setValue(alias);
+                                // Save other fields similarly
+                                currentUserRef.child("dataSubmitted").setValue(true);
+
+                                // Display a success message
+                                Toast.makeText(barangay_cencus.this, "Data submitted successfully", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            // Failed to save census data
-                            Toast.makeText(barangay_cencus.this, "Failed to submit census data", Toast.LENGTH_SHORT).show();
+                            // Data has not been submitted yet, save it to the current user
+                            DatabaseReference currentUserRef = usersRef.child(userId);
+                            currentUserRef.child("userLastName").setValue(userLastName);
+                            currentUserRef.child("userMiddleName").setValue(userMiddleName);
+                            currentUserRef.child("userFirstName").setValue(userFirstName);
+                            // Save other fields similarly
+                            currentUserRef.child("houseBlockLot").setValue(houseBlockLot);
+                            currentUserRef.child("stPurokSitioSubd").setValue(stPurokSitioSubd);
+                            currentUserRef.child("barangayValue").setValue(barangayValue);
+                            currentUserRef.child("cityMunicipality").setValue(cityMunicipality);
+                            currentUserRef.child("provinceValue").setValue(provinceValue);
+                            currentUserRef.child("birthPlace").setValue(birthPlace);
+                            currentUserRef.child("height").setValue(height);
+                            currentUserRef.child("weight").setValue(weight);
+                            currentUserRef.child("nationality").setValue(nationality);
+                            currentUserRef.child("companyName").setValue(companyName);
+                            currentUserRef.child("durationOfEmployment").setValue(durationOfEmployment);
+                            currentUserRef.child("companyAddress").setValue(companyAddress);
+                            currentUserRef.child("elemSchoolName").setValue(elemSchoolName);
+                            currentUserRef.child("elemSchoolAddress").setValue(elemSchoolAddress);
+                            currentUserRef.child("highSchoolName").setValue(highSchoolName);
+                            currentUserRef.child("highSchoolAddress").setValue(highSchoolAddress);
+                            currentUserRef.child("vocSchoolName").setValue(vocSchoolName);
+                            currentUserRef.child("vocSchoolAddress").setValue(vocSchoolAddress);
+                            currentUserRef.child("collegeSchoolName").setValue(collegeSchoolName);
+                            currentUserRef.child("collegeSchoolAddress").setValue(collegeSchoolAddress);
+                            currentUserRef.child("birthday").setValue(birthday);
+                            currentUserRef.child("alias").setValue(alias);
+                            // Save other fields similarly
+                            currentUserRef.child("dataSubmitted").setValue(true);
+
+                            // Display a success message
+                            Toast.makeText(barangay_cencus.this, "Data submitted successfully", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(barangay_cencus.this, "Failed to check user data", Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
             // User is not logged in
             Toast.makeText(barangay_cencus.this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
+
     }
+
+
     private void setupTextView(TextView textView, String text, String toastMessage) {
         // Create spannable string and color span
         SpannableString spannableString = new SpannableString(text);
@@ -412,28 +595,44 @@ public class barangay_cencus extends DrawerBasedActivity {
         });
     }
 
+    private void clearAllFields() {
+        etFirstName.setText("");
+        etMiddleName.setText("");
+        etLastName.setText("");
+        editTextBirthday.setText("");
+        etAlias.setText("");
+        House_blk_lot.setText("");
+        St_Purok_Sitio_Subd.setText("");
+        barangay.setText("");
+        City_Municipality.setText("");
+        province.setText("");
+        place_birth.setText("");
+        Height.setText("");
+        Weight.setText("");
+        Nationality.setText("");
+        company_name.setText("");
+        duration.setText("");
+        address_company.setText("");
+        elem_school_name.setText("");
+        elem_school_address.setText("");
+        high_school_name.setText("");
+        high_school_address.setText("");
+        voc_school_name.setText("");
+        voc_school_address.setText("");
+        college_school_name.setText("");
+        college_school_address.setText("");
 
-    // Method to calculate age from birthday
-    private int calculateAge(String birthday) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
-        try {
-            Date birthDate = sdf.parse(birthday);
-            Calendar birthCalendar = Calendar.getInstance();
-            birthCalendar.setTime(birthDate);
-
-            Calendar today = Calendar.getInstance();
-
-            int age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
-
-            if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
-                age--;
-            }
-
-            return age;
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return 0; // Return 0 if parsing fails
-        }
+        // Set spinners to default selection
+        spinnerGender.setSelection(0);
+        spinnerCivilStatus.setSelection(0);
+        spinner_vacine.setSelection(0);
+        spinnerPWD.setSelection(0);
+        House_type.setSelection(0);
+        Solo_Parent.setSelection(0);
+        voter_status_spinner.setSelection(0);
+        residential_status_spinner.setSelection(0);
+        occup.setSelection(0);
+        spinnerReligion.setSelection(0);
+        spinnerLearningSystem.setSelection(0);
     }
-
 }
