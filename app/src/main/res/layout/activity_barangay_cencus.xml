@@ -310,10 +310,10 @@
                 android:id="@+id/spinnerGender"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/rounded_border"
                 android:layout_marginTop="5dp"
                 android:entries="@array/sex_choices"
-                android:textAlignment="center"
                 android:textSize="15sp" />
 
             <TextView
@@ -329,10 +329,10 @@
                 android:id="@+id/spinnerCivilStatus"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/rounded_border"
                 android:layout_marginTop="5dp"
                 android:entries="@array/civil_status_array"
-                android:textAlignment="center"
                 android:textSize="15sp" />
 
             <TextView
@@ -348,10 +348,10 @@
                 android:id="@+id/spinnerReligion"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/rounded_border"
                 android:layout_marginTop="5dp"
                 android:entries="@array/religion_type"
-                android:textAlignment="center"
                 android:textSize="15sp" />
 
             <TextView
@@ -406,9 +406,9 @@
                 android:id="@+id/voter_status_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/rounded_border"
                 android:entries="@array/voter_status"
-                android:textAlignment="center"
                 android:textSize="15sp" />
 
 
@@ -426,8 +426,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
                 android:entries="@array/resident_status"
-                android:textAlignment="center"
                 android:textSize="15sp" />
 
 
@@ -444,9 +444,9 @@
                 android:id="@+id/occup"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/rounded_border"
                 android:entries="@array/occupation"
-                android:textAlignment="center"
                 android:textSize="15sp" />
 
 
@@ -463,10 +463,10 @@
                 android:id="@+id/House_type"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/rounded_border"
                 android:layout_marginTop="5dp"
                 android:entries="@array/house_ownership_array"
-                android:textAlignment="center"
                 android:textSize="15sp" />
 
             <TextView
@@ -501,10 +501,10 @@
                 android:id="@+id/Solo_Parent"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/rounded_border"
                 android:layout_marginTop="5dp"
                 android:entries="@array/Solo_parent"
-                android:textAlignment="center"
                 android:textSize="15sp" />
 
 
@@ -521,6 +521,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
+                    android:background="@drawable/button_sign_up"
+                    android:textColor="@color/white"
                     android:textAllCaps="false"
                     android:text="Next" />
             </LinearLayout>
@@ -566,8 +568,8 @@
                 android:id="@+id/spinnerLearningSystem"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/rounded_border"
-                android:textAlignment="center"
                 android:layout_marginTop="5dp"
                 android:textSize="15sp"
                 android:entries="@array/learning_System"/>
@@ -703,6 +705,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
+                    android:background="@drawable/button_sign_up"
+                    android:textColor="@color/white"
                     android:text="Back"
                     android:layout_margin="16dp"/>
 
@@ -711,6 +715,8 @@
                     android:id="@+id/btnNext2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/button_sign_up"
+                    android:textColor="@color/white"
                     android:text="Next"
                     android:layout_margin="16dp"/>
             </LinearLayout>
@@ -823,9 +829,9 @@
             android:id="@+id/spinner_vacine"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:paddingLeft="10dp"
             android:background="@drawable/rounded_border"
             android:layout_marginTop="5dp"
-            android:textAlignment="center"
             android:textSize="15sp"
             android:entries="@array/vacinne_status"/>
 
@@ -842,9 +848,9 @@
             android:id="@+id/spinnerPWD"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:paddingLeft="10dp"
             android:background="@drawable/rounded_border"
             android:layout_marginTop="5dp"
-            android:textAlignment="center"
             android:textSize="15sp"
             android:entries="@array/PWD_type"/>
 
@@ -860,6 +866,8 @@
                 android:id="@+id/btnBack2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_sign_up"
+                android:textColor="@color/white"
                 android:text="Back"
                 android:selectAllOnFocus="false"
                 android:layout_margin="16dp"/>
@@ -869,6 +877,8 @@
                 android:id="@+id/btnSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_sign_up"
+                android:textColor="@color/white"
                 android:text="Submit"
                 android:textAllCaps="false"
                 android:layout_margin="16dp"/>
@@ -911,6 +921,8 @@
                 android:id="@+id/btnAddResponse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_sign_up"
+                android:textColor="@color/white"
                 android:text="Add Other Response"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
@@ -939,6 +951,8 @@
                     android:id="@+id/btnEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/button_sign_up"
+                    android:textColor="@color/white"
                     android:text="Edit"
                     />
             </LinearLayout>

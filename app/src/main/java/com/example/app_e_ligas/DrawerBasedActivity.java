@@ -1,6 +1,7 @@
 package com.example.app_e_ligas;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,7 +46,8 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.menu_drawer_open, R.string.menu_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
+        toggle.getDrawerArrowDrawable().setColor(Color.parseColor("#FFFFFF")); // Set to your desired color
+        toggle.syncState();
         // Retrieve user's validation status and update the navigation menu
         updateNavigationMenuBasedOnValidation();
     }

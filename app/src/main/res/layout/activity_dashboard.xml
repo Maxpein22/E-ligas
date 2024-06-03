@@ -23,9 +23,10 @@
             <!-- Logo ImageView -->
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/ligas_uno"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo_ligas1"
                 android:scaleType="centerCrop" />
 
             <!-- Title TextView -->
@@ -34,6 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Discover The District"
+                android:gravity="center"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
@@ -45,20 +47,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Barangay Ligas Uno"
+                android:gravity="center"
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 android:layout_marginTop="8dp" />
 
-            <!-- Description TextView -->
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="The most exciting district of Bacoor Cavite, get your opportunity to move forwards together."
-                android:textSize="14sp"
-                android:textColor="@color/white"
-                android:layout_marginTop="8dp"
-                android:justificationMode="inter_word" />
 
 
             <!-- Learn More Button -->
@@ -67,6 +60,7 @@
                 android:layout_width="140dp"
                 android:layout_height="50dp"
                 android:text="Learn More"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/button_sign_up"
                 app:backgroundTint="@null"
                 android:textAllCaps="false"
@@ -301,6 +295,7 @@
                     android:text="MISSION"
                     android:textAllCaps="false"
                     android:layout_marginEnd="8dp"
+                    android:textColor="@color/white"
                     android:backgroundTint="@color/splash_blue"/>
 
                 <Button
@@ -310,6 +305,7 @@
                     android:text="VISION"
                     android:textAllCaps="false"
                     android:layout_marginEnd="8dp"
+                    android:textColor="@color/white"
                     android:backgroundTint="@color/splash_blue"/>
 
                 <Button
@@ -318,6 +314,7 @@
                     android:layout_height="wrap_content"
                     android:text="GOAL"
                     android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:backgroundTint="@color/splash_blue"/>
             </LinearLayout>
 
@@ -354,6 +351,18 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/captain"/>
 
+
+            <!-- Full Name -->
+            <TextView
+                android:id="@+id/fullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="George G. Medina"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
             <!-- Title Image -->
             <TextView
                 android:id="@+id/titleImage"
@@ -366,16 +375,7 @@
                 android:gravity="center"/>
 
 
-            <!-- Full Name -->
-            <TextView
-                android:id="@+id/fullName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="George G. Medina"
-                android:gravity="center"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
+
 
             <!-- Text Quote -->
             <TextView
@@ -412,6 +412,7 @@
                 android:layout_height="50dp"
                 android:text="Contact Us"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:background="@drawable/button_sign_up"
                 app:backgroundTint="@null"
                 android:layout_marginTop="16dp"
