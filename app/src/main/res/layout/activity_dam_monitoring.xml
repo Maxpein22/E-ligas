@@ -14,27 +14,28 @@
         android:layout_height="wrap_content">
 
 
-
-
-
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="Water Level of Dam"
             android:textColor="@color/black"
-            android:layout_marginTop="20dp"
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.03" />
+            app:layout_constraintVertical_bias="0.008" />
+
+
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:text=""
             android:textColor="@color/black"
             android:textSize="25dp"
@@ -43,8 +44,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.15" />
-
+            app:layout_constraintVertical_bias="0.098" />
 
         <ImageView
             android:id="@+id/waterImage"
@@ -55,7 +55,7 @@
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.15"
+            app:layout_constraintVertical_bias="0.238"
             app:srcCompat="@drawable/i10" />
 
         <LinearLayout
@@ -123,7 +123,7 @@
             android:id="@+id/procedure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Procedure"
+            android:text="Safety Measure"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -135,10 +135,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/procedure">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/procedure"
+            tools:layout_editor_absoluteX="0dp">
 
             <Button
                 android:id="@+id/button1"
@@ -169,10 +172,6 @@
                 android:text="After"
                 app:backgroundTint="@null" />
         </LinearLayout>
-
-
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
