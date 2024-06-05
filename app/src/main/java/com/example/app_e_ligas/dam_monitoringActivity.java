@@ -4,14 +4,17 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.namespace.R;
@@ -212,14 +215,28 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
     private void showPopupWindow1() {
         // Inflate the popup layout for button1
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+
         View popupView = inflater.inflate(R.layout.popup_layout_button1, null);
+        WebView webview = popupView.findViewById(R.id.button1_webview);
+        webview.getSettings().setJavaScriptEnabled(true); // Enable JavaScript if needed
+        webview.loadUrl("https://e-ligas.netlify.app/documenttemplate/verifier?templateID=-NzN7nlZId3D6PAZk7Tr"); // Lo
 
-        // Create the PopupWindow with appropriate width and height
-        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        // Get screen dimensions
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
 
-        // Get the root view of the activity
+        ViewGroup.LayoutParams layoutParams = webview.getLayoutParams();
+        layoutParams.height = height;
+        webview.setLayoutParams(layoutParams);
+
+
+
+        // Create the PopupWindow
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
+// Get the root view of the activity
         View rootView = activityDamMonitoringBinding.getRoot();
-
         // Show the popup window at the center of the screen
         popupWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
 
@@ -228,14 +245,25 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
     private void showPopupWindow2() {
         // Inflate the popup layout for button2
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup_layout_button2, null);
-
+        View popupView = inflater.inflate(R.layout.popup_layout_button1, null);
+        WebView webview = popupView.findViewById(R.id.button1_webview);
+        webview.getSettings().setJavaScriptEnabled(true); // Enable JavaScript if needed
+        webview.loadUrl("https://e-ligas.netlify.app/documenttemplate/verifier?templateID=-NzNBPqDeE8i066gb1Jq");
         // Create the PopupWindow with appropriate width and height
+
         PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
         // Get the root view of the activity
         View rootView = activityDamMonitoringBinding.getRoot();
+// Get screen dimensions
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
 
+        ViewGroup.LayoutParams layoutParams = webview.getLayoutParams();
+        layoutParams.height = height;
+        webview.setLayoutParams(layoutParams);
         // Show the popup window at the center of the screen
         popupWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
 
@@ -244,14 +272,24 @@ public class dam_monitoringActivity extends DrawerBasedActivity {
     private void showPopupWindow3() {
         // Inflate the popup layout for button3
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup_layout_button3, null);
-
+        View popupView = inflater.inflate(R.layout.popup_layout_button1, null);
+        WebView webview = popupView.findViewById(R.id.button1_webview);
+        webview.getSettings().setJavaScriptEnabled(true); // Enable JavaScript if needed
+        webview.loadUrl("https://e-ligas.netlify.app/documenttemplate/verifier?templateID=-NzNBvrgnWF_HaVlu8C9");
         // Create the PopupWindow with appropriate width and height
         PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
         // Get the root view of the activity
         View rootView = activityDamMonitoringBinding.getRoot();
+// Get screen dimensions
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
 
+        ViewGroup.LayoutParams layoutParams = webview.getLayoutParams();
+        layoutParams.height = height;
+        webview.setLayoutParams(layoutParams);
         // Show the popup window at the center of the screen
         popupWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/roundedcorder_otw"
+    android:padding="10dp"
+    android:id="@+id/notification_parent_layout"
+    >
+
+    <TextView
+        android:id="@+id/notification_title"
+        style="@style/TextAppearance.Compat.Notification.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:text="Help is on the way" />
+
+    <TextView
+        android:textSize="14dp"
+        android:id="@+id/notification_body"
+        style="@style/TextAppearance.Compat.Notification.Line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginBottom="5dp"
+        android:text="Assistance is on the way. Please wait..." />
+
+    <TextView
+        android:textSize="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="View Details" />
+</LinearLayout>

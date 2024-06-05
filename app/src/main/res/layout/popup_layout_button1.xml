@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
-
-<!-- LinearLayout to wrap the ImageView -->
-<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:id="@+id/scrollView"
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/long_height_image"
+    <!-- LinearLayout to wrap the WebView -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/proc1"
-        android:scaleType="fitXY"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-
-
-</LinearLayout>
+        <WebView
+            android:layout_marginTop="20dp"
+            android:id="@+id/button1_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
 
 </ScrollView>
