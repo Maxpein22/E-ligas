@@ -118,23 +118,23 @@
         <item>Others</item>
     </string-array>
 
-        <string-array name="categories">
-            <item>Sari-Sari Store</item>
-            <item>Barber Shops and Salon</item>
-            <item>Local Eateries (Carinderia)</item>
-            <item>Hardware Stores</item>
-            <item>Internet Cafes (Computer Shop, Printing Services)</item>
-            <item>Turo-turo (Canteens)</item>
-            <item>Laundry Services</item>
-            <item>Tricycle Operators</item>
-            <item>Medical Clinics and Pharmacies</item>
-            <item>Cellphone Repair Shops</item>
-            <item>Tuition Centers or Tutorial Services</item>
-            <item>Printing and Photocopying Shops</item>
-            <item>Local Markets</item>
-            <item>Beauty and Wellness Centers</item>
-            <item>Others</item>
+    <string-array name="categories">
+        <item>Sari-Sari Store</item>
+        <item>Barber Shops and Salon</item>
+        <item>Local Eateries (Carinderia)</item>
+        <item>Hardware Stores</item>
+        <item>Internet Cafes (Computer Shop, Printing Services)</item>
+        <item>Turo-turo (Canteens)</item>
+        <item>Laundry Services</item>
+        <item>Tricycle Operators</item>
+        <item>Medical Clinics and Pharmacies</item>
+        <item>Cellphone Repair Shops</item>
+        <item>Tuition Centers or Tutorial Services</item>
+        <item>Printing and Photocopying Shops</item>
+        <item>Local Markets</item>
+        <item>Beauty and Wellness Centers</item>
+        <item>Others</item>
 
-        </string-array>
+    </string-array>
 
 </resources>

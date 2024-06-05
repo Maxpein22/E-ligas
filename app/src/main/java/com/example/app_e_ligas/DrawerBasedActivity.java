@@ -160,7 +160,10 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
             startActivity(new Intent(this, Terms_and_Condition.class));
             overridePendingTransition(0, 0);
 
-        } else if (itemId == R.id.nav_logout) {
+
+
+        }
+       else if (itemId == R.id.nav_logout) {
             Toast.makeText(this, "Logout Successfully!", Toast.LENGTH_SHORT).show();
 
             // Clear user data

@@ -1,9 +1,11 @@
 package com.example.app_e_ligas;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,7 +24,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class EditProfileActivity extends DrawerBasedActivity {
@@ -70,7 +78,15 @@ public class EditProfileActivity extends DrawerBasedActivity {
                 saveProfile();
             }
         });
+
+        dateofBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
     }
+
 
     private void loadUserData() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -129,6 +145,12 @@ public class EditProfileActivity extends DrawerBasedActivity {
             String birthPlace = birthPlaceEditText.getText().toString();
             String contactNumber = phoneNumberEditText.getText().toString();
             String civilStatus = civilStatusSpinner.getSelectedItem().toString();
+            String gender = genderSpinner.getSelectedItem().toString();
+
+            int age = calculateAge(birthday);
+            String ageString = String.valueOf(age);
+
+
 
             // Create a Map to store the user data
             Map<String, Object> userData = new HashMap<>();
@@ -139,6 +161,9 @@ public class EditProfileActivity extends DrawerBasedActivity {
             userData.put("birthPlace", birthPlace);
             userData.put("userPhoneNumber", contactNumber);
             userData.put("civilStatus", civilStatus);
+            userData.put("age", ageString);
+            userData.put("gender", gender);
+
 
             // Update the user data in the database
             mDatabase.child(userId).updateChildren(userData)
@@ -159,4 +184,43 @@ public class EditProfileActivity extends DrawerBasedActivity {
             Toast.makeText(EditProfileActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void showDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        // Format selected date as "MMMM dd, yyyy"
+                        String selectedDate = String.format(Locale.getDefault(), "%s %02d, %04d",
+                                new DateFormatSymbols().getMonths()[monthOfYear], dayOfMonth, year);
+
+                        // Update the EditText field with selected date
+                        dateofBirth.setText(selectedDate);
+                    }
+                }, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
+    private int calculateAge(String birthday) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+        try {
+            Date birthDate = sdf.parse(birthday);
+            Calendar birthCalendar = Calendar.getInstance();
+            birthCalendar.setTime(birthDate);
+
+            Calendar today = Calendar.getInstance();
+
+            int age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
+
+            if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
+                age--;
+            }
+
+            return age;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0; // Return 0 if parsing fails
+        }
+    }
+
 }
