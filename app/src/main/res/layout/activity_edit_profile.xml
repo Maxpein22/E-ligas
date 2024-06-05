@@ -107,7 +107,7 @@
                 android:id="@+id/bday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date of Birth*"
+                android:text="Date of Birth"
                 android:textSize="15sp"
                 android:layout_marginBottom="8dp"
                 android:textColor="@android:color/black"
@@ -134,8 +134,6 @@
                         android:paddingRight="10dp"
                         android:textColor="@android:color/black"
                         android:textColorHint="@android:color/black"
-                        android:inputType="none"
-                        android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:layout_centerVertical="true"/>
 
@@ -159,7 +157,7 @@
                 android:id="@+id/civil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Civil Status*"
+                android:text="Civil Status"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
                 />

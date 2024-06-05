@@ -41,7 +41,7 @@ public class barangay_cencus extends DrawerBasedActivity {
             voc_school_name, voc_school_address, college_school_name, college_school_address, etAlias;
     private Spinner spinnerGender, spinnerCivilStatus, spinner_vacine, spinnerPWD, House_type, Solo_Parent, voter_status_spinner,
             residential_status_spinner, occup, spinnerReligion, spinnerLearningSystem;
-    private Button btnNext1, btnNext2, btnSubmit, btnBack1, btnBack2, btnEdit, btnAddResponse;
+    private Button btnNext1, btnNext2, btnSubmit, btnBack1, btnBack2, btnAddResponse;
     private DatabaseReference usersRef;
     private FirebaseAuth mAuth;
     private boolean isDataSubmitted = false;
@@ -118,7 +118,7 @@ public class barangay_cencus extends DrawerBasedActivity {
 
         spinnerReligion = findViewById(R.id.spinnerReligion);
         spinnerLearningSystem = findViewById(R.id.spinnerLearningSystem);
-        btnEdit = findViewById(R.id.btnEdit);
+
         btnAddResponse = findViewById(R.id.btnAddResponse);
 
         setupTextView(findViewById(R.id.religion), "Religion*", "This field is required");
@@ -144,8 +144,6 @@ public class barangay_cencus extends DrawerBasedActivity {
         setupTextView(findViewById(R.id.Vstatus), "Vacinne Status*", "This field is required");
         setupTextView(findViewById(R.id.PWd), "Person with Disability*", "This field is required");
 
-        // Set the edit button visibility
-        btnEdit.setVisibility(View.VISIBLE);
     }
 
     private void initButtonClickListeners() {
@@ -156,14 +154,6 @@ public class barangay_cencus extends DrawerBasedActivity {
                 findViewById(R.id.scrollView1).setVisibility(View.GONE);
                 findViewById(R.id.scrollView2).setVisibility(View.VISIBLE);
             }
-        });
-
-        btnEdit.setOnClickListener(v -> {
-            // Show the first ScrollView
-            findViewById(R.id.scrollView1).setVisibility(View.VISIBLE);
-            findViewById(R.id.scrollView4).setVisibility(View.GONE);
-            // Populate fields with user data
-            populateFields(userData);
         });
 
         btnBack1.setOnClickListener(new View.OnClickListener() {
@@ -251,12 +241,6 @@ public class barangay_cencus extends DrawerBasedActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        String fullName = snapshot.child("userFirstName").getValue(String.class) + " " +
-                                snapshot.child("userMiddleName").getValue(String.class) + " " +
-                                snapshot.child("userLastName").getValue(String.class);
-                        // Assuming you have a TextView with ID nameOfUser
-                        TextView nameOfUser = findViewById(R.id.nameOfUser);
-                        nameOfUser.setText(fullName);
                         Boolean dataSubmitted = snapshot.child("dataSubmitted").getValue(Boolean.class);
                         if (dataSubmitted != null && dataSubmitted) {
                             // If data is submitted, show the fourth ScrollView
