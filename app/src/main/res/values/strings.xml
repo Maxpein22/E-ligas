@@ -77,6 +77,11 @@
         <item>No</item>
     </string-array>
 
+    <string-array name="fourps">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
     <string-array name="vacinne_status">
         <item>Vaccinated</item>
         <item>Not Vaccinated</item>

@@ -432,6 +432,26 @@
 
 
             <TextView
+                android:id="@+id/fourps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="4p's Member*"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/spinner_fourps"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:paddingLeft="10dp"
+                android:entries="@array/fourps"
+                android:textSize="15sp" />
+
+
+
+            <TextView
                 android:id="@+id/occupation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -882,6 +902,9 @@
                 android:text="Submit"
                 android:textAllCaps="false"
                 android:layout_margin="16dp"/>
+
+
+
         </LinearLayout>
     </LinearLayout>
     </ScrollView>
@@ -903,8 +926,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
 
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -914,8 +935,7 @@
                 android:gravity="center"
                 android:textColor="@android:color/black"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="20dp"
-                />
+                android:layout_marginBottom="20dp" />
 
             <Button
                 android:id="@+id/btnAddResponse"
@@ -925,10 +945,10 @@
                 android:textColor="@color/white"
                 android:text="Add Other Response"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                />
+                android:layout_marginTop="16dp" />
 
         </LinearLayout>
 
     </ScrollView>
+
 </RelativeLayout>

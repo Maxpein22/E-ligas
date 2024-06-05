@@ -40,12 +40,14 @@ public class barangay_cencus extends DrawerBasedActivity {
             duration, address_company, elem_school_name, elem_school_address, high_school_name, high_school_address,
             voc_school_name, voc_school_address, college_school_name, college_school_address, etAlias;
     private Spinner spinnerGender, spinnerCivilStatus, spinner_vacine, spinnerPWD, House_type, Solo_Parent, voter_status_spinner,
-            residential_status_spinner, occup, spinnerReligion, spinnerLearningSystem;
-    private Button btnNext1, btnNext2, btnSubmit, btnBack1, btnBack2, btnAddResponse;
+            residential_status_spinner, occup, spinnerReligion, spinnerLearningSystem, spinner_fourps;
+    private Button btnNext1, btnNext2, btnSubmit, btnBack1, btnBack2, btnAddResponse, btnSaveforAnotherResponse;
     private DatabaseReference usersRef;
     private FirebaseAuth mAuth;
     private boolean isDataSubmitted = false;
-    private Map<String, Object> userData; // Store user data
+    private Map<String, Object> userData;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,10 @@ public class barangay_cencus extends DrawerBasedActivity {
 
         // Button click listeners
         initButtonClickListeners();
+
+
+
+
 
         // Set click listener for birthday EditText
         editTextBirthday.setOnClickListener(new View.OnClickListener() {
@@ -118,9 +124,14 @@ public class barangay_cencus extends DrawerBasedActivity {
 
         spinnerReligion = findViewById(R.id.spinnerReligion);
         spinnerLearningSystem = findViewById(R.id.spinnerLearningSystem);
+        spinner_fourps = findViewById(R.id.spinner_fourps);
+
 
         btnAddResponse = findViewById(R.id.btnAddResponse);
 
+
+
+        setupTextView(findViewById(R.id.fourps), "4p's Member*", "This field is required");
         setupTextView(findViewById(R.id.religion), "Religion*", "This field is required");
         setupTextView(findViewById(R.id.occupation), "Occupation*", "This field is required");
         setupTextView(findViewById(R.id.Residential_status), "Residential Status*", "This field is required");
@@ -199,7 +210,6 @@ public class barangay_cencus extends DrawerBasedActivity {
                 findViewById(R.id.scrollView2).setVisibility(View.GONE);
                 findViewById(R.id.scrollView3).setVisibility(View.GONE);
                 findViewById(R.id.scrollView4).setVisibility(View.GONE);
-
                 // Clear all fields
                 clearAllFields();
             }
@@ -237,6 +247,7 @@ public class barangay_cencus extends DrawerBasedActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
+            String userEmail = currentUser.getEmail();
             usersRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -306,6 +317,9 @@ public class barangay_cencus extends DrawerBasedActivity {
         setSpinnerValue(occup, getStringValue(userData, "occupation"));
         setSpinnerValue(spinnerReligion, getStringValue(userData, "religion"));
         setSpinnerValue(spinnerLearningSystem, getStringValue(userData, "learning_system"));
+        setSpinnerValue(spinner_fourps, getStringValue(userData, "fourPs"));
+
+
     }
 
     private String getStringValue(Map<String, Object> data, String key) {
@@ -386,6 +400,7 @@ public class barangay_cencus extends DrawerBasedActivity {
         String occupation = occup.getSelectedItem().toString();
         String religion = spinnerReligion.getSelectedItem().toString();
         String learning_system = spinnerLearningSystem.getSelectedItem().toString();
+        String fourPs = spinner_fourps.getSelectedItem().toString();
 
         String type_employment = occupation.equalsIgnoreCase("Unemployed") ? "Unemployed" : "Employed";
 
@@ -404,6 +419,7 @@ public class barangay_cencus extends DrawerBasedActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
+            String userEmail = currentUser.getEmail();
             usersRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -413,6 +429,8 @@ public class barangay_cencus extends DrawerBasedActivity {
                             if (dataSubmitted) {
 
                                 Map<String, Object> censusData = new HashMap<>();
+
+                                censusData.put("email", userEmail);
                                 censusData.put("userFirstName", userFirstName);
                                 censusData.put("userMiddleName", userMiddleName);
                                 censusData.put("userLastName", userLastName);
@@ -450,6 +468,7 @@ public class barangay_cencus extends DrawerBasedActivity {
                                 censusData.put("religion", religion);
                                 censusData.put("learning_system", learning_system);
                                 censusData.put("type_employment", type_employment);
+                                censusData.put("fourPs", fourPs);
                                 censusData.put("dataSubmitted", true);
 
 
@@ -506,6 +525,7 @@ public class barangay_cencus extends DrawerBasedActivity {
                                 currentUserRef.child("collegeSchoolAddress").setValue(collegeSchoolAddress);
                                 currentUserRef.child("birthday").setValue(birthday);
                                 currentUserRef.child("alias").setValue(alias);
+                                currentUserRef.child("fourPs").setValue(fourPs);
                                 // Save other fields similarly
                                 currentUserRef.child("dataSubmitted").setValue(true);
 
@@ -541,6 +561,7 @@ public class barangay_cencus extends DrawerBasedActivity {
                             currentUserRef.child("collegeSchoolAddress").setValue(collegeSchoolAddress);
                             currentUserRef.child("birthday").setValue(birthday);
                             currentUserRef.child("alias").setValue(alias);
+                            currentUserRef.child("fourPs").setValue(fourPs);
                             // Save other fields similarly
                             currentUserRef.child("dataSubmitted").setValue(true);
 
@@ -618,5 +639,6 @@ public class barangay_cencus extends DrawerBasedActivity {
         occup.setSelection(0);
         spinnerReligion.setSelection(0);
         spinnerLearningSystem.setSelection(0);
+        spinner_fourps.setSelection(0);
     }
 }
