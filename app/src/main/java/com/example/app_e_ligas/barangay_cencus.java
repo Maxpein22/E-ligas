@@ -532,6 +532,17 @@ public class barangay_cencus extends DrawerBasedActivity {
                                 currentUserRef.child("age").setValue(age);
                                 currentUserRef.child("gender").setValue(gender);
                                 currentUserRef.child("civilStatus").setValue(civilStatus);
+                                currentUserRef.child("religion").setValue(religion);
+                                currentUserRef.child("houseType").setValue(houseType);
+                                currentUserRef.child("type_employment").setValue(type_employment);
+                                currentUserRef.child("vaccineStatus").setValue(vaccineStatus);
+                                currentUserRef.child("pwdType").setValue(pwdType);
+                                currentUserRef.child("soloParent").setValue(soloParent);
+                                currentUserRef.child("resident_status").setValue(resident_status);
+                                currentUserRef.child("voters").setValue(voters);
+                                currentUserRef.child("occupation").setValue(occupation);
+
+
                                 // Save other fields similarly
                                 currentUserRef.child("dataSubmitted").setValue(true);
                                 String address = houseBlockLot + " " + stPurokSitioSubd + " " + barangayValue + " " + cityMunicipality + " " + provinceValue;
@@ -570,10 +581,19 @@ public class barangay_cencus extends DrawerBasedActivity {
                             currentUserRef.child("birthday").setValue(birthday);
                             currentUserRef.child("alias").setValue(alias);
                             currentUserRef.child("fourPs").setValue(fourPs);
-
+                            currentUserRef.child("houseType").setValue(houseType);
                             currentUserRef.child("age").setValue(age);
                             currentUserRef.child("gender").setValue(gender);
                             currentUserRef.child("civilStatus").setValue(civilStatus);
+                            currentUserRef.child("type_employment").setValue(type_employment);
+                            currentUserRef.child("vaccineStatus").setValue(vaccineStatus);
+                            currentUserRef.child("pwdType").setValue(pwdType);
+                            currentUserRef.child("soloParent").setValue(soloParent);
+                            currentUserRef.child("resident_status").setValue(resident_status);
+                            currentUserRef.child("voters").setValue(voters);
+                            currentUserRef.child("religion").setValue(religion);
+                            currentUserRef.child("occupation").setValue(occupation);
+mis
                             // Save other fields similarly
                             currentUserRef.child("dataSubmitted").setValue(true);
                             String address = houseBlockLot + " " + stPurokSitioSubd + " " + barangayValue + " " + cityMunicipality + " " + provinceValue;
