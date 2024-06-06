@@ -1,8 +1,6 @@
 package com.example.app_e_ligas;
 
-import static com.example.app_e_ligas.barangay_cencus.censusEditingKey;
 import static com.example.app_e_ligas.barangay_cencus.populateFields;
-import static com.example.app_e_ligas.barangay_servicesActivity.clickAllServices;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -58,7 +56,6 @@ public class UsersRecViewAdapter extends RecyclerView.Adapter<UsersRecViewAdapte
                 // Service doesn't exist, add it
                 barangay_cencus.btnAddResponse.callOnClick();
                 populateFields(service.toMap());
-                censusEditingKey = service.getUserID();
             }
         });
 

@@ -148,6 +148,8 @@ public class barangay_cencus extends DrawerBasedActivity {
                     user.setUserID(requestSnaps.getKey());
                     if (user != null && user.getEmail() != null && !user.getEmail().isEmpty() && currentUserEmail.equals(user.getEmail())) {
                         userList.add(user);
+                    }else if(user.getUserEmail() != null && currentUserEmail.equals(user.getUserEmail())){
+                        userList.add(user);
                     }
                 }
 
@@ -559,9 +561,9 @@ public class barangay_cencus extends DrawerBasedActivity {
 
 
                                 DatabaseReference newUserRef = usersRef.push(); // Generate a new unique ID\
-                                if(!censusEditingKey.isEmpty()){
-                                    newUserRef = usersRef.child(censusEditingKey);
-                                }
+//                                if(!censusEditingKey.isEmpty()){
+//                                    newUserRef = usersRef.child(censusEditingKey);
+//                                }
                                 newUserRef.setValue(censusData) // Set the value of the new user's node to the census data
                                         .addOnCompleteListener(task -> {
                                             if (task.isSuccessful()) {
