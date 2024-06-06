@@ -34,6 +34,7 @@
         <item>Armed Forces</item>
         <item>Hospitality</item>
         <item>Vendor</item>
+        <item>Student</item>
 
 
     </string-array>
@@ -60,6 +61,7 @@
     </string-array>
 
     <string-array name="learning_System">
+        <item>Not Attending</item>
         <item>Private School</item>
         <item>Public School</item>
         <item>ALS/Learning System</item>
@@ -73,6 +75,11 @@
     </string-array>
     <string-array name="Solo_parent">
         <item>Not Parent</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="fourps">
         <item>Yes</item>
         <item>No</item>
     </string-array>
