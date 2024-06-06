@@ -541,6 +541,7 @@ public class barangay_cencus extends DrawerBasedActivity {
                                 currentUserRef.child("resident_status").setValue(resident_status);
                                 currentUserRef.child("voters").setValue(voters);
                                 currentUserRef.child("occupation").setValue(occupation);
+                                currentUserRef.child("learning_system").setValue(learning_system);
 
 
                                 // Save other fields similarly
@@ -593,7 +594,9 @@ public class barangay_cencus extends DrawerBasedActivity {
                             currentUserRef.child("voters").setValue(voters);
                             currentUserRef.child("religion").setValue(religion);
                             currentUserRef.child("occupation").setValue(occupation);
-mis
+                            currentUserRef.child("learning_system").setValue(learning_system);
+
+
                             // Save other fields similarly
                             currentUserRef.child("dataSubmitted").setValue(true);
                             String address = houseBlockLot + " " + stPurokSitioSubd + " " + barangayValue + " " + cityMunicipality + " " + provinceValue;
