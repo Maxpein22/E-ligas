@@ -86,6 +86,7 @@ public class barangay_cencus extends DrawerBasedActivity {
     private FirebaseAuth mAuth;
     private boolean isDataSubmitted = false;
     private Map<String, Object> userData;
+    static String censusEditingKey = "";
 
     ListView listView;
 
@@ -144,6 +145,7 @@ public class barangay_cencus extends DrawerBasedActivity {
                 int index = 0;
                 for (DataSnapshot requestSnaps : dataSnapshot.getChildren()) {
                     UserCensus user = requestSnaps.getValue(UserCensus.class);
+                    user.setUserID(requestSnaps.getKey());
                     if (user != null && user.getEmail() != null && !user.getEmail().isEmpty() && currentUserEmail.equals(user.getEmail())) {
                         userList.add(user);
                     }
@@ -556,11 +558,14 @@ public class barangay_cencus extends DrawerBasedActivity {
 
 
 
-                                DatabaseReference newUserRef = usersRef.push(); // Generate a new unique ID
+                                DatabaseReference newUserRef = usersRef.push(); // Generate a new unique ID\
+                                if(!censusEditingKey.isEmpty()){
+                                    newUserRef = usersRef.child(censusEditingKey);
+                                }
                                 newUserRef.setValue(censusData) // Set the value of the new user's node to the census data
                                         .addOnCompleteListener(task -> {
                                             if (task.isSuccessful()) {
-
+                                                censusEditingKey = "";
                                                 Toast.makeText(barangay_cencus.this, "New user created successfully", Toast.LENGTH_SHORT).show();
 
                                                 // Hide all ScrollView elements
