@@ -455,6 +455,7 @@ public class barangay_cencus extends DrawerBasedActivity {
                                 censusData.put("collegeSchoolName", collegeSchoolName);
                                 censusData.put("collegeSchoolAddress", collegeSchoolAddress);
                                 censusData.put("birthday", birthday);
+                                censusData.put("age", age);
                                 censusData.put("alias", alias);
                                 censusData.put("gender", gender);
                                 censusData.put("civilStatus", civilStatus);
@@ -470,6 +471,8 @@ public class barangay_cencus extends DrawerBasedActivity {
                                 censusData.put("type_employment", type_employment);
                                 censusData.put("fourPs", fourPs);
                                 censusData.put("dataSubmitted", true);
+                                censusData.put("address", houseBlockLot + " " + stPurokSitioSubd + " " + barangayValue + " " + cityMunicipality + " " + provinceValue);
+
 
 
                                 DatabaseReference newUserRef = usersRef.push(); // Generate a new unique ID
@@ -526,8 +529,13 @@ public class barangay_cencus extends DrawerBasedActivity {
                                 currentUserRef.child("birthday").setValue(birthday);
                                 currentUserRef.child("alias").setValue(alias);
                                 currentUserRef.child("fourPs").setValue(fourPs);
+                                currentUserRef.child("age").setValue(age);
+                                currentUserRef.child("gender").setValue(gender);
+                                currentUserRef.child("civilStatus").setValue(civilStatus);
                                 // Save other fields similarly
                                 currentUserRef.child("dataSubmitted").setValue(true);
+                                String address = houseBlockLot + " " + stPurokSitioSubd + " " + barangayValue + " " + cityMunicipality + " " + provinceValue;
+                                currentUserRef.child("address").setValue(address);
 
                                 // Display a success message
                                 Toast.makeText(barangay_cencus.this, "Data submitted successfully", Toast.LENGTH_SHORT).show();
@@ -562,8 +570,14 @@ public class barangay_cencus extends DrawerBasedActivity {
                             currentUserRef.child("birthday").setValue(birthday);
                             currentUserRef.child("alias").setValue(alias);
                             currentUserRef.child("fourPs").setValue(fourPs);
+
+                            currentUserRef.child("age").setValue(age);
+                            currentUserRef.child("gender").setValue(gender);
+                            currentUserRef.child("civilStatus").setValue(civilStatus);
                             // Save other fields similarly
                             currentUserRef.child("dataSubmitted").setValue(true);
+                            String address = houseBlockLot + " " + stPurokSitioSubd + " " + barangayValue + " " + cityMunicipality + " " + provinceValue;
+                            currentUserRef.child("address").setValue(address);
 
                             // Display a success message
                             Toast.makeText(barangay_cencus.this, "Data submitted successfully", Toast.LENGTH_SHORT).show();
