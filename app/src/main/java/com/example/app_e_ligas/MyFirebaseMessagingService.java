@@ -12,6 +12,7 @@ import android.widget.RemoteViews;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.namespace.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -34,74 +35,74 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification(String title, String body) {
-        // Define notification channel ID and other properties.
         String channelId = "default_channel_id";
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Intent intent;
 
-        // Intent to launch when notification is tapped
-        Intent intent = new Intent(this, barangay_servicesActivity.class);
-
-        if(title.toLowerCase().contains("flood")){
+        if (title.toLowerCase().contains("flood")) {
             intent = new Intent(this, dam_monitoringActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
-            // Get the layouts to use in the custom notification
+            // Custom layout for flood notifications
             RemoteViews notificationLayout = new RemoteViews(this.getPackageName(), R.layout.notification_flood_small);
-
-            notificationLayout.setTextViewText(R.id.notification_title,title);
-            int bgFlood =  R.drawable.flood_yellow;
-            if(title.contains("Red")){
-                bgFlood = R.drawable.flood_red;
-            }else if(title.contains("Orange")){
-                bgFlood = R.drawable.flood_orange;
-            }else if (title.contains("Violet")){
-                bgFlood = R.drawable.flood_violet;
-            }
-            notificationLayout.setInt(R.id.notification_parent_layout, "setBackgroundResource",bgFlood);
-
             RemoteViews notificationLayoutExpanded = new RemoteViews(this.getPackageName(), R.layout.notification_flood_large);
+
+            notificationLayout.setTextViewText(R.id.notification_title, title);
             notificationLayoutExpanded.setTextViewText(R.id.notification_title, title);
             notificationLayoutExpanded.setTextViewText(R.id.notification_body, body);
-            notificationLayoutExpanded.setInt(R.id.notification_parent_layout, "setBackgroundResource",bgFlood);
+
+            int bgFlood = R.drawable.flood_yellow;
+            if (title.contains("Red")) {
+                bgFlood = R.drawable.flood_red;
+            } else if (title.contains("Orange")) {
+                bgFlood = R.drawable.flood_orange;
+            } else if (title.contains("Violet")) {
+                bgFlood = R.drawable.flood_violet;
+            }
+
+            notificationLayout.setInt(R.id.notification_parent_layout, "setBackgroundResource", bgFlood);
+            notificationLayoutExpanded.setInt(R.id.notification_parent_layout, "setBackgroundResource", bgFlood);
 
             Notification pendingNotif = new NotificationCompat.Builder(this, NotificationHelper.getChannelId())
                     .setSmallIcon(R.drawable.logo_ligas1)
                     .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                     .setCustomContentView(notificationLayout)
                     .setCustomBigContentView(notificationLayoutExpanded)
-                    .setColorized(true)
+                    .setColor(ContextCompat.getColor(this, R.color.md_yellow_600)) // Set the color explicitly
                     .setOngoing(false)
                     .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
                     .build();
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(667, pendingNotif);
-        }else {
-            if(title.equals("Emergency Report Update")) {
+
+        } else {
+            if (title.equals("Emergency Report Update")) {
                 intent = new Intent(this, barangay_emergencyActivity.class);
+            } else if (title.toLowerCase().contains("flood")){
+                intent = new Intent(this, dam_monitoringActivity.class);
+            }else {
+                intent = new Intent(this, barangay_servicesActivity.class);
             }
 
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
-            // Create a BigTextStyle for the notification
-            NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
-            bigTextStyle.setBigContentTitle(title);
-            bigTextStyle.bigText(body);
+            NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle()
+                    .setBigContentTitle(title)
+                    .bigText(body);
 
-            NotificationCompat.Builder notificationBuilder =
-                    new NotificationCompat.Builder(this, channelId)
-                            .setContentTitle(title)
-                            .setContentText(body)
-                            .setAutoCancel(true)
-                            .setSound(defaultSoundUri)
-                            .setContentIntent(pendingIntent) // Attach the intent
-                            .setSmallIcon(R.drawable.logo_ligas1)
-                            .setStyle(bigTextStyle); // Apply the BigTextStyle
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId)
+                    .setContentTitle(title)
+                    .setContentText(body)
+                    .setAutoCancel(true)
+                    .setSound(defaultSoundUri)
+                    .setContentIntent(pendingIntent)
+                    .setSmallIcon(R.drawable.logo_ligas1)
+                    .setStyle(bigTextStyle);
 
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
             // Create Notification Channel for Oreo and above.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -112,11 +113,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 notificationManager.createNotificationChannel(channel);
             }
 
-            // Show the notification.
             notificationManager.notify(667, notificationBuilder.build());
         }
-
     }
-
 
 }

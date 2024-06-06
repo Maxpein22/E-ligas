@@ -7,13 +7,20 @@ import android.support.annotation.NonNull;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.namespace.R;
 import com.example.namespace.databinding.ActivityBarangayCencusBinding;
@@ -27,26 +34,64 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class barangay_cencus extends DrawerBasedActivity {
     private ActivityBarangayCencusBinding activityBarangayCencusBinding;
-    private EditText editTextBirthday, etFirstName, etMiddleName, etLastName, House_blk_lot, St_Purok_Sitio_Subd,
-            barangay, City_Municipality, province, place_birth, Height, Weight, Nationality, company_name,
-            duration, address_company, elem_school_name, elem_school_address, high_school_name, high_school_address,
-            voc_school_name, voc_school_address, college_school_name, college_school_address, etAlias;
-    private Spinner spinnerGender, spinnerCivilStatus, spinner_vacine, spinnerPWD, House_type, Solo_Parent, voter_status_spinner,
-            residential_status_spinner, occup, spinnerReligion, spinnerLearningSystem, spinner_fourps;
-    private Button btnNext1, btnNext2, btnSubmit, btnBack1, btnBack2, btnAddResponse, btnSaveforAnotherResponse;
+    public static EditText editTextBirthday;
+    public static EditText etFirstName;
+    public static EditText etMiddleName;
+    public static EditText etLastName;
+    public static EditText House_blk_lot;
+    public static EditText St_Purok_Sitio_Subd;
+    public static EditText barangay;
+    public static EditText City_Municipality;
+    public static EditText province;
+    public static EditText place_birth;
+    public static EditText Height;
+    public static EditText Weight;
+    public static EditText Nationality;
+    public static EditText company_name;
+    public static EditText duration;
+    public static EditText address_company;
+    public static EditText elem_school_name;
+    public static EditText elem_school_address;
+    public static EditText high_school_name;
+    public static EditText high_school_address;
+    public static EditText voc_school_name;
+    public static EditText voc_school_address;
+    public static EditText college_school_name;
+    public static EditText college_school_address;
+    public static EditText etAlias;
+    public static Spinner spinnerGender;
+    public static Spinner spinnerCivilStatus;
+    public static Spinner spinner_vacine;
+    public static Spinner spinnerPWD;
+    public static Spinner House_type;
+    public static Spinner Solo_Parent;
+    public static Spinner voter_status_spinner;
+    public static Spinner residential_status_spinner;
+    public static Spinner occup;
+    public static Spinner spinnerReligion;
+    public static Spinner spinnerLearningSystem;
+    public static Spinner spinner_fourps;
+    public static Button btnNext1, btnNext2, btnSubmit, btnBack1, btnBack2, btnAddResponse, btnSaveforAnotherResponse;
     private DatabaseReference usersRef;
     private FirebaseAuth mAuth;
     private boolean isDataSubmitted = false;
     private Map<String, Object> userData;
 
+    ListView listView;
+
+    UsersRecViewAdapter usersRecViewAdapter;
+    RecyclerView promoRecViewList;
+    ArrayList<PromoModel> promos;
 
 
     @Override
@@ -67,6 +112,7 @@ public class barangay_cencus extends DrawerBasedActivity {
         // Button click listeners
         initButtonClickListeners();
 
+        promoRecViewList = findViewById(R.id.promoRecViewList);
 
 
 
@@ -78,7 +124,42 @@ public class barangay_cencus extends DrawerBasedActivity {
                 showDatePickerDialog();
             }
         });
+
+        populateListView("lobianokenneth22@gmail.com");
     }
+
+    // Assuming this method is inside an Activity class (barangay_cencus)
+    private void populateListView(String currentUserEmail) {
+        ArrayList<UserCensus> userList = new ArrayList<>();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        // SHOW PROMOS
+        usersRecViewAdapter = new UsersRecViewAdapter(barangay_cencus.this);
+        promoRecViewList.setAdapter(usersRecViewAdapter);
+        promoRecViewList.setLayoutManager(new LinearLayoutManager(this));
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userList.clear();
+                int index = 0;
+                for (DataSnapshot requestSnaps : dataSnapshot.getChildren()) {
+                    UserCensus user = requestSnaps.getValue(UserCensus.class);
+                    if (user != null && user.getEmail() != null && !user.getEmail().isEmpty() && currentUserEmail.equals(user.getEmail())) {
+                        userList.add(user);
+                    }
+                }
+
+                // Notify the adapter that the data set has changed
+                usersRecViewAdapter.setUsers(userList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     private void initView() {
         btnNext1 = findViewById(R.id.btnNext1);
@@ -278,7 +359,7 @@ public class barangay_cencus extends DrawerBasedActivity {
         }
     }
 
-    private void populateFields(Map<String, Object> userData) {
+    public static void populateFields(Map<String, Object> userData) {
         etFirstName.setText(getStringValue(userData, "userFirstName"));
         etMiddleName.setText(getStringValue(userData, "userMiddleName"));
         etLastName.setText(getStringValue(userData, "userLastName"));
@@ -322,12 +403,12 @@ public class barangay_cencus extends DrawerBasedActivity {
 
     }
 
-    private String getStringValue(Map<String, Object> data, String key) {
+    private static String getStringValue(Map<String, Object> data, String key) {
         Object value = data.get(key);
         return value != null ? value.toString() : "";
     }
 
-    private void setSpinnerValue(Spinner spinner, String value) {
+    private static void setSpinnerValue(Spinner spinner, String value) {
         // Assuming the spinner adapter contains the value
         for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
             if (spinner.getAdapter().getItem(i).toString().equals(value)) {

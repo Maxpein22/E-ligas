@@ -946,7 +946,14 @@
                 android:text="Add Other Response"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp" />
-
+            <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/promoRecViewList"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:clipToPadding="false"
+                android:layout_margin="10dp"
+                />
         </LinearLayout>
 
     </ScrollView>
