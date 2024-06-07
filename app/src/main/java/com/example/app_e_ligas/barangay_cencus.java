@@ -150,6 +150,8 @@ public class barangay_cencus extends DrawerBasedActivity {
                     if (user != null && currentUserEmail.equals(user.getEmail())) {
                         user.setUserID(userSnapshot.getKey());
                         userList.add(user);
+                    }else if(user.getUserEmail() != null && currentUserEmail.equals(user.getUserEmail())){
+                        userList.add(user);
                     }
                 }
                 usersRecViewAdapter.setUsers(userList);
@@ -561,9 +563,9 @@ public class barangay_cencus extends DrawerBasedActivity {
 
 
                                 DatabaseReference newUserRef = usersRef.push(); // Generate a new unique ID\
-                                if(!censusEditingKey.isEmpty()){
-                                    newUserRef = usersRef.child(censusEditingKey);
-                                }
+//                                if(!censusEditingKey.isEmpty()){
+//                                    newUserRef = usersRef.child(censusEditingKey);
+//                                }
                                 newUserRef.setValue(censusData) // Set the value of the new user's node to the census data
                                         .addOnCompleteListener(task -> {
                                             if (task.isSuccessful()) {
