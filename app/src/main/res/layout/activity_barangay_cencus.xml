@@ -926,16 +926,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="List of Census Data"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="20dp" />
+
 
             <Button
                 android:id="@+id/btnAddResponse"
@@ -946,6 +937,15 @@
                 android:text="Add Other Response"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="List of Census Data"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="20dp" />
             <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/promoRecViewList"

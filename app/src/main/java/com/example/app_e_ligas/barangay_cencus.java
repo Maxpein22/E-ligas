@@ -1,5 +1,6 @@
 package com.example.app_e_ligas;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -299,6 +300,12 @@ public class barangay_cencus extends DrawerBasedActivity {
                 findViewById(R.id.scrollView4).setVisibility(View.GONE);
                 // Clear all fields
                 clearAllFields();
+                Map<String, Object> innerMap = new HashMap<>();
+                innerMap.put("test", "test");
+
+                Map<String, Object> defaultValues = new HashMap<>();
+                defaultValues.put("test", innerMap);
+                populateFields(defaultValues);
             }
         });
 
@@ -365,6 +372,7 @@ public class barangay_cencus extends DrawerBasedActivity {
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     public static void populateFields(Map<String, Object> userData) {
         etFirstName.setText(getStringValue(userData, "userFirstName"));
         etMiddleName.setText(getStringValue(userData, "userMiddleName"));
@@ -373,13 +381,22 @@ public class barangay_cencus extends DrawerBasedActivity {
         etAlias.setText(getStringValue(userData, "alias"));
         House_blk_lot.setText(getStringValue(userData, "houseBlockLot"));
         St_Purok_Sitio_Subd.setText(getStringValue(userData, "stPurokSitioSubd"));
-        barangay.setText(getStringValue(userData, "barangayValue"));
-        City_Municipality.setText(getStringValue(userData, "cityMunicipality"));
+        //barangay.setText(getStringValue(userData, "barangayValue"));
+        barangay.setText("Ligas 1");
+
+        //City_Municipality.setText(getStringValue(userData, "cityMunicipality"));
+        City_Municipality.setText("Bacoor city");
+
         province.setText(getStringValue(userData, "provinceValue"));
+        province.setText("Cavite");
+
         place_birth.setText(getStringValue(userData, "birthPlace"));
         Height.setText(getStringValue(userData, "height"));
         Weight.setText(getStringValue(userData, "weight"));
+
         Nationality.setText(getStringValue(userData, "nationality"));
+        Nationality.setText("Filipino");
+
         company_name.setText(getStringValue(userData, "companyName"));
         duration.setText(getStringValue(userData, "durationOfEmployment"));
         address_company.setText(getStringValue(userData, "companyAddress"));
