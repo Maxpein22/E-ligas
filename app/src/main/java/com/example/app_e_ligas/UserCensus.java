@@ -26,7 +26,7 @@ public class UserCensus {
     public String emergencyContactPerson;
     public String emergencyContactPersonNo;
     public String validIDUrl;
-    public String userProfileImage;
+
     public String fcmToken;
     public String email;
     public String address;
@@ -111,7 +111,7 @@ public class UserCensus {
         return age;
     }
 
-    public UserCensus(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String birthday, String birthPlace, String emergencyContactPerson, String emergencyContactPersonNo, String validIDUrl, String userProfileImage, String fcmToken, String email, String address, String age, String alias, String barangay, String cityMunicipality, String collegeSchoolAddress, String collegeSchoolName, String companyAddress, String companyName, boolean dataSubmitted, String durationOfEmployment, String elemSchoolAddress, String elemSchoolName, String fourPs, String gender, String height, String highSchoolAddress, String highSchoolName, String houseBlockLot, String houseType, String learning_system, String nationality, String occupation, String province, String pwdType, String religion, String resident_status, String soloParent, String stPurokSitioSubd, String type_employment, String vaccineStatus, String vocSchoolAddress, String vocSchoolName, String voters, String weight, boolean validated) {
+    public UserCensus(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String birthday, String birthPlace, String emergencyContactPerson, String emergencyContactPersonNo, String validIDUrl, String fcmToken, String email, String address, String age, String alias, String barangay, String cityMunicipality, String collegeSchoolAddress, String collegeSchoolName, String companyAddress, String companyName, boolean dataSubmitted, String durationOfEmployment, String elemSchoolAddress, String elemSchoolName, String fourPs, String gender, String height, String highSchoolAddress, String highSchoolName, String houseBlockLot, String houseType, String learning_system, String nationality, String occupation, String province, String pwdType, String religion, String resident_status, String soloParent, String stPurokSitioSubd, String type_employment, String vaccineStatus, String vocSchoolAddress, String vocSchoolName, String voters, String weight, boolean validated) {
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
         this.userFirstName = userFirstName;
@@ -124,7 +124,6 @@ public class UserCensus {
         this.emergencyContactPerson = emergencyContactPerson;
         this.emergencyContactPersonNo = emergencyContactPersonNo;
         this.validIDUrl = validIDUrl;
-        this.userProfileImage = userProfileImage;
         this.fcmToken = fcmToken;
         this.email = email;
         this.address = address;
@@ -447,7 +446,6 @@ public class UserCensus {
         map.put("emergencyContactPerson", emergencyContactPerson);
         map.put("emergencyContactPersonNo", emergencyContactPersonNo);
         map.put("validIDUrl", validIDUrl);
-        map.put("userProfileImage", userProfileImage);
         map.put("fcmToken", fcmToken);
         map.put("email", email);
         map.put("address", address);
@@ -520,7 +518,7 @@ public class UserCensus {
         emergencyContactPerson = null;
         emergencyContactPersonNo = null;
         validIDUrl = null;
-        userProfileImage = null;
+
         validated = false;
     }
 
@@ -625,11 +623,5 @@ public class UserCensus {
         this.validIDUrl = validIDUrl;
     }
 
-    public String getUserProfileImage() {
-        return userProfileImage;
-    }
 
-    public void setUserProfileImage(String userProfileImage) {
-        this.userProfileImage = userProfileImage;
-    }
 }

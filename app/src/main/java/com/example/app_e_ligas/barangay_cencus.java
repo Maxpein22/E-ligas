@@ -7,10 +7,7 @@ import android.support.annotation.NonNull;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -38,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -116,6 +112,13 @@ public class barangay_cencus extends DrawerBasedActivity {
         promoRecViewList = findViewById(R.id.promoRecViewList);
 
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String currentUserEmail = currentUser.getEmail();
+            populateListView(currentUserEmail);
+        } else {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+        }
 
 
         // Set click listener for birthday EditText
@@ -125,15 +128,15 @@ public class barangay_cencus extends DrawerBasedActivity {
                 showDatePickerDialog();
             }
         });
-
-        populateListView("lobianokenneth22@gmail.com");
+        String currentUserEmail = currentUser.getEmail();
+        populateListView(currentUserEmail);
     }
 
     // Assuming this method is inside an Activity class (barangay_cencus)
     private void populateListView(String currentUserEmail) {
         ArrayList<UserCensus> userList = new ArrayList<>();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
-        // SHOW PROMOS
+
         usersRecViewAdapter = new UsersRecViewAdapter(barangay_cencus.this);
         promoRecViewList.setAdapter(usersRecViewAdapter);
         promoRecViewList.setLayoutManager(new LinearLayoutManager(this));
@@ -142,25 +145,24 @@ public class barangay_cencus extends DrawerBasedActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
-                int index = 0;
-                for (DataSnapshot requestSnaps : dataSnapshot.getChildren()) {
-                    UserCensus user = requestSnaps.getValue(UserCensus.class);
-                    user.setUserID(requestSnaps.getKey());
-                    if (user != null && user.getEmail() != null && !user.getEmail().isEmpty() && currentUserEmail.equals(user.getEmail())) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    UserCensus user = userSnapshot.getValue(UserCensus.class);
+                    if (user != null && currentUserEmail.equals(user.getEmail())) {
+                        user.setUserID(userSnapshot.getKey());
                         userList.add(user);
                     }
                 }
-
-                // Notify the adapter that the data set has changed
                 usersRecViewAdapter.setUsers(userList);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(barangay_cencus.this, "Failed to fetch user data", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 
 
     private void initView() {
@@ -578,7 +580,7 @@ public class barangay_cencus extends DrawerBasedActivity {
 
                                                 // Set dataSubmitted to true for the current user
                                                 usersRef.child(userId).child("dataSubmitted").setValue(true);
-
+                                                clearAllFields();
 
                                             } else {
                                                 // Failed to create new user
