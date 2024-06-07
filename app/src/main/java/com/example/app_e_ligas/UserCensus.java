@@ -32,7 +32,8 @@ public class UserCensus {
     public String address;
     public String age;
     public String alias;
-    public String barangay;
+
+    public String barangayValue;
     public String cityMunicipality;
     public String collegeSchoolAddress;
     public String collegeSchoolName;
@@ -52,7 +53,7 @@ public class UserCensus {
     public String learning_system;
     public String nationality;
     public String occupation;
-    public String province;
+    public String provinceValue;
     public String pwdType;
     public String religion;
     public String resident_status;
@@ -111,7 +112,7 @@ public class UserCensus {
         return age;
     }
 
-    public UserCensus(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String birthday, String birthPlace, String emergencyContactPerson, String emergencyContactPersonNo, String validIDUrl, String fcmToken, String email, String address, String age, String alias, String barangay, String cityMunicipality, String collegeSchoolAddress, String collegeSchoolName, String companyAddress, String companyName, boolean dataSubmitted, String durationOfEmployment, String elemSchoolAddress, String elemSchoolName, String fourPs, String gender, String height, String highSchoolAddress, String highSchoolName, String houseBlockLot, String houseType, String learning_system, String nationality, String occupation, String province, String pwdType, String religion, String resident_status, String soloParent, String stPurokSitioSubd, String type_employment, String vaccineStatus, String vocSchoolAddress, String vocSchoolName, String voters, String weight, boolean validated) {
+    public UserCensus(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber, String userEmail, String userPassword, String civilStatus, String birthday, String birthPlace, String emergencyContactPerson, String emergencyContactPersonNo, String validIDUrl, String fcmToken, String email, String address, String age, String alias, String barangayValue, String cityMunicipality, String collegeSchoolAddress, String collegeSchoolName, String companyAddress, String companyName, boolean dataSubmitted, String durationOfEmployment, String elemSchoolAddress, String elemSchoolName, String fourPs, String gender, String height, String highSchoolAddress, String highSchoolName, String houseBlockLot, String houseType, String learning_system, String nationality, String occupation, String provinceValue, String pwdType, String religion, String resident_status, String soloParent, String stPurokSitioSubd, String type_employment, String vaccineStatus, String vocSchoolAddress, String vocSchoolName, String voters, String weight, boolean validated) {
         this.userLastName = userLastName;
         this.userMiddleName = userMiddleName;
         this.userFirstName = userFirstName;
@@ -129,7 +130,7 @@ public class UserCensus {
         this.address = address;
         this.age = age;
         this.alias = alias;
-        this.barangay = barangay;
+        this.barangayValue = barangayValue;
         this.cityMunicipality = cityMunicipality;
         this.collegeSchoolAddress = collegeSchoolAddress;
         this.collegeSchoolName = collegeSchoolName;
@@ -149,7 +150,7 @@ public class UserCensus {
         this.learning_system = learning_system;
         this.nationality = nationality;
         this.occupation = occupation;
-        this.province = province;
+        this.provinceValue = provinceValue;
         this.pwdType = pwdType;
         this.religion = religion;
         this.resident_status = resident_status;
@@ -176,12 +177,12 @@ public class UserCensus {
         this.alias = alias;
     }
 
-    public String getBarangay() {
-        return barangay;
+    public String getbarangayValue() {
+        return barangayValue;
     }
 
-    public void setBarangay(String barangay) {
-        this.barangay = barangay;
+    public void setbarangayValue(String barangayValue) {
+        this.barangayValue = barangayValue;
     }
 
     public String getCityMunicipality() {
@@ -336,12 +337,12 @@ public class UserCensus {
         this.occupation = occupation;
     }
 
-    public String getProvince() {
-        return province;
+    public String getprovinceValue() {
+        return provinceValue;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setprovinceValue(String provinceValue) {
+        this.provinceValue = provinceValue;
     }
 
     public String getPwdType() {
@@ -451,7 +452,7 @@ public class UserCensus {
         map.put("address", address);
         map.put("age", age);
         map.put("alias", alias);
-        map.put("barangay", barangay);
+        map.put("barangayValue", barangayValue);
         map.put("cityMunicipality", cityMunicipality);
         map.put("collegeSchoolAddress", collegeSchoolAddress);
         map.put("collegeSchoolName", collegeSchoolName);
@@ -471,7 +472,7 @@ public class UserCensus {
         map.put("learning_system", learning_system);
         map.put("nationality", nationality);
         map.put("occupation", occupation);
-        map.put("province", province);
+        map.put("provinceValue", provinceValue);
         map.put("pwdType", pwdType);
         map.put("religion", religion);
         map.put("resident_status", resident_status);
@@ -518,7 +519,6 @@ public class UserCensus {
         emergencyContactPerson = null;
         emergencyContactPersonNo = null;
         validIDUrl = null;
-
         validated = false;
     }
 

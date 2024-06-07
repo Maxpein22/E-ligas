@@ -523,9 +523,9 @@ public class barangay_cencus extends DrawerBasedActivity {
                                 censusData.put("userLastName", userLastName);
                                 censusData.put("houseBlockLot", houseBlockLot);
                                 censusData.put("stPurokSitioSubd", stPurokSitioSubd);
-                                censusData.put("barangay", barangayValue);
+                                censusData.put("barangayValue", barangayValue);
                                 censusData.put("cityMunicipality", cityMunicipality);
-                                censusData.put("province", provinceValue);
+                                censusData.put("provinceValue", provinceValue);
                                 censusData.put("birthPlace", birthPlace);
                                 censusData.put("height", height);
                                 censusData.put("weight", weight);
@@ -563,14 +563,14 @@ public class barangay_cencus extends DrawerBasedActivity {
 
 
                                 DatabaseReference newUserRef = usersRef.push(); // Generate a new unique ID\
-//                                if(!censusEditingKey.isEmpty()){
-//                                    newUserRef = usersRef.child(censusEditingKey);
-//                                }
+                               if(!censusEditingKey.isEmpty()){
+                                    newUserRef = usersRef.child(censusEditingKey);
+                                }
                                 newUserRef.setValue(censusData) // Set the value of the new user's node to the census data
                                         .addOnCompleteListener(task -> {
                                             if (task.isSuccessful()) {
                                                 censusEditingKey = "";
-                                                Toast.makeText(barangay_cencus.this, "New user created successfully", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(barangay_cencus.this, "Update successfully", Toast.LENGTH_SHORT).show();
 
                                                 // Hide all ScrollView elements
                                                 findViewById(R.id.scrollView1).setVisibility(View.GONE);
