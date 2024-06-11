@@ -63,7 +63,7 @@
     <Button
         android:id="@+id/Resident"
         android:layout_width="140dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="80dp"
         android:background="@drawable/button_sign_up"
         android:letterSpacing=".1"
@@ -79,11 +79,11 @@
     <Button
         android:id="@+id/NotResident"
         android:layout_width="140dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="80dp"
         android:background="@drawable/button_sign_up"
         android:letterSpacing=".1"
-        android:text="Not Resident"
+        android:text="Not Resident of Ligas 1"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:backgroundTint="@null"

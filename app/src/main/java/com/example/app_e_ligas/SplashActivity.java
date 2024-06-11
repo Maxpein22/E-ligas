@@ -59,7 +59,7 @@ public class SplashActivity extends AppCompatActivity {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 if (currentUser != null) {
                     // User is signed in
-                    Intent intent = new Intent(SplashActivity.this, DashboardActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, VerifyEmail.class);
                     startActivity(intent);
                 } else {
                     // User is not signed in

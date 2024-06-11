@@ -106,6 +106,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.YourView
             statusBtn.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.white));
             switch (item.getStatus()) {
                 case "on-going":
+                    statusBtn.setText("PENDING");
                     statusBtn.setTextColor(ContextCompat.getColorStateList(context, R.color.md_yellow_800));
                     break;
                 case "ready-to-claim":

@@ -400,7 +400,7 @@ public class SignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(SignUpActivity.this, "Registered Successfully", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
-                            Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                            Intent intent = new Intent(SignUpActivity.this, VerifyEmail.class);
                             startActivity(intent);
                             finish();
                         } else {

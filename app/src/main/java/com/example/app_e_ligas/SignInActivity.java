@@ -1,10 +1,13 @@
 package com.example.app_e_ligas;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -118,6 +121,12 @@ public class SignInActivity extends AppCompatActivity {
 // When authentication completes, check whether the sign-in was successful
                 if (task.isSuccessful()) {
                     String uid = mAuth.getCurrentUser().getUid();
+                    if(!mAuth.getCurrentUser().isEmailVerified()){
+                        Intent i = new Intent(SignInActivity.this,VerifyEmail.class);
+                        startActivity(i);
+                        finish();
+                        return;
+                    }
                     FirebaseDatabase.getInstance().getReference("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {

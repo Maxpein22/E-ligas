@@ -357,6 +357,7 @@ public class barangay_cencus extends DrawerBasedActivity {
                         }
                         // Store user data for later use
                         userData = (Map<String, Object>) snapshot.getValue();
+                        populateFields(userData);
                     } else {
                         // User data doesn't exist
                         // Show the first ScrollView
@@ -658,6 +659,8 @@ public class barangay_cencus extends DrawerBasedActivity {
 
                                 // Display a success message
                                 Toast.makeText(barangay_cencus.this, "Data submitted successfully", Toast.LENGTH_SHORT).show();
+                                finish();
+                                startActivity(getIntent());
                             }
                         } else {
                             // Data has not been submitted yet, save it to the current user
