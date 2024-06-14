@@ -53,19 +53,19 @@ public class User {
     public static String voters;
     public static String weight;
 
-    public static String getCivilStatus() {
+    public  String getCivilStatus() {
         return civilStatus;
     }
 
-    public static void setCivilStatus(String civilStatus) {
+    public  void setCivilStatus(String civilStatus) {
         User.civilStatus = civilStatus;
     }
 
-    public static String getBirthday() {
+    public  String getBirthday() {
         return birthday;
     }
 
-    public static void setBirthday(String birthday) {
+    public  void setBirthday(String birthday) {
         User.birthday = birthday;
     }
 
@@ -117,7 +117,7 @@ public class User {
         User.barangay = barangay;
     }
 
-    public static String getCityMunicipality() {
+    public  String getCityMunicipality() {
         return cityMunicipality;
     }
 
@@ -197,11 +197,11 @@ public class User {
         User.fourPs = fourPs;
     }
 
-    public static String getGender() {
+    public  String getGender() {
         return gender;
     }
 
-    public static void setGender(String gender) {
+    public  void setGender(String gender) {
         User.gender = gender;
     }
 
@@ -387,6 +387,28 @@ public class User {
         this.validated = validated;
         this.fcmToken = fcmToken;
     }
+
+    public User(String userLastName, String userMiddleName, String userFirstName, String userPhoneNumber,
+                String userEmail, String userPassword,String emergencyContactPerson, String emergencyContactPersonNo, String validIDUrl, boolean validated,
+                String fcmToken, String birthday,String gender, String civilStatus) {
+        this.gender = gender;
+        this.civilStatus = civilStatus;
+        this.birthday = birthday;
+        this.userLastName = userLastName;
+        this.userMiddleName = userMiddleName;
+        this.userFirstName = userFirstName;
+        this.userPhoneNumber = userPhoneNumber;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.emergencyContactPerson = emergencyContactPerson;
+        this.emergencyContactPersonNo = emergencyContactPersonNo;
+        this.validIDUrl = validIDUrl;
+        this.validated = validated;
+        this.fcmToken = fcmToken;
+
+    }
+
+
 
     public static void clearUserData() {
         // Set all fields to default values or null

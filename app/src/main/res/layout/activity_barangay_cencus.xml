@@ -545,7 +545,6 @@
                     android:layout_margin="16dp"
                     android:background="@drawable/button_sign_up"
                     android:textColor="@color/white"
-                    android:textAllCaps="false"
                     android:text="Next" />
             </LinearLayout>
 
@@ -726,7 +725,6 @@
                     android:id="@+id/btnBack1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="false"
                     android:background="@drawable/button_sign_up"
                     android:textColor="@color/white"
                     android:text="Back"

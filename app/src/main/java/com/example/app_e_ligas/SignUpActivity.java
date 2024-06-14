@@ -2,6 +2,7 @@ package com.example.app_e_ligas;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -23,13 +24,16 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,13 +46,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -62,6 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     EditText editTextEmergencyContact;
     EditText editTextEmergencyContactNo;
+    EditText editTextBirthday;
 
 
     Button buttonRegister;
@@ -76,6 +84,10 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView textFileSize;
 
     String fcmToken;
+    Spinner spinnerGender;
+    Spinner spinnerCivilStatus;
+    String txtGender = "Male";
+    String txtCivilStatus = "Single";
 
 
     @Override
@@ -113,6 +125,41 @@ public class SignUpActivity extends AppCompatActivity {
         imageViewValidID = findViewById(R.id.imageViewValidID);
 
         textFileSize = findViewById(R.id.textFileSize);
+        editTextBirthday = findViewById(R.id.editTextBirthday);
+        spinnerCivilStatus = findViewById(R.id.spinnerCivilStatus);
+        spinnerGender = findViewById(R.id.spinnerGender);
+        editTextBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+
+        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Your code here
+                txtGender = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Optional, can leave empty
+            }
+        });
+
+        spinnerCivilStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Your code here
+                txtCivilStatus = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Optional, can leave empty
+            }
+        });
 
 
         // Password visibility toggling
@@ -179,6 +226,29 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void showDatePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(SignUpActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // Convert the selected date to the desired format
+                SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+                calendar.set(year, monthOfYear, dayOfMonth);
+                String formattedDate = sdf.format(calendar.getTime());
+
+                // Set the formatted date to the EditText
+                editTextBirthday.setText(formattedDate);
+            }
+        }, year, month, day);
+
+        // Show DatePickerDialog
+        datePickerDialog.show();
     }
 
     private void openGallery() {
@@ -297,9 +367,8 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
 
-
-
         // Start the registration process
+
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(txtEmail, txtPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -308,8 +377,23 @@ public class SignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d("Firebase", "User created successfully");
 
+                            mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
+                                    mAuth.getCurrentUser().sendEmailVerification()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        // Email sent successfully
+                                                        uploadValidIDAndSaveUserData(txtLastName, txtMiddleName, txtFirstName, txtPhoneNumber, txtEmail, txtPassword, txtEmergencyContact, txtEmergencyContactNo);
+                                                    }
+                                                }
+                                            });
+                                }
+                            });
+
                             // Upload the valid ID image and save user data
-                            uploadValidIDAndSaveUserData(txtLastName, txtMiddleName, txtFirstName, txtPhoneNumber, txtEmail, txtPassword, txtEmergencyContact, txtEmergencyContactNo);
                         } else {
                             Log.e("Firebase", "User creation failed", task.getException());
 
@@ -343,6 +427,8 @@ public class SignUpActivity extends AppCompatActivity {
         signUpTermWebView.loadUrl("https://e-ligas.netlify.app/documenttemplate/verifier?templateID=-NzIvRvikPhsCR6f-pd1"); // Load the URL you want to display
 
         closeButton.setVisibility(View.VISIBLE);
+
+
 
         // Set click listener for the close button
         closeButton.setOnClickListener(v -> dialog.dismiss());
@@ -387,9 +473,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void saveUserData(String lastName, String middleName, String firstName, String phoneNumber, String email, String password, String emergencyContact, String emergencyContactNo, String validIDUrl, boolean validated) {
-
-        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, emergencyContact, emergencyContactNo, validIDUrl, validated,fcmToken);
-
+        String txtBday = editTextBirthday.getText().toString();
+        User user = new User(lastName, middleName, firstName, phoneNumber, email, password, emergencyContact, emergencyContactNo, validIDUrl, validated,fcmToken, txtBday, txtGender, txtCivilStatus);
         // Get a reference to the Firebase Database and save the User object
         FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

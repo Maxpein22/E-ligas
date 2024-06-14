@@ -35,6 +35,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Profile extends DrawerBasedActivity {
     private static final String TAG = "ProfileActivity";
@@ -275,7 +280,8 @@ public class Profile extends DrawerBasedActivity {
                         activityProfileBinding.fullNameTextView.setText(fullName);
                         activityProfileBinding.CivilStatusTextView.setText(civilstatus);
                         activityProfileBinding.BirthdateTextView.setText(birthday);
-                        activityProfileBinding.ageTextView.setText(age);
+                        String ageStr = calculateAgeBasedOnBday(birthday);
+                        activityProfileBinding.ageTextView.setText(ageStr);
                         activityProfileBinding.BirthPlaceTextView.setText(birthpalce);
                         activityProfileBinding.phoneNumberTextView.setText(phonenumber);
                         activityProfileBinding.emailTextView.setText(email);
@@ -293,6 +299,32 @@ public class Profile extends DrawerBasedActivity {
                 Log.d(TAG, "Database error: " + databaseError.getMessage());
             }
         });
+    }
+
+    public String calculateAgeBasedOnBday(String bday) {
+        DateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+        try {
+            // Parse birthday string to Date object
+            Date birthDate = dateFormat.parse(bday);
+
+            // Get today's date
+            Calendar today = Calendar.getInstance();
+            // Get birthday as Calendar instance
+            Calendar bdate = Calendar.getInstance();
+            bdate.setTime(birthDate);
+
+            // Calculate age
+            int age = today.get(Calendar.YEAR) - bdate.get(Calendar.YEAR);
+            // Decrease age by 1 if birthday hasn't occurred yet this year
+            if (today.get(Calendar.DAY_OF_YEAR) < bdate.get(Calendar.DAY_OF_YEAR)) {
+                age--;
+            }
+
+            return String.valueOf(age);
+        } catch (ParseException e) {
+            System.out.println("Invalid date format. Please use 'Month dd, yyyy'.");
+        }
+        return "21";
     }
 
 

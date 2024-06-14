@@ -82,7 +82,9 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
                         Boolean isDataSubmitted = snapshot.child("dataSubmitted").getValue(Boolean.class);
                         if (isDataSubmitted == null || !isDataSubmitted) {
                             // If data is not submitted, show toast message
-                            Toast.makeText(DrawerBasedActivity.this, "Not available, please fill up census first", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DrawerBasedActivity.this, "Not available, please fill up census first", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(DrawerBasedActivity.this, barangay_cencus.class));
+                            overridePendingTransition(0, 0);
                         } else {
                             // If data is submitted, go to "Services" activity
                             startActivity(new Intent(DrawerBasedActivity.this, barangay_servicesActivity.class));
@@ -93,7 +95,7 @@ public class DrawerBasedActivity extends AppCompatActivity implements Navigation
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         // Handle database error
-                        Toast.makeText(DrawerBasedActivity.this, "Failed to retrieve user data. Please try again.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DrawerBasedActivity.this, "Failed to retrieve user data. Please try again.", Toast.LENGTH_LONG).show();
                     }
                 });
             } else {

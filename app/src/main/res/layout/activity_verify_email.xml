@@ -19,6 +19,7 @@
         android:layout_marginTop="60dp"
         />
     <TextView
+        android:id="@+id/messageMail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Open your mail box and verify your email first"
@@ -46,6 +47,7 @@
         android:layout_height="wrap_content"
         android:text="Already Verified? Click here"
         app:layout_alignSelf="center"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_marginTop="5dp"
         android:textColor="@color/white"
         />
@@ -58,6 +60,7 @@
         app:layout_alignSelf="center"
         android:layout_marginTop="5dp"
         android:textColor="@color/white"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         />
 
 

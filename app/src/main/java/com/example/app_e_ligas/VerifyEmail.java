@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.namespace.R;
@@ -23,6 +24,7 @@ public class VerifyEmail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_email);
 
+        TextView messageMail = findViewById(R.id.messageMail);
 
         Button resendEmailBtn = findViewById(R.id.resendEmailBtn);
         mAuth = FirebaseAuth.getInstance();
@@ -32,6 +34,7 @@ public class VerifyEmail extends AppCompatActivity {
             finish();
         }
 
+
         if(mAuth.getCurrentUser().isEmailVerified()){
             Intent i = new Intent(this, DashboardActivity.class);
             startActivity(i);
@@ -39,6 +42,9 @@ public class VerifyEmail extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Your email is not yet verified", Toast.LENGTH_LONG).show();
         }
+
+        messageMail.setText("We sent a verification email to " + mAuth.getCurrentUser().getEmail() + "\n \n Open your mail box and verify your email first" );
+
         resendEmailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +65,7 @@ public class VerifyEmail extends AppCompatActivity {
         });
 
         Button logOutBtn = findViewById(R.id.logOutBtn);
+        logOutBtn.setElevation(0);
         logOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +83,7 @@ public class VerifyEmail extends AppCompatActivity {
         });
 
         Button verifyBtn = findViewById(R.id.verifyBtn);
-
+        verifyBtn.setElevation(0);
         verifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
